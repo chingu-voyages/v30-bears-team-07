@@ -30,8 +30,6 @@ app.use("/", function (req, res) {
       ? "Connected to db."
       : "Not connected to db";
   res.send("Welcome to Go-on api. " + dbState);
-
-  console.log(mongoose.connection.readyState);
 });
 
 app.use("/auth", authRouter);
