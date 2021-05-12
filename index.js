@@ -25,7 +25,7 @@ app.use(
 const authRouter = require("./server/routes/auth");
 //  routes
 app.use("/", function (req, res) {
-  res.send("Welcome to Go-on app.");
+  res.send("Welcome to Go-on api.");
 });
 
 app.use("/auth", authRouter);
