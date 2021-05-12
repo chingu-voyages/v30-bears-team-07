@@ -1,7 +1,7 @@
 {
   "name": "Go-on",
   "version": "0.1.0",
-  "description": "Your project's `readme` is as important to success as your code. For  this reason you should but as much care into it's creation and maintenance steps as you would any other component of the application.",
+  "description": "Save your favourite restaurant from quarantine disaster.",
   "main": "index.js",
   "engines": {
     "node": "14.x"
@@ -11,8 +11,7 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
   "repository": {
     "type": "git",
