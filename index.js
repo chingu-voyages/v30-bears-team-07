@@ -28,7 +28,7 @@ app.use("/auth", authRouter);
 
 const connect = async () => {
   // database connection
-  const PORT = process.env.PORT || 5000;
+  const SERVER_PORT = process.env.SERVER_PORT || 5000;
   const MONGO_URL = process.env.MONGO_URL;
   const MONGO_CONFIG = {
     useCreateIndex: true,
@@ -44,8 +44,8 @@ const connect = async () => {
     console.log("Mongoose error", err);
   }
   // start express server
-  app.listen(PORT);
-  console.log(`Server listening on localhost:${PORT}`);
+  app.listen(SERVER_PORT);
+  console.log(`Server listening on localhost:${SERVER_PORT}`);
 };
 
 connect();
