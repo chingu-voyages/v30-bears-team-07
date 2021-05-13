@@ -1,18 +1,45 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Notification from "./Notification";
 
-const Login = () => {
-
-
+const LoginForm = ({
+  handleLogin,
+  username,
+  setUsername,
+  password,
+  setPassword,
+  message,
+}) => {
   return (
     <div>
-        <p>Login Page</p>
-        <Link to='/'>Home Page</Link>
-        <Link to='login'>Login Page</Link>
-        <Link to='dashboard'>Dashboard Page</Link>
-        <Link to='signup'>Signup Page</Link>
+      <h2>Log in to application</h2>
+      <Notification message={message} />
+      <form className="login" onSubmit={handleLogin}>
+        <div>
+          username
+          <input
+            type="text"
+            id="username"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+          <input
+            type="password"
+            id="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button id="login-button" type="submit">
+          login
+        </button>
+      </form>
     </div>
   );
 };
 
-export default Login
+export default LoginForm;
