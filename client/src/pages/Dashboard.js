@@ -1,17 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import "../utils/scss/Dashboard.scss";
 
 const Dashboard = () => {
-
   return (
-    <div>
-        <p>Dashboard Page</p>
-        <Link to='/'>Home Page</Link>
-        <Link to='login'>Login Page</Link>
-        <Link to='dashboard'>Dashboard Page</Link>
-        <Link to='signup'>Register Page</Link>
+    <div className="dashboard">
+      <p>Dashboard Page</p>
+      <Link to="/">Home Page</Link>
+      <Link to="login">Login Page</Link>
+      <Link to="dashboard">Dashboard Page</Link>
+      <Link to="signup">Register Page</Link>
     </div>
   );
 };
 
-export default Dashboard
+export default Dashboard;
