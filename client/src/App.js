@@ -1,16 +1,13 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom';
-import './App.scss'
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./normalize.css";
+import "./index.css";
 
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import FourOFour from './pages/FourOFour'
-import Dashboard from './pages/Dashboard'
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import FourOFour from "./pages/FourOFour";
+import Dashboard from "./pages/Dashboard";
 
 const AppRoutes = () => (
   <Switch>
@@ -30,17 +27,16 @@ const AppRoutes = () => (
       <FourOFour />
     </Route>
   </Switch>
-)
-
+);
 
 const App = () => {
   return (
     <Router>
-      <div >
-         <AppRoutes />
+      <div>
+        <AppRoutes />
       </div>
     </Router>
   );
-}
+};
 
-export default App
+export default App;
