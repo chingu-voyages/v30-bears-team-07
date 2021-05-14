@@ -1,4 +1,5 @@
 import React from "react";
+import GoogleAuth from "../components/GoogleAuth/GoogleAuth";
 import Notification from "./Notification";
 
 const LoginForm = ({
@@ -38,6 +39,8 @@ const LoginForm = ({
           login
         </button>
       </form>
+
+      <GoogleAuth className="login-page" />
     </div>
   );
 };
