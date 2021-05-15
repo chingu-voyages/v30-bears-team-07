@@ -38,7 +38,7 @@ app.use("/auth", authRouter);
 const connect = async () => {
   // database connection
   const SERVER_PORT = process.env.PORT || 5000;
-  const MONGO_URL = process.env.MONGO_URL;
+  const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost/";
   const MONGO_CONFIG = {
     useCreateIndex: true,
     useNewUrlParser: true,
