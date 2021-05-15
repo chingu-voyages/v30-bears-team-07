@@ -1,6 +1,6 @@
 import React from "react";
-import GoogleAuth from "../components/GoogleAuth/GoogleAuth";
-import Notification from "./Notification";
+import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
+import Notification from "../Notification/Notification";
 
 const LoginForm = ({
   handleLogin,
@@ -50,7 +50,7 @@ export default LoginForm;
 //
 //
 // Going to add this for later (tella - 5/15/21)
-/* 
+/*
   <form id="login-form" autoComplete="off">
       <div className="login form-content-container">
         <div className="door-title-container">
@@ -58,10 +58,10 @@ export default LoginForm;
         </div>
         {renderErrorNotifications()}
         <div className="textfield-container">
-          
+
         </div>
         <div className="textfield-container">
-          
+
         </div>
 
         <div className="form-button-container">

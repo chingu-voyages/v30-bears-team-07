@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./normalize.css";
-import "./index.css";
-import "./App.scss";
+import "./index.scss";
+// import "./App.scss";
 
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -31,11 +31,11 @@ const AppRoutes = () => (
     <Route path="*">
       <ErrorPage errorType="404" />
     </Route>
-    {/* 
-    Note: 
-    Feel free to use this if the URL redirecting is getting annoying 
+    {/*
+    Note:
+    Feel free to use this if the URL redirecting is getting annoying
     for development (-tella)
-    
+
       <Route path="/login">
         <Login />
       </Route>
