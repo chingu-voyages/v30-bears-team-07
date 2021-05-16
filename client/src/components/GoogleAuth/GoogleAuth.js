@@ -87,6 +87,7 @@ class GoogleAuth extends React.Component {
           }
         }}
       >
+        {/*should replace this with a functional Google logo*/}
         <i className="google icon" />
         {text}
       </button>
@@ -101,9 +102,8 @@ class GoogleAuth extends React.Component {
     if (this.props.isSignedIn) {
       return (
         <button
-          id="nav-menu-logout-button"
+          className={`ui primary google button ${this.props.className || null}`}
           onClick={this.onSignOutClick}
-          className={`left item nav-item`}
         >
           Logout
         </button>

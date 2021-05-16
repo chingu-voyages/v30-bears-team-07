@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Login from "./Login";
-import loginService from "../services/login";
-import appService from "../services/users";
+import Login from "../Login/Login";
+import loginService from "../../services/login";
+import appService from "../../services/users";
 import { Link } from "react-router-dom";
 
 const Home = () => {
