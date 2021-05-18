@@ -1,0 +1,64 @@
+.wrapper {
+  height: 100vh;
+  background-color: lemonchiffon;
+  display: grid;
+}
+
+.header {
+  height: 10vh;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+
+  & p {
+    margin: 1rem;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.main {
+  height: 90vh;
+  background-color: #fafafa;
+  display: grid;
+  grid-template-columns: 30vw 70vw;
+
+  &__left {
+    display: grid;
+    grid-template-rows: 25rem 1fr;
+  }
+
+  &__left--info {
+    background-color: #ffffff;
+    width: 15rem;
+    height: 15rem;
+    margin: 0 auto;
+    margin-top: 3rem;
+    display: grid;
+    border-radius: 5px;
+
+    & p {
+      margin: 0 auto;
+      margin-top: 1rem;
+    }
+  }
+
+  &__right {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+  }
+
+  &__right--card {
+    background-color: #3cb3ab;
+    border-radius: 5px;
+    max-height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 2rem;
+  }
+}

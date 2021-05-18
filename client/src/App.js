@@ -8,11 +8,15 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import FourOFour from "./pages/FourOFour";
 import Dashboard from "./pages/Dashboard";
+import ProjectsList from "./pages/ProjectsList";
 
 const AppRoutes = () => (
   <Switch>
     <Route path="/dashboard">
       <Dashboard />
+    </Route>
+    <Route path="/projectslist">
+      <ProjectsList />
     </Route>
     <Route path="/login">
       <Login />
