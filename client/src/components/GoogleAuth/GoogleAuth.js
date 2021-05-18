@@ -16,7 +16,9 @@ class GoogleAuth extends React.Component {
     this._isMounted = true;
     console.log(`ismounted is now ${this._isMounted}`);
 
+    // load the Google auth client
     window.gapi.load("client:auth2", () => {
+      // initialize the client settings
       window.gapi.client
         .init({
           clientId: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,

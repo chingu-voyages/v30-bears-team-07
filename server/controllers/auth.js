@@ -1,4 +1,8 @@
+require("dotenv").config();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/users");
+const async = require("async");
 
 /**
  * @api {post} /user/create/ user/create
@@ -36,29 +40,25 @@ const User = require("../models/users");
  *  }
  */
 
-exports.user_register = async (req, res) => {
-  const { email, username, password, auth_method } = req.body;
+exports.register = async (req, res) => {
+  const { username, password } = req.body;
   console.log(req.body);
   let errors = [];
 
   // check if any of the following fields are empty
-  if (!username || !email || (!password && auth_method !== "google"))
+  if (!username || !password) {
     errors.push({ msg: "Please fill in all the fields." });
-  // minimum length for the password, unless Google sign in was used as the auth method
-  if (password.length < 6 && auth_method !== "google")
+  }
+
+  // minimum length for the password
+  if (password.length < 6) {
     errors.push({ msg: "Password must be at least 6 characters" });
+  }
 
   if (errors.length > 0) {
     res.status(400).json({ errors });
   } else {
     try {
-      const emailLowerCase = email.toLowerCase();
-      // check if e-mail is already taken
-      const userWithSameEmail = await User.findOne({ email: emailLowerCase });
-      // if Google sign in is used, just return success and do not register the user
-      if (auth_method == "google" && userWithSameEmail)
-        res.status(200).json({ registeredGoogleUser: true });
-      if (userWithSameEmail) throw Error("Email is already taken.");
       // Check if username is already taken
       const userWithSameUsername = await User.findOne({
         username,
@@ -73,33 +73,97 @@ exports.user_register = async (req, res) => {
       if (!hash) throw Error("Something went wrong hashing the password.");
       console.log(SECRETKEY);
 
+      // create new user object in mongoose
       const newUser = new User({
-        email: emailLowerCase,
         username,
         password: hash,
       });
       const savedUser = await newUser.save();
       if (!savedUser) throw Error("Failed to register the user.");
-      // synchronous signing of JWT token
 
-      const token = jwt.sign({ id: savedUser._id }, SECRETKEY, {
+      // user object to be used for token
+      const userForToken = {
+        username: savedUser.username,
+        id: user._id,
+      };
+      // synchronous signing of JWT token
+      const token = jwt.sign(userForToken, SECRETKEY, {
+        // TTL so it expires around 8 hours, and does not stay forever
         expiresIn: 28800,
       });
-      //
-      console.log(token);
-      console.log(savedUser);
+
+      // this will be the user returned to the frontend
+      const responseUserObject = {
+        _id: savedUser._id,
+        username: savedUser.username,
+        // note: these will be properties to be added and used most likely on Sprint 3-4
+        // projectsOwned: []
+        // projectsSupported: []
+      };
+      //return JSON object to the frontend
       res.status(200).json({
         token,
-        user: {
-          _id: savedUser._id,
-          username: savedUser.username,
-          friends: [],
+        user: responseUserObject,
+      });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ msg: e.message });
+    }
+  }
+};
 
-          email: savedUser.email.toLowerCase(),
-          image_url: "",
-        },
-        rooms: [],
-        dmRooms: [],
+exports.google_register = async (req, res) => {
+  const { email, username } = req.body;
+  console.log(req.body);
+  let errors = [];
+
+  // check if any of the following fields are empty
+  if (!username || !email)
+    errors.push({ msg: "Please fill in all the fields." });
+
+  if (errors.length > 0) {
+    res.status(400).json({ errors });
+  } else {
+    try {
+      const emailLowerCase = email.toLowerCase();
+      // check if e-mail is already taken
+      const userWithSameEmail = await User.findOne({ email: emailLowerCase });
+      // if Google sign in is used, just return success and do not register the user
+      if (userWithSameEmail)
+        res.status(200).json({ registeredGoogleUser: true });
+
+      // create a new user mongoose
+      const newUser = new User({
+        email: emailLowerCase,
+        username,
+      });
+      const savedUser = await newUser.save();
+      if (!savedUser) throw Error("Failed to register the user.");
+
+      // user object to be used for token
+      const userForToken = {
+        username: savedUser.username,
+        id: user._id,
+      };
+
+      // synchronous signing of JWT token
+      const token = jwt.sign(userForToken, SECRETKEY, {
+        // TTL so it expires around 8 hours, and does not stay forever
+        expiresIn: 28800,
+      });
+
+      // this will be the user returned to the frontend
+      const responseUserObject = {
+        _id: savedUser._id,
+        username: savedUser.username,
+        // note: these will be properties to be added and used most likely on Sprint 3-4
+        // projectsOwned: []
+        // projectsSupported: []
+      };
+      //return JSON object to the frontend
+      res.status(200).json({
+        token,
+        user: responseUserObject,
       });
     } catch (e) {
       console.log(e);
