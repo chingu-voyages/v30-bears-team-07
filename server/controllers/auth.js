@@ -36,19 +36,87 @@ const User = require("../models/users");
  *  }
  */
 
-const signup = async (req, res) => {
-    const {
+exports.user_register = async (req, res) => {
+  const { email, username, password, auth_method } = req.body;
+  console.log(req.body);
+  let errors = [];
+
+  // check if any of the following fields are empty
+  if (!username || !email || (!password && auth_method !== "google"))
+    errors.push({ msg: "Please fill in all the fields." });
+  // minimum length for the password, unless Google sign in was used as the auth method
+  if (password.length < 6 && auth_method !== "google")
+    errors.push({ msg: "Password must be at least 6 characters" });
+
+  if (errors.length > 0) {
+    res.status(400).json({ errors });
+  } else {
+    try {
+      const emailLowerCase = email.toLowerCase();
+      // check if e-mail is already taken
+      const userWithSameEmail = await User.findOne({ email: emailLowerCase });
+      // if Google sign in is used, just return success and do not register the user
+      if (auth_method == "google" && userWithSameEmail)
+        res.status(200).json({ registeredGoogleUser: true });
+      if (userWithSameEmail) throw Error("Email is already taken.");
+      // Check if username is already taken
+      const userWithSameUsername = await User.findOne({
         username,
-        email,
-        password
-    } = req.body;
-    /*
+      });
+      if (userWithSameUsername) throw Error("Username is already taken.");
+      // check if salt generation has any errors
+      const salt = await bcrypt.genSalt(10);
+      if (!salt)
+        throw Error("Something went wrong with encrypting the password.");
+      // check if hashing the password has any errors
+      const hash = await bcrypt.hash(password, salt);
+      if (!hash) throw Error("Something went wrong hashing the password.");
+      console.log(SECRETKEY);
+
+      const newUser = new User({
+        email: emailLowerCase,
+        username,
+        password: hash,
+      });
+      const savedUser = await newUser.save();
+      if (!savedUser) throw Error("Failed to register the user.");
+      // synchronous signing of JWT token
+
+      const token = jwt.sign({ id: savedUser._id }, SECRETKEY, {
+        expiresIn: 28800,
+      });
+      //
+      console.log(token);
+      console.log(savedUser);
+      res.status(200).json({
+        token,
+        user: {
+          _id: savedUser._id,
+          username: savedUser.username,
+          friends: [],
+
+          email: savedUser.email.toLowerCase(),
+          image_url: "",
+        },
+        rooms: [],
+        dmRooms: [],
+      });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ msg: e.message });
+    }
+  }
+};
+
+const signup = async (req, res) => {
+  const { username, email, password } = req.body;
+  /*
     ADD CODE HERE
     */
-    return res.json({
-        statuCode: 200,
-        message: "User created successfully.",
-    })
+  return res.json({
+    statuCode: 200,
+    message: "User created successfully.",
+  });
 };
 
 /**
@@ -85,23 +153,13 @@ const signup = async (req, res) => {
  *  }
  */
 
-
 const login = async (req, res) => {
-    const {
-        username,
-        email,
-        password
-    } = req.body;
-    /*
+  const { username, email, password } = req.body;
+  /*
     ADD CODE HERE
     */
-    return res.json({
-        statuCode: 200,
-        message: "User created successfully.",
-    })
-}
-
-module.exports = {
-  signup,
-  login
-}
+  return res.json({
+    statuCode: 200,
+    message: "User created successfully.",
+  });
+};

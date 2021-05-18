@@ -16,11 +16,7 @@ class GoogleAuth extends React.Component {
     window.gapi.load("client:auth2", () => {
       window.gapi.client
         .init({
-          // this is a more secure version of doing it, where you use .env file in root, and define variables
-          // clientId: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,
-          // note: I only put it like this because I rushed getting the component working (-Tella)
-          clientId:
-            "269391989927-jtmcdqeo0h2l3t4q8gvpieamjkm8a4he.apps.googleusercontent.com",
+          clientId: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,
           scope: "email",
         })
         .then(() => {
@@ -56,6 +52,12 @@ class GoogleAuth extends React.Component {
         authMethod: "googleAuth",
         userId: this.auth.currentUser.get().getId(),
       });
+      const currentUser = this.auth.currentUser.get();
+      const userProfile = currentUser.getBasicProfile();
+      const fullname = userProfile.getName();
+      console.log("user is now signed in");
+      console.log("the name of user is:");
+      console.log(fullname);
       // this.context.userHasAuthenticated(true);
     } else {
     }
