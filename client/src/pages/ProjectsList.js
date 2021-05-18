@@ -18,7 +18,7 @@ const Home = () => {
         <div className="main__left">
           <div className="main__left--info">
             <p>Settings</p>
-            <p>Fundraised</p>
+            <p>Fundraiser</p>
             <p>Donations</p>
             <p>Payment Infos</p>
           </div>
