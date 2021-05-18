@@ -1,4 +1,4 @@
-import { AUTH_SIGN_IN, AUTH_SIGN_OUT } from "../actions/types";
+import { GOOGLE_SIGN_IN, GOOGLE_SIGN_OUT } from "../actions/types";
 
 const INITIAL_STATE = {
   isSignedIn: null,
@@ -8,14 +8,14 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case AUTH_SIGN_IN:
+    case GOOGLE_SIGN_IN:
       return {
         ...state,
         isSignedIn: true,
         authMethod: action.payload.authMethod,
         user: { userId: action.payload.userId },
       };
-    case AUTH_SIGN_OUT:
+    case GOOGLE_SIGN_OUT:
       return {
         ...state,
         isSignedIn: false,

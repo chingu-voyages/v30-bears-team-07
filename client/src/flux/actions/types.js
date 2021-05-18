@@ -1,2 +1,4 @@
-export const AUTH_SIGN_IN = "AUTH_SIGN_IN";
-export const AUTH_SIGN_OUT = "AUTH_SIGN_OUT";
+export const GOOGLE_SIGN_IN = "GOOGLE_SIGN_IN";
+export const GOOGLE_SIGN_OUT = "GOOGLE_SIGN_OUT";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const FETCH_ERRORS = "FETCH_ERRORS";

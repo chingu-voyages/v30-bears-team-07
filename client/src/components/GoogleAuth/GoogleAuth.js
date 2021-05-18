@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { authSignIn, authSignOut } from "../../flux/actions/authActions";
+import { googleSignIn, googleSignOut } from "../../flux/actions/authActions";
 import history from "../../history";
 // Style related imports
 import "./GoogleAuth.scss";
@@ -21,6 +21,7 @@ class GoogleAuth extends React.Component {
       // initialize the client settings
       window.gapi.client
         .init({
+          // Retrieve client ID from .env file on /client
           clientId: process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID,
           scope: "email",
         })
@@ -47,13 +48,13 @@ class GoogleAuth extends React.Component {
 
   onAuthChange = async (isSignedIn) => {
     // set the sign-in check to false
-    // if (this.context.authSignInChecked) {
+    // if (this.context.googleSignInChecked) {
     //   this.context.userHasAuthenticated(false);
     // }
     // this.context.showLoaderBeforeCheck();
     // sign in or sign out
     if (isSignedIn) {
-      await this.props.authSignIn({
+      await this.props.googleSignIn({
         authMethod: "googleAuth",
         userId: this.auth.currentUser.get().getId(),
       });
@@ -67,7 +68,7 @@ class GoogleAuth extends React.Component {
     } else {
     }
     // make the loader fade after changing sign in status
-    // this.context.setAuthSignInChecked(true);
+    // this.context.setgoogleSignInChecked(true);
     // this.context.fadeLoaderAfterCheck();
   };
 
@@ -78,7 +79,7 @@ class GoogleAuth extends React.Component {
 
   onSignOutClick = async () => {
     await this.auth.signOut();
-    await this.props.authSignOut();
+    await this.props.googleSignOut();
     history.push("/login");
     // this.context.userHasAuthenticated(false);
   };
@@ -137,7 +138,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { authSignIn, authSignOut })(
+export default connect(mapStateToProps, { googleSignIn, googleSignOut })(
   GoogleAuth
 );
 
@@ -202,7 +203,7 @@ const GoogleAuth = (props) => {
   const onAuthChange = async (isSignedIn) => {
     // sign in or sign out
     if (isSignedIn) {
-      await props.authSignIn({
+      await props.googleSignIn({
         authMethod: "googleAuth",
         userId: auth.currentUser.get().getId(),
       });
@@ -224,7 +225,7 @@ const GoogleAuth = (props) => {
     // if (!auth) return null;
     await auth.signOut();
     history.push("/login");
-    // await props.authSignOut();
+    // await props.googleSignOut();
 
     // userHasAuthenticated(false);
   };
@@ -278,7 +279,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { authSignIn, authSignOut })(
+export default connect(mapStateToProps, { googleSignIn, googleSignOut })(
   GoogleAuth
 );
 
@@ -288,13 +289,13 @@ export default connect(mapStateToProps, { authSignIn, authSignOut })(
 5/14/21
 // this is related to loader stuff  for the future, do not remove
 // set the sign-in check to false
-if (context.authSignInChecked) {
+if (context.googleSignInChecked) {
   context.userHasAuthenticated(false);
 }
 context.showLoaderBeforeCheck();
 
 // make the loader fade after changing sign in status
-context.setAuthSignInChecked(true);
+context.setgoogleSignInChecked(true);
 context.fadeLoaderAfterCheck();
 
 // after signing in
