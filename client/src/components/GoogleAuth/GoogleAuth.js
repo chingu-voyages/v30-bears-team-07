@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { authSignIn, authSignOut } from "../../flux/actions/authActions";
 import history from "../../history";
+// Style related imports
+import "./GoogleAuth.scss";
+import GoogleIconImg from "../../icons/google-icon.png";
 
 class GoogleAuth extends React.Component {
   _isMounted = false;
@@ -89,8 +92,11 @@ class GoogleAuth extends React.Component {
           }
         }}
       >
-        {/*should replace this with a functional Google logo*/}
-        <i className="google icon" />
+        <img
+          className="google-icon-button-img"
+          src={GoogleIconImg}
+          alt="Google Icon"
+        />
         {text}
       </button>
     );

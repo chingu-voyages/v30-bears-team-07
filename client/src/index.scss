@@ -86,11 +86,6 @@ button {
   margin: 0.2rem auto;
 }
 
-.textfield-label.error,
-.textfield-input.error {
-  color: $dangerTextColor;
-}
-
 .textfield-input {
   display: block;
   width: 100%;
@@ -99,7 +94,15 @@ button {
   border: 1px solid $secondaryBlack;
   border-radius: 5px;
   min-height: 2rem;
-  padding: 0.3rem;
+  padding: 0.3rem 0.5rem;
+
+  &:focus {
+    background-color: $textfieldFocusColor;
+  }
+}
+
+.textfield-label.error {
+  color: $dangerTextColor;
 }
 
 .form-button-container {
@@ -115,16 +118,10 @@ button {
   width: 100%;
   margin: 0.5rem auto;
   max-width: 25rem;
-}
 
-.ui.primary.google.button {
-  width: 100%;
-  background-color: #469;
-  margin: 0.5rem auto;
-  max-width: 25rem;
-}
-.ui.primary.google.button:hover {
-  background-color: #58b;
+  &:hover {
+    background-color: $mainGreenDim;
+  }
 }
 
 // styles with the auth__ prefix will be used for Login and Register components
@@ -157,6 +154,10 @@ button {
 
 // note: I know I should use SCSS, but kind of sleepy (-tella)
 @media screen and (min-width: 768px) {
+  .auth.page-container {
+    padding-bottom: 2rem;
+  }
+
   .auth__form {
     position: relative;
     top: 1rem;
@@ -176,9 +177,16 @@ button {
     max-width: 25rem;
   }
 
-  .form-button.submit,
-  .ui.primary.google.button {
+  .form-button.submit {
     width: fit-content;
     padding: 0 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1024px) and (min-height: 600px) {
+  .auth__form {
+    position: relative;
+    top: 40vh;
+    transform: translateY(-50%);
   }
 }
