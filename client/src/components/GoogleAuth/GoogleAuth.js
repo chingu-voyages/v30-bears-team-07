@@ -28,6 +28,7 @@ class GoogleAuth extends React.Component {
         .then(() => {
           // gives a ref to the auth instance
           this.auth = window.gapi.auth2.getAuthInstance();
+          console.log("initialized auth instance");
           // update redux state, check if user is signed in or not
           this.onAuthChange(this.auth.isSignedIn.get());
           // listen for any changes in sign in status, update state
@@ -54,16 +55,18 @@ class GoogleAuth extends React.Component {
     // this.context.showLoaderBeforeCheck();
     // sign in or sign out
     if (isSignedIn) {
-      await this.props.googleSignIn({
-        authMethod: "googleAuth",
-        userId: this.auth.currentUser.get().getId(),
-      });
       const currentUser = this.auth.currentUser.get();
       const userProfile = currentUser.getBasicProfile();
       const fullname = userProfile.getName();
-      console.log("user is now signed in");
-      console.log("the name of user is:");
-      console.log(fullname);
+      const email = userProfile.getEmail();
+      console.log(`user profile is ${userProfile}`);
+      /*
+      await this.props.googleSignIn({
+        userId: currentUser.getId(),
+        username: fullname.trim(),
+        email: email,
+      });
+      */
       // this.context.userHasAuthenticated(true);
     } else {
     }

@@ -57,10 +57,10 @@ const LoginForm = ({
             Login
           </button>
         </div>
-        <div className="form-button-container">
-          <GoogleAuth className="login-page" />
-        </div>
       </form>
+      <div className="form-button-container">
+        <GoogleAuth className="login-page" />
+      </div>
     </div>
   );
 };
