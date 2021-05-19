@@ -17,10 +17,10 @@ const Dashboard = () => {
       <section className="main">
         <div className="main__left">
           <div className="main__left--info">
-            <p>Settings</p>
-            <p>Fundraiser</p>
-            <p>Donations</p>
-            <p>Payment Infos</p>
+            <div>Settings</div>
+            <div>Fundraiser</div>
+            <div>Donations</div>
+            <div>Payment Info</div>
           </div>
         </div>
         <div className="main__right">

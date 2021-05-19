@@ -1,6 +1,8 @@
+@import "../scss/fontawesome.scss";
+@import "../scss/solid.scss";
+
 .wrapper {
   height: 100vh;
-  background-color: lemonchiffon;
   display: grid;
 }
 
@@ -37,12 +39,21 @@
     height: 15rem;
     margin: 0 auto;
     margin-top: 3rem;
+    padding: 1rem;
     display: grid;
+    justify-items: center;
     border-radius: 5px;
 
-    & p {
-      margin: 0 auto;
+    & div {
       margin-top: 1rem;
+      margin: 0 auto;
+      padding: 0.5rem;
+      border-radius: 10px;
+      min-width: 10rem;
+
+      &:hover {
+        background-color: #3cb3ab;
+      }
     }
   }
 
