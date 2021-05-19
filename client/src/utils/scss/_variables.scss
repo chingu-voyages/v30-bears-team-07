@@ -1,0 +1,94 @@
+// syntax notes can be found at the bottom
+
+// color variables
+//   backgrounds
+$mainGreen: #3cb3ab;
+$mainGreenDim: #308f88;
+$mainGreenBrighten: #44cac1;
+$foregroundWhite: #fff;
+$textWhite: #fff;
+$backgroundWhite: #f1f1f1;
+$buttonBlack: #2f2f2f;
+$secondaryBlack: #2f2f2f;
+$mainBlack: #000;
+
+// This is for error and warnings
+$lightPink: #ffacb4;
+$glowingYellowTextColor: #ffe;
+$warningTextColor: #fa8;
+$warningTextColorHover: #fdb;
+$warningTextColorLight: #fc9;
+$warningBackgroundColor: #fdb;
+$warningBackgroundColorHover: #fed;
+$dangerTextColor: #f88;
+$dangerTextColorHover: #fbb;
+$dangerTextColorLight: #fcc;
+$dangerBackgroundColor: #f04747;
+$dangerBackgroundColorHover: #d02727;
+
+// Textfield, forms, variables
+$textfieldFocusColor: #fffff2;
+
+// These are just notes below for developer use:
+
+// syntax
+// $variable: value;
+
+/* map structure
+  font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "bold": 700
+  );
+*/
+
+/*
+ & can be used for appending
+  .main {
+    width: 80%;
+    margin: 0 auto;
+
+    &__paragraph{
+      font-weight: map-get($font-weights, bold);
+    }
+  }
+
+  results to (CSS):
+  .main {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .main__paragraph{
+    font-weight: 700;
+  }
+
+  #{&} is interpolation
+  .main {
+    width: 80%;
+    margin: 0 auto;
+
+    #{&}__paragraph{
+      font-weight: map-get($font-weights, bold);
+
+      // appending :hover using &
+      &:hover {
+        color: pink;
+      }
+    }
+  }
+
+  results to (CSS):
+  .main {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .main .main__paragraph{
+    font-weight: 700;
+  }
+
+  .main .main__paragraph:hover{
+    color: pink;
+  }
+*/
