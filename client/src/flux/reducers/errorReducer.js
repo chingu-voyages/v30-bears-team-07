@@ -1,3 +1,5 @@
+// Reducer related to error state management
+
 import { FETCH_ERRORS, CLEAR_ERRORS } from "../actions/types";
 
 const initialState = {

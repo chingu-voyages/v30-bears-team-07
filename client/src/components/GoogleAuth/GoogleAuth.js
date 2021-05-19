@@ -60,13 +60,14 @@ class GoogleAuth extends React.Component {
       const fullname = userProfile.getName();
       const email = userProfile.getEmail();
       console.log(`user profile is ${userProfile}`);
-      /*
+      console.log(userProfile);
+
       await this.props.googleSignIn({
         userId: currentUser.getId(),
         username: fullname.trim(),
         email: email,
       });
-      */
+
       // this.context.userHasAuthenticated(true);
     } else {
     }

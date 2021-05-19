@@ -1,8 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./normalize.css";
-import "./index.scss";
-// import "./App.scss";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import history from "./history";
 
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -13,25 +12,38 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import AuthenticatedRoute from "./routeWrappers/AuthenticatedRoute";
 import UnauthenticatedRoute from "./routeWrappers/UnauthenticatedRoute";
 
-const AppRoutes = () => (
-  <Switch>
-    <UnauthenticatedRoute path="/signup" exact>
-      <Signup />
-    </UnauthenticatedRoute>
-    <UnauthenticatedRoute path="/login" exact>
-      <Login />
-    </UnauthenticatedRoute>
-    <Route path="/dashboard">
-      <Dashboard />
-    </Route>
+import "./normalize.css";
+import "./index.scss";
+// import "./App.scss";
 
-    <Route exact path="/">
-      <Home />
-    </Route>
-    <Route path="*">
-      <ErrorPage errorType="404" />
-    </Route>
-    {/*
+const App = ({ isSignedIn, user }) => {
+  return (
+    <div id="app-outer-container" data-test="component-app">
+      <Router history={history}>
+        <Switch>
+          <UnauthenticatedRoute path="/signup" exact>
+            <Signup />
+          </UnauthenticatedRoute>
+          <UnauthenticatedRoute path="/login" exact>
+            <Login />
+          </UnauthenticatedRoute>
+          <Route path="/users/:userId/dashboard">
+            <Dashboard />
+          </Route>
+          <Route path="/" exact>
+            <Redirect
+              to={isSignedIn ? `/users/${user.id}/dashboard` : "/login"}
+            />
+          </Route>
+          {/* Note: We don't have a real home page yet (tella)
+          <Route exact path="/">
+          <Home />
+        </Route>
+        */}
+          <Route path="*">
+            <ErrorPage errorType="404" />
+          </Route>
+          {/*
     Note:
     Feel free to use this if the URL redirecting is getting annoying
     for development (-tella)
@@ -43,17 +55,16 @@ const AppRoutes = () => (
         <Signup />
       </Route>
     */}
-  </Switch>
-);
-
-const App = () => {
-  return (
-    <Router>
-      <div>
-        <AppRoutes />
-      </div>
-    </Router>
+        </Switch>
+      </Router>
+    </div>
   );
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLoadingUser: state.auth.isLoading,
+  isSignedIn: state.auth.isSignedIn,
+  user: state.user.info,
+});
+
+export default connect(mapStateToProps, {})(App);

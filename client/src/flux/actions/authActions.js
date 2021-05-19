@@ -25,7 +25,7 @@ export const googleSignIn =
         dispatch({ type: GOOGLE_SIGN_IN_SUCCESS, payload: res.data });
         localStorage.setItem("token", res.data.token);
         // redirect to another page and clear the errors so it doesn't carry over
-        const userId = res.data.user._id;
+        const userId = res.data.user.id;
         history.push(`/users/${userId}/dashboard`);
         // dispatch(clearErrors());
       })

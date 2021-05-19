@@ -11,7 +11,7 @@ const getProcessedQueryString = (queryString) => {
 function AuthenticatedRoute(props) {
   const { children, ...rest } = props;
   const { pathname, search } = useLocation();
-  
+
   const processedSearch = getProcessedQueryString(search);
 
   return (

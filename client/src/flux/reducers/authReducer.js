@@ -1,3 +1,4 @@
+// Reducer related to authentication status
 import {
   GOOGLE_SIGN_IN_SUCCESS,
   GOOGLE_SIGN_IN_FAIL,
@@ -7,7 +8,6 @@ import {
 const INITIAL_STATE = {
   token: localStorage.getItem("token"),
   isSignedIn: false,
-  user: null,
   userId: null,
   // the app will tried to load the user at first anyway, so may as well set it to true
   isLoading: true,
@@ -18,17 +18,20 @@ export default (state = INITIAL_STATE, action) => {
     case GOOGLE_SIGN_IN_SUCCESS:
       return {
         ...state,
+        token: action.payload.token,
         isSignedIn: true,
-        user: { ...action.payload },
-        userId: action.payload.user._id,
+        userId: action.payload.user.id,
+        isLoading: false,
       };
     case GOOGLE_SIGN_OUT:
     case GOOGLE_SIGN_IN_FAIL:
       return {
         ...state,
+        token: null,
         isSignedIn: false,
         user: null,
         userId: null,
+        isLoading: false,
       };
     default:
       return state;
