@@ -31,11 +31,7 @@ const App = ({ isSignedIn, user }) => {
           <AuthenticatedRoute path="/users/:userId/dashboard">
             <Dashboard />
           </AuthenticatedRoute>
-          <Route path="/" exact>
-            <Redirect
-              to={isSignedIn ? `/users/${user.id}/dashboard` : "/login"}
-            />
-          </Route>
+
           {/* Note: We don't have a real home page yet (tella)
           <Route exact path="/">
           <Home />
