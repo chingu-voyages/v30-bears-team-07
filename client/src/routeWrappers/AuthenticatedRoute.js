@@ -16,7 +16,7 @@ function AuthenticatedRoute(props) {
 
   return (
     <Route {...rest}>
-      {props.isAuthenticated ? (
+      {props.isSignedIn ? (
         children
       ) : (
         <Redirect to={`/login?redirect=${pathname}${processedSearch}`} />
@@ -26,7 +26,7 @@ function AuthenticatedRoute(props) {
 }
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
+    isSignedIn: state.auth.isSignedIn,
   };
 };
 
