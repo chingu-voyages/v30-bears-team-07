@@ -50,6 +50,9 @@ class GoogleAuth extends React.Component {
   }
 
   onAuthChange = async (isSignedIn) => {
+    console.log("changing GoogleAuth auth status");
+    console.log("isSignedIn is");
+    console.log(isSignedIn);
     // set the sign-in check to false
     // if (this.context.googleSignInChecked) {
     //   this.context.userHasAuthenticated(false);
@@ -57,9 +60,7 @@ class GoogleAuth extends React.Component {
     // this.context.showLoaderBeforeCheck();
     // sign in or sign out
 
-    if (isSignedIn /* && this.previousSignedInState !== isSignedIn */) {
-      // Update previousSignedInState
-
+    if (isSignedIn /* && this.previousSignedInState !== isSignedIn*/) {
       const currentUser = this.auth.currentUser.get();
       const userProfile = currentUser.getBasicProfile();
       const fullname = userProfile.getName();
@@ -76,9 +77,11 @@ class GoogleAuth extends React.Component {
       // this.context.userHasAuthenticated(true);
     } else {
     }
-    console.log(this.previousSignedInState);
-    console.log(isSignedIn);
-    this.previousSignedInState = isSignedIn;
+    // note: currently working on this (Tella, 5/20/21)
+    // console.log(this.previousSignedInState);
+    // console.log(isSignedIn);
+    // this.previousSignedInState = isSignedIn;
+
     // make the loader fade after changing sign in status
     // this.context.setgoogleSignInChecked(true);
     // this.context.fadeLoaderAfterCheck();
