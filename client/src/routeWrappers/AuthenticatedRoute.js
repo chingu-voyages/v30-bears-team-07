@@ -19,7 +19,7 @@ function AuthenticatedRoute(props) {
       {props.isAuthenticated ? (
         children
       ) : (
-        <Redirect to={`/auth/login?redirect=${pathname}${processedSearch}`} />
+        <Redirect to={`/login?redirect=${pathname}${processedSearch}`} />
       )}
     </Route>
   );
