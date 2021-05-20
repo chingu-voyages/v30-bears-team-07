@@ -17,36 +17,14 @@ import "./normalize.css";
 import "./index.scss";
 // import "./App.scss";
 
-const App = ({ isSignedIn, user }) => {
+const App = ({}) => {
   return (
     <div id="app-outer-container" data-test="component-app">
       <Router history={history}>
         <Switch>
-          <UnauthenticatedRoute path="/signup" exact>
-            <Signup />
-          </UnauthenticatedRoute>
-          <UnauthenticatedRoute path="/login" exact>
-            <Login />
-          </UnauthenticatedRoute>
-          <AuthenticatedRoute path="/users/:userId/dashboard">
+          <Route path="/dashboard">
             <Dashboard />
-          </AuthenticatedRoute>
-
-          {/* Note: We don't have a real home page yet (tella)
-          <Route exact path="/">
-          <Home />
-        </Route>
-        */}
-          <Route path="*">
-            <ErrorPage errorType="404" />
           </Route>
-          {/* Note: This is necessary to initialize google auth data ahead of time (tella)
-            This will not showup and can not be interacted with, so don't worry
-              PLEASE DO NOT DELETE
-          */}
-          <div style={{ display: "none" }}>
-            <GoogleAuth />
-          </div>
 
           {/*
     Note:

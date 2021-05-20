@@ -1,76 +1,57 @@
 @import "../../utils/scss/_variables";
 
-.wrapper {
-  height: 100vh;
-  display: grid;
-}
-
-.header {
-  height: 10vh;
-  background-color: $foregroundWhite;
-  display: flex;
-  justify-content: space-between;
-  // note: let's start using variables (so it's much easier to change colors if we ever make design changes)
-  // background-color: #ffffff;
-
-  & p {
-    margin: 1rem;
-  }
-
-  &__right {
-    display: flex;
-    flex-direction: row;
-  }
+body {
+  background: $backgroundWhite;
 }
 
 .main {
-  height: 90vh;
-  background-color: #fafafa;
   display: grid;
-  grid-template-columns: 30vw 70vw;
+  grid-gap: 2rem;
 
   &__left {
     display: grid;
-    grid-template-rows: 25rem 1fr;
+    justify-items: center;
   }
 
   &__left--info {
-    background-color: #ffffff;
-    width: 15rem;
-    height: 15rem;
-    margin: 0 auto;
-    margin-top: 3rem;
+    background-color: $foregroundWhite;
+    width: 100%;
+    display: flex;
     padding: 1rem;
-    display: grid;
-    justify-items: center;
-    border-radius: 5px;
+    margin: 1rem;
 
     & div {
       margin-top: 1rem;
       margin: 0 auto;
       padding: 0.5rem;
       border-radius: 10px;
-      min-width: 10rem;
+      min-width: 4rem;
 
       &:hover {
-        background-color: #3cb3ab;
+        background-color: $mainGreen;
       }
     }
   }
 
   &__right {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(45vw, 1fr));
   }
 
   &__right--card {
-    background-color: #3cb3ab;
+    background: $mainGreen;
+    min-height: 10rem;
     border-radius: 5px;
-    max-height: 10rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    margin: 2rem;
+    margin: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    background: $mainGreen;
   }
 }

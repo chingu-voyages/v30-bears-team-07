@@ -3,11 +3,12 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100%;
+  max-width: 50%;
   background-color: #469;
-  margin: 0.5rem auto;
+  margin: 1rem auto;
   max-width: 25rem;
   font-size: 1rem;
+
   &:hover {
     background-color: #358;
   }

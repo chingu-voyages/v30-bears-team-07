@@ -1,0 +1,56 @@
+@import "../../utils/scss/_variables";
+
+.main {
+  height: 90vh;
+  background-color: #fafafa;
+  display: grid;
+  grid-template-columns: 30vw 70vw;
+  border: 1px solid red;
+
+  &__left {
+    display: grid;
+    grid-template-rows: 25rem 1fr;
+    border: 1px solid blue;
+  }
+
+  &__left--info {
+    background-color: #ffffff;
+    width: 15rem;
+    height: 15rem;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 1rem;
+    display: grid;
+    justify-items: center;
+    border-radius: 5px;
+
+    & div {
+      margin-top: 1rem;
+      margin: 0 auto;
+      padding: 0.5rem;
+      border-radius: 10px;
+      min-width: 10rem;
+
+      &:hover {
+        background-color: #3cb3ab;
+      }
+    }
+  }
+
+  &__right {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+    border: 1px solid green;
+  }
+
+  &__right--card {
+    background-color: #3cb3ab;
+    border-radius: 5px;
+    max-height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 2rem;
+  }
+}

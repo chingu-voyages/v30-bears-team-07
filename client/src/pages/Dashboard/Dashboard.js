@@ -6,8 +6,8 @@ import "./Dashboard.scss";
 const Dashboard = () => {
   const projects = [1, 2, 3, 4, 5];
   return (
-    <div className="wrapper">
-      <section className="header">
+    <div>
+      {/*<section className="header">
         <p>Crowdfund</p>
         <div className="header__right">
           <p>About</p>
@@ -15,7 +15,7 @@ const Dashboard = () => {
           <p>Get Started</p>
           <GoogleAuth />
         </div>
-      </section>
+      </section>*/}
       <section className="main">
         <div className="main__left">
           <div className="main__left--info">
