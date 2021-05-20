@@ -8,23 +8,22 @@ import { actionShowLoader } from "./loaderActions";
 import { compareValues } from "../../helpers";
 
 import {
-  GET_ALL_ROOMS_SUCCESS,
-  GET_ALL_ROOMS_FAIL,
-  CREATE_ROOM_SUCCESS,
-  CREATE_ROOM_FAIL,
-  JOIN_ROOM_SUCCESS,
-  JOIN_ROOM_FAIL,
-  LEAVE_ROOM_SUCCESS,
-  LEAVE_ROOM_FAIL,
-  DELETE_ROOM_SUCCESS,
-  DELETE_ROOM_FAIL,
-  UPDATE_ROOM_NAME_SUCCESS,
-  UPDATE_ROOM_NAME_FAIL,
-  EDIT_ROOM_SUCCESS,
-  EDIT_ROOM_FAIL,
-  EDIT_ROOM_ICON_SUCCESS,
-  EDIT_ROOM_ICON_FAIL,
-  ROOM_PASSWORD_REQUIRED,
+  GET_ALL_PROJECTS_SUCCESS,
+  GET_ALL_PROJECTS_FAIL,
+  CREATE_PROJECT_SUCCESS,
+  CREATE_PROJECT_FAIL,
+  CANCEL_PROJECT_SUCCESS,
+  CANCEL_PROJECT_FAIL,
+  DELETE_PROJECT_SUCCESS,
+  DELETE_PROJECT_FAIL,
+  DONATE_TO_PROJECT_SUCCESS,
+  DONATE_TO_PROJECT_FAIL,
+  UPDATE_PROJECT_NAME_SUCCESS,
+  UPDATE_PROJECT_NAME_FAIL,
+  EDIT_PROJECT_SUCCESS,
+  EDIT_PROJECT_FAIL,
+  EDIT_PROJECT_ICON_SUCCESS,
+  EDIT_PROJECT_ICON_FAIL,
 } from "./types";
 
 export const getAllRooms = (id) => (dispatch, getState) => {
@@ -49,7 +48,7 @@ export const getAllRooms = (id) => (dispatch, getState) => {
       }
 
       dispatch({
-        type: GET_ALL_ROOMS_SUCCESS,
+        type: GET_ALL_PROJECTS_SUCCESS,
         payload: sortedData || rooms,
       });
       dispatch(clearErrors());
@@ -58,7 +57,7 @@ export const getAllRooms = (id) => (dispatch, getState) => {
       console.log(err);
       console.log(err.response);
       dispatch({
-        type: GET_ALL_ROOMS_FAIL,
+        type: GET_ALL_PROJECTS_FAIL,
       });
     });
 };
@@ -72,7 +71,7 @@ export const createRoom = (formValues, successCb) => (dispatch, getState) => {
     .then((res) => {
       const room = res.data.room;
       dispatch({
-        type: CREATE_ROOM_SUCCESS,
+        type: CREATE_PROJECT_SUCCESS,
         payload: {
           room,
         },
@@ -88,7 +87,7 @@ export const createRoom = (formValues, successCb) => (dispatch, getState) => {
       console.log(err.response);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
-        type: CREATE_ROOM_FAIL,
+        type: CREATE_PROJECT_FAIL,
       });
     })
     .finally(() => {
@@ -109,14 +108,14 @@ export const joinRoom = (formValues, successCb) => (dispatch, getState) => {
       console.log(res.data);
       if (res.data.password_required) {
         dispatch({
-          type: ROOM_PASSWORD_REQUIRED,
+          type: PROJECT_PASSWORD_REQUIRED,
           payload: res.data,
         });
         dispatch(clearErrors());
       } else {
         const room = res.data.room;
         dispatch({
-          type: JOIN_ROOM_SUCCESS,
+          type: DONATE_TO_PROJECT_SUCCESS,
           payload: {
             room,
           },
@@ -133,7 +132,7 @@ export const joinRoom = (formValues, successCb) => (dispatch, getState) => {
       console.log(err.response);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
-        type: JOIN_ROOM_FAIL,
+        type: DONATE_TO_PROJECT_FAIL,
       });
     })
     .finally(() => {
@@ -141,37 +140,38 @@ export const joinRoom = (formValues, successCb) => (dispatch, getState) => {
     });
 };
 
-export const submitRoomPassword = (formValues, successCb) => (
-  dispatch,
-  getState
-) => {
-  const userId = getState().user.info._id || getState().user.info.id;
-  console.log(formValues);
+export const submitRoomPassword =
+  (formValues, successCb) => (dispatch, getState) => {
+    const userId = getState().user.info._id || getState().user.info.id;
+    console.log(formValues);
 
-  serverRest
-    .patch(`/api/rooms/${formValues.roomId}/submit_room_password`, {
-      ...formValues,
-      userId,
-    })
-    .then((res) => {
-      const room = res.data.room;
-      dispatch({ type: "ROOM_PASSWORD_SUBMIT_SUCCESS", payload: { room } });
-      dispatch(clearErrors());
-      if (successCb) successCb();
-      history.push(
-        `/chat?room=${room._id}&userType=user&roomType=${room.type}`
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log(err.response);
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({ type: "ROOM_PASSWORD_SUBMIT_FAIL" });
-    })
-    .finally(() => {
-      dispatch(actionShowLoader("roomPasswordConfirmation", false));
-    });
-};
+    serverRest
+      .patch(`/api/rooms/${formValues.roomId}/submit_room_password`, {
+        ...formValues,
+        userId,
+      })
+      .then((res) => {
+        const room = res.data.room;
+        dispatch({
+          type: "PROJECT_PASSWORD_SUBMIT_SUCCESS",
+          payload: { room },
+        });
+        dispatch(clearErrors());
+        if (successCb) successCb();
+        history.push(
+          `/chat?room=${room._id}&userType=user&roomType=${room.type}`
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+        dispatch(returnErrors(err.response.data, err.response.status));
+        dispatch({ type: "PROJECT_PASSWORD_SUBMIT_FAIL" });
+      })
+      .finally(() => {
+        dispatch(actionShowLoader("roomPasswordConfirmation", false));
+      });
+  };
 
 export const leaveRoom = (roomId, successCb) => (dispatch, getState) => {
   const userId = getState().user.info._id || getState().user.info.id;
@@ -182,7 +182,7 @@ export const leaveRoom = (roomId, successCb) => (dispatch, getState) => {
     .patch(`/api/rooms/${roomId}/leave`, { roomId, userId })
     .then((res) => {
       dispatch({
-        type: LEAVE_ROOM_SUCCESS,
+        type: CANCEL_PROJECT_SUCCESS,
         payload: {
           /*note: think about should be returned from the server as payload*/
           ...res.data,
@@ -197,47 +197,45 @@ export const leaveRoom = (roomId, successCb) => (dispatch, getState) => {
       console.log(err.response);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
-        type: LEAVE_ROOM_FAIL,
+        type: CANCEL_PROJECT_FAIL,
       });
     })
     .finally(() => {});
 };
 
-export const updateRoomName = (formValues, successCb) => (
-  dispatch,
-  getState
-) => {
-  const userId = getState().user.info._id || getState().user.info.id;
+export const updateRoomName =
+  (formValues, successCb) => (dispatch, getState) => {
+    const userId = getState().user.info._id || getState().user.info.id;
 
-  // note:might want to change this to roomId in the future
-  serverRest
-    .patch(`/api/rooms/${formValues.roomId}/update_name`, {
-      ...formValues,
-      userId,
-    })
-    .then((res) => {
-      dispatch({
-        type: UPDATE_ROOM_NAME_SUCCESS,
-        payload: {
-          /*note: think about should be returned from the server as payload*/
-          ...res.data,
-        },
+    // note:might want to change this to roomId in the future
+    serverRest
+      .patch(`/api/rooms/${formValues.roomId}/update_name`, {
+        ...formValues,
+        userId,
+      })
+      .then((res) => {
+        dispatch({
+          type: UPDATE_PROJECT_NAME_SUCCESS,
+          payload: {
+            /*note: think about should be returned from the server as payload*/
+            ...res.data,
+          },
+        });
+        dispatch(clearErrors());
+        if (successCb) successCb();
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+        dispatch(returnErrors(err.response.data, err.response.status));
+        dispatch({
+          type: UPDATE_PROJECT_NAME_FAIL,
+        });
+      })
+      .finally(() => {
+        dispatch(actionShowLoader("updateRoomNameModalForm", false));
       });
-      dispatch(clearErrors());
-      if (successCb) successCb();
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log(err.response);
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({
-        type: UPDATE_ROOM_NAME_FAIL,
-      });
-    })
-    .finally(() => {
-      dispatch(actionShowLoader("updateRoomNameModalForm", false));
-    });
-};
+  };
 
 export const editRoom = (formValues, successCb) => (dispatch, getState) => {
   const userId = getState().user.info._id || getState().user.info.id;
@@ -249,7 +247,7 @@ export const editRoom = (formValues, successCb) => (dispatch, getState) => {
     })
     .then((res) => {
       dispatch({
-        type: EDIT_ROOM_SUCCESS,
+        type: EDIT_PROJECT_SUCCESS,
         payload: {
           /*note: think about should be returned from the server as payload*/
           ...res.data,
@@ -264,7 +262,7 @@ export const editRoom = (formValues, successCb) => (dispatch, getState) => {
       console.log(err.response);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
-        type: EDIT_ROOM_FAIL,
+        type: EDIT_PROJECT_FAIL,
       });
     })
     .finally(() => {
@@ -283,7 +281,7 @@ export const editRoomIcon = (base64EncodedImage, roomId) => {
         )
         .then((res) => {
           console.log(res.data);
-          dispatch({ type: EDIT_ROOM_ICON_SUCCESS, payload: res.data });
+          dispatch({ type: EDIT_PROJECT_ICON_SUCCESS, payload: res.data });
         });
     } catch (err) {
       console.log(err);
@@ -291,10 +289,10 @@ export const editRoomIcon = (base64EncodedImage, roomId) => {
         returnErrors(
           err.response.data,
           err.response.status,
-          "EDIT_ROOM_ICON_FAIL"
+          "EDIT_PROJECT_ICON_FAIL"
         )
       );
-      dispatch({ type: EDIT_ROOM_ICON_FAIL });
+      dispatch({ type: EDIT_PROJECT_ICON_FAIL });
     } finally {
       dispatch(actionShowLoader("uploadRoomIconForm", false));
     }
@@ -313,7 +311,7 @@ export const deleteRoom = (roomId, successCb) => (dispatch, getState) => {
     })
     .then((res) => {
       dispatch({
-        type: DELETE_ROOM_SUCCESS,
+        type: DELETE_PROJECT_SUCCESS,
         payload: {
           /*note: think about should be returned from the server as payload*/
           ...res.data,
@@ -328,7 +326,7 @@ export const deleteRoom = (roomId, successCb) => (dispatch, getState) => {
       console.log(err.response);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
-        type: DELETE_ROOM_FAIL,
+        type: DELETE_PROJECT_FAIL,
       });
     })
     .finally(() => {
