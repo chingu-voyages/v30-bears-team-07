@@ -46,7 +46,7 @@ class GoogleAuth extends React.Component {
   componentWillUnmount() {
     this._isMounted = false;
     console.log(`ismounted is now ${this._isMounted}`);
-    this.auth.disconnect();
+    // this.auth.disconnect();
   }
 
   onAuthChange = async (isSignedIn) => {
@@ -57,7 +57,7 @@ class GoogleAuth extends React.Component {
     // this.context.showLoaderBeforeCheck();
     // sign in or sign out
 
-    if (isSignedIn && this.previousSignedInState !== isSignedIn) {
+    if (isSignedIn /* && this.previousSignedInState !== isSignedIn */) {
       // Update previousSignedInState
 
       const currentUser = this.auth.currentUser.get();
