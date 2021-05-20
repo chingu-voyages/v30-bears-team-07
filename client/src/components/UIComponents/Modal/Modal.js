@@ -3,7 +3,6 @@ import "./Modal.scss";
 import React, { useState, useEffect } from "react";
 
 import ModalHeader from "./ModalHeader/ModalHeader";
-import ModalFooter from "./ModalFooter/ModalFooter";
 
 import { clearErrors } from "../../flux/actions/errorActions";
 import { connect } from "react-redux";
@@ -26,10 +25,7 @@ const Modal = (props) => {
     }, 300);
   };
 
-  const getClassName = () => (props.componentClass ? props.componentClass : "");
   const getModalId = () => (props.modalId ? props.modalId : "");
-
-  const getIsSlideUpClass = () => (props.isSlideUp ? "slide-up" : "");
 
   // render functions
 
@@ -37,42 +33,31 @@ const Modal = (props) => {
     if (props.noHeader) return null;
     return (
       <ModalHeader
-        componentClass={`${getClassName()}`}
+        className={`${props.className}`}
         headerClassName={props.headerClassName}
         onModalClose={modalOnCloseHandler}
         headingText={props.headingText || null}
       />
     );
   };
-  const renderModalFooter = () => {
-    if (props.noFooter) return null;
-    return (
-      <ModalFooter
-        componentClass={`${getClassName()}`}
-        footerClassName={props.footerClassName}
-        onModalClose={modalOnCloseHandler}
-        actionButtons={props.actionButtons}
-        autoFocusOnCancel={props.autoFocusOnCancel || false}
-      />
-    );
-  };
 
   return (
-    <React.Fragment>
+    <>
       <div
-        className={`backdrop ${getModalOpenClass()} ${getClassName()}`}
+        className={`backdrop ${getModalOpenClass()} ${props.className}`}
         onClick={modalOnCloseHandler}
       ></div>
       <div
-        className={`modal ${getModalOpenClass()} ${getClassName()} ${getIsSlideUpClass()}`}
+        className={`modal ${getModalOpenClass()} ${
+          props.className
+        } ${getIsSlideUpClass()}`}
         id={getModalId()}
         style={props.modalStyle || {}}
       >
         {renderModalHeader()}
         {props.children}
-        {renderModalFooter()}
       </div>{" "}
-    </React.Fragment>
+    </>
   );
 };
 export default connect(null, { clearErrors })(Modal);

@@ -13,7 +13,7 @@ const CloseButton = (props) => {
       props.onClickHandler(e);
     }
   };
-  const getClassName = () => (props.componentClass ? props.componentClass : "");
+
   const getButtonId = () => (props.buttonId ? props.buttonId : "");
   const getImageId = () => (props.imageId ? props.imageId : "");
   const getHideOnMobileClass = () =>
@@ -27,10 +27,14 @@ const CloseButton = (props) => {
   return (
     <React.Fragment>
       <div
-        className={`close-button-container ${getClassName()} ${getHideOnMobileClass()} ${getHideOnDesktopClass()}`}
+        className={`close-button-container ${
+          props.className
+        } ${getHideOnMobileClass()} ${getHideOnDesktopClass()}`}
       >
         <button
-          className={`close-button ${getClassName()} ${getHideOnMobileClass()} ${getHideOnDesktopClass()}`}
+          className={`close-button ${
+            props.className
+          } ${getHideOnMobileClass()} ${getHideOnDesktopClass()}`}
           id={`${getButtonId()}`}
           onClick={onClickHandler}
           type="button"
@@ -44,7 +48,7 @@ const CloseButton = (props) => {
         >
           <img
             id={`${getImageId()}`}
-            className={`close-icon-img ${getClassName()}`}
+            className={`close-icon-img ${props.className}`}
             src={CloseIconImg}
             alt="X Icon"
           />

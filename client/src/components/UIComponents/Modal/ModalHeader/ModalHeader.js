@@ -7,8 +7,6 @@ import CloseButton from "../../buttons/CloseButton";
 
 //note: test the use of context, remove props. from the variables
 const ModalHeader = (props) => {
-  // simplify/return properties from parent component (e.g. className)
-  const getClassName = () => (props.componentClass ? props.componentClass : "");
   const getHeaderClassName = () =>
     props.headerClassName ? props.headerClassName : "";
 
@@ -18,7 +16,7 @@ const ModalHeader = (props) => {
     if (props.noBackButton) return null;
     return (
       <BackButton
-        componentClass={getClassName()}
+        className={props.className}
         hideOnDesktop={true}
         onClickHandler={() => {
           props.onModalClose();
@@ -29,15 +27,17 @@ const ModalHeader = (props) => {
 
   return (
     <header
-      className={`modal-header ${getClassName()} ${getHeaderClassName()}`}
+      className={`modal-header ${props.className} ${props.headerClassName}`}
     >
       <div className="modal-heading-container modal-header-content-container">
         {renderBackButton()}
-        <h3 className={`modal-heading modal-header-heading ${getClassName()} `}>
+        <h3
+          className={`modal-heading modal-header-heading ${props.className} `}
+        >
           {props.headingText}
         </h3>
         <CloseButton
-          componentClass={`modal-header-close ${getClassName()}`}
+          className={`modal-header-close ${props.className}`}
           hideOnMobile={true}
           onClickHandler={() => {
             props.onModalClose();

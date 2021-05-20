@@ -12,7 +12,7 @@ const CancelButton = (props) => {
       props.onClickHandler();
     }
   };
-  const getClassName = () => (props.componentClass ? props.componentClass : "");
+  const getClassName = () => (props.className ? props.className : "");
   const getButtonId = () => (props.buttonId ? props.buttonId : "");
 
   const getHideOnMobileClass = () =>
