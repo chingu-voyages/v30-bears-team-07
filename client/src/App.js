@@ -22,16 +22,20 @@ const App = ({ isSignedIn, user }) => {
     <div id="app-outer-container" data-test="component-app">
       <Router history={history}>
         <Switch>
-          <Route path="/signup" exact>
+          <UnauthenticatedRoute path="/signup" exact>
             <Signup />
-          </Route>
-          <Route path="/login" exact>
+          </UnauthenticatedRoute>
+          <UnauthenticatedRoute path="/login" exact>
             <Login />
-          </Route>
+          </UnauthenticatedRoute>
           <Route path="/users/:userId/dashboard">
             <Dashboard />
           </Route>
-
+          <Route path="/" exact>
+            <Redirect
+              to={isSignedIn ? `/users/${user.id}/dashboard` : "/login"}
+            />
+          </Route>
           {/* Note: We don't have a real home page yet (tella)
           <Route exact path="/">
           <Home />

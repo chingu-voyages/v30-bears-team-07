@@ -1,5 +1,11 @@
-@import "./scss/fontawesome.scss";
-@import "./scss/solid.scss";
+// note: just going to leave this here for future reference purposes (tella)
+// @import "./scss/fontawesome.scss";
+// @import "./scss/solid.scss";
+
+// import using relative path
+@import "../../scss/fontawesome.scss";
+@import "../../scss/solid.scss";
+@import "../../utils/scss/_variables";
 
 .wrapper {
   height: 100vh;
@@ -8,9 +14,11 @@
 
 .header {
   height: 10vh;
-  background-color: #ffffff;
+  background-color: $foregroundWhite;
   display: flex;
   justify-content: space-between;
+  // note: let's start using variables (so it's much easier to change colors if we ever make design changes)
+  // background-color: #ffffff;
 
   & p {
     margin: 1rem;
