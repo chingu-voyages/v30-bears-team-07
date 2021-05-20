@@ -9,6 +9,7 @@ const Signup = () => {
       <Link to="login">Login Page</Link>
       <Link to="dashboard">Dashboard Page</Link>
       <Link to="signup">Signup Page</Link>
+      <Link to="projectslist">ProjectsList</Link>
     </div>
   );
 };
