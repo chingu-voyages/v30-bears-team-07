@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
 import "./Dashboard.scss";
 
 const Dashboard = () => {
@@ -12,6 +13,7 @@ const Dashboard = () => {
           <p>About</p>
           <p>Discover</p>
           <p>Get Started</p>
+          <GoogleAuth />
         </div>
       </section>
       <section className="main">
