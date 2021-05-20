@@ -1,9 +1,8 @@
 import axios from "axios";
 import serverRest from "../../apis/serverRest";
-import cloudinaryRest from "../../apis/cloudinaryRest";
 import history from "../../history";
 import { returnErrors, clearErrors } from "./errorActions";
-import { actionShowLoader } from "./loaderActions";
+// import { actionShowLoader } from "./loaderActions";
 
 import { compareValues } from "../../helpers";
 
@@ -16,6 +15,7 @@ import {
   CANCEL_PROJECT_FAIL,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAIL,
+  /*
   DONATE_TO_PROJECT_SUCCESS,
   DONATE_TO_PROJECT_FAIL,
   UPDATE_PROJECT_NAME_SUCCESS,
@@ -24,12 +24,12 @@ import {
   EDIT_PROJECT_FAIL,
   EDIT_PROJECT_ICON_SUCCESS,
   EDIT_PROJECT_ICON_FAIL,
+  */
 } from "./types";
 
 export const getAllProjects = (id) => (dispatch, getState) => {
-  console.log("getting all projects");
+  console.log("getting the list of all projects");
   const userId = id || getState().user.info._id || getState().user.info.id;
-
   serverRest
     .get(`/projects/`)
     .then((res) => {
@@ -100,7 +100,6 @@ export const cancelProject = (projectId, successCb) => (dispatch, getState) => {
   const userId = getState().user.info._id || getState().user.info.id;
   console.log(projectId);
 
-  
   serverRest
     .patch(`/projects/${projectId}/cancel`, { projectId, userId })
     .then((res) => {
@@ -159,7 +158,7 @@ export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
     });
 };
 
-/* 
+/*
 export const updateProjectName =
   (formValues, successCb) => (dispatch, getState) => {
     const userId = getState().user.info._id || getState().user.info.id;
@@ -174,7 +173,6 @@ export const updateProjectName =
         dispatch({
           type: UPDATE_PROJECT_NAME_SUCCESS,
           payload: {
-            /*note: think about should be returned from the server as payload*/
             ...res.data,
           },
         });
@@ -206,7 +204,6 @@ export const editProject = (formValues, successCb) => (dispatch, getState) => {
       dispatch({
         type: EDIT_PROJECT_SUCCESS,
         payload: {
-          /*note: think about should be returned from the server as payload*/
           ...res.data,
         },
       });

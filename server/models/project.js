@@ -1,43 +1,31 @@
-// note:
-// learn how to use array property in mongoose
-// learn to use virtual property to figure out client-side names and image URLs
-
-//note: work in progress
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-var RoomSchema = new Schema({
+var ProjectSchema = new Schema({
   name: { type: String, required: true, minlength: 1 },
-  type: {
-    type: String,
+  description: { type: String, default: "Project has no description." },
+  //note: I changed the name from creatorId to creator because this can turn into an object using .populate()
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
-    enum: ["public", "private", "DM", "groupDM"],
   },
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
-  messages: [
-    {
-      message: { type: mongoose.Schema.Types.ObjectId, ref: "Message" },
-    },
-  ],
-  members: [
+  amountDonated: { type: Number, default: 0, required: true },
+  targetGoal: { type: Number, default: 1, required: true },
+  donors: [
     {
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
       },
-      roles: [{ type: String, minlength: 1 }],
     },
   ],
-  //note: this should be different if it is DM room, consider making it a virtual property
-  image_url: { type: String, minlength: 0, maxlength: 500 },
-  registered_on: { type: Date, default: Date.now() },
-  requires_approval: { type: Boolean, default: false },
-  password: { type: String },
-  // note: not sure if this is client-side or server-side
-  disabled: { type: Boolean, default: false },
-  muted: { type: Boolean, default: false },
-  last_activity: { type: Date, default: new Date() },
+  deadline: { type: Date, default: Date.now(), min: Date.now() },
+  created: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
-module.exports = mongoose.model("Room", RoomSchema);
+module.exports = mongoose.model("Project", ProjectSchema);
