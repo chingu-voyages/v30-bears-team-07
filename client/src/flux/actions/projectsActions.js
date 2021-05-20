@@ -26,30 +26,30 @@ import {
   EDIT_PROJECT_ICON_FAIL,
 } from "./types";
 
-export const getAllRooms = (id) => (dispatch, getState) => {
-  console.log("getting all rooms");
+export const getAllProjects = (id) => (dispatch, getState) => {
+  console.log("getting all projects");
   const userId = id || getState().user.info._id || getState().user.info.id;
 
   serverRest
-    .get(`/api/rooms/`)
+    .get(`/projects/`)
     .then((res) => {
-      let rooms = res.data;
+      let projects = res.data;
       let sortedData = null;
-      console.log(rooms);
+      console.log(projects);
 
-      // note: think about whether sorting rooms should be up to the user
-      // first check if it contains rooms
-      if (typeof rooms !== "undefined" && rooms.length > 0) {
+      // note: think about whether sorting projects should be up to the user
+      // first check if it contains projects
+      if (typeof projects !== "undefined" && projects.length > 0) {
         // the array is defined and has at least one element
         let data = null;
-        console.log(rooms);
-        sortedData = rooms.sort(compareValues("name"));
+        console.log(projects);
+        sortedData = projects.sort(compareValues("name"));
         console.log(sortedData);
       }
 
       dispatch({
         type: GET_ALL_PROJECTS_SUCCESS,
-        payload: sortedData || rooms,
+        payload: sortedData || projects,
       });
       dispatch(clearErrors());
     })
@@ -62,124 +62,47 @@ export const getAllRooms = (id) => (dispatch, getState) => {
     });
 };
 
-export const createRoom = (formValues, successCb) => (dispatch, getState) => {
-  const userId = getState().user.info._id || getState().user.info.id;
-  console.log(formValues);
-
-  serverRest
-    .post(`/api/rooms/`, { ...formValues, senderId: userId })
-    .then((res) => {
-      const room = res.data.room;
-      dispatch({
-        type: CREATE_PROJECT_SUCCESS,
-        payload: {
-          room,
-        },
-      });
-      dispatch(clearErrors());
-      if (successCb) successCb();
-      history.push(
-        `/chat?room=${room._id}&userType=user&roomType=${room.type}`
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log(err.response);
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({
-        type: CREATE_PROJECT_FAIL,
-      });
-    })
-    .finally(() => {
-      dispatch(actionShowLoader("createRoomModalForm", false));
-    });
-};
-
-export const joinRoom = (formValues, successCb) => (dispatch, getState) => {
-  const userId = getState().user.info._id || getState().user.info.id;
-  const roomName = formValues.name;
-  console.log(formValues);
-
-  // note:might want to change this to roomId in the future
-  serverRest
-    .patch(`/api/rooms/${roomName}/join`, { ...formValues, userId })
-    .then((res) => {
-      // if the server returns our response indicating that a message is required, ask the user for the password
-      console.log(res.data);
-      if (res.data.password_required) {
-        dispatch({
-          type: PROJECT_PASSWORD_REQUIRED,
-          payload: res.data,
-        });
-        dispatch(clearErrors());
-      } else {
-        const room = res.data.room;
-        dispatch({
-          type: DONATE_TO_PROJECT_SUCCESS,
-          payload: {
-            room,
-          },
-        });
-        dispatch(clearErrors());
-        if (successCb) successCb();
-        history.push(
-          `/chat?room=${room._id}&userType=user&roomType=${room.type}`
-        );
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log(err.response);
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({
-        type: DONATE_TO_PROJECT_FAIL,
-      });
-    })
-    .finally(() => {
-      dispatch(actionShowLoader("joinRoomForm", false));
-    });
-};
-
-export const submitRoomPassword =
+export const createProject =
   (formValues, successCb) => (dispatch, getState) => {
     const userId = getState().user.info._id || getState().user.info.id;
     console.log(formValues);
 
     serverRest
-      .patch(`/api/rooms/${formValues.roomId}/submit_room_password`, {
-        ...formValues,
-        userId,
-      })
+      .post(`/projects/`, { ...formValues, senderId: userId })
       .then((res) => {
-        const room = res.data.room;
+        const project = res.data.project;
         dispatch({
-          type: "PROJECT_PASSWORD_SUBMIT_SUCCESS",
-          payload: { room },
+          type: CREATE_PROJECT_SUCCESS,
+          payload: {
+            project,
+          },
         });
         dispatch(clearErrors());
         if (successCb) successCb();
         history.push(
-          `/chat?room=${room._id}&userType=user&roomType=${room.type}`
+          `/chat?project=${project._id}&userType=user&projectType=${project.type}`
         );
       })
       .catch((err) => {
         console.log(err);
         console.log(err.response);
         dispatch(returnErrors(err.response.data, err.response.status));
-        dispatch({ type: "PROJECT_PASSWORD_SUBMIT_FAIL" });
+        dispatch({
+          type: CREATE_PROJECT_FAIL,
+        });
       })
       .finally(() => {
-        dispatch(actionShowLoader("roomPasswordConfirmation", false));
+        dispatch(actionShowLoader("createProjectModalForm", false));
       });
   };
 
-export const leaveRoom = (roomId, successCb) => (dispatch, getState) => {
+export const cancelProject = (projectId, successCb) => (dispatch, getState) => {
   const userId = getState().user.info._id || getState().user.info.id;
-  console.log(roomId);
+  console.log(projectId);
 
-  // note:might want to change this to roomId in the future
+  
   serverRest
-    .patch(`/api/rooms/${roomId}/leave`, { roomId, userId })
+    .patch(`/projects/${projectId}/cancel`, { projectId, userId })
     .then((res) => {
       dispatch({
         type: CANCEL_PROJECT_SUCCESS,
@@ -203,13 +126,47 @@ export const leaveRoom = (roomId, successCb) => (dispatch, getState) => {
     .finally(() => {});
 };
 
-export const updateRoomName =
+export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
+  const userId = getState().user.info._id || getState().user.info.id;
+  console.log(projectId);
+
+  axios
+    .delete(``, {
+      data: { projectId, userId },
+    })
+    .then((res) => {
+      dispatch({
+        type: DELETE_PROJECT_SUCCESS,
+        payload: {
+          /*note: think about should be returned from the server as payload*/
+          ...res.data,
+        },
+      });
+
+      dispatch(clearErrors());
+      if (successCb) successCb();
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log(err.response);
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: DELETE_PROJECT_FAIL,
+      });
+    })
+    .finally(() => {
+      dispatch(actionShowLoader("deleteProjectForm", false));
+    });
+};
+
+/* 
+export const updateProjectName =
   (formValues, successCb) => (dispatch, getState) => {
     const userId = getState().user.info._id || getState().user.info.id;
 
-    // note:might want to change this to roomId in the future
+    // note:might want to change this to projectId in the future
     serverRest
-      .patch(`/api/rooms/${formValues.roomId}/update_name`, {
+      .patch(`/projects/${formValues.projectId}/update_name`, {
         ...formValues,
         userId,
       })
@@ -233,15 +190,15 @@ export const updateRoomName =
         });
       })
       .finally(() => {
-        dispatch(actionShowLoader("updateRoomNameModalForm", false));
+        dispatch(actionShowLoader("updateProjectNameModalForm", false));
       });
   };
 
-export const editRoom = (formValues, successCb) => (dispatch, getState) => {
+export const editProject = (formValues, successCb) => (dispatch, getState) => {
   const userId = getState().user.info._id || getState().user.info.id;
 
   serverRest
-    .patch(`/api/rooms/${formValues.roomId}/edit_room`, {
+    .patch(`/projects/${formValues.projectId}/edit_project`, {
       ...formValues,
       userId,
     })
@@ -266,17 +223,17 @@ export const editRoom = (formValues, successCb) => (dispatch, getState) => {
       });
     })
     .finally(() => {
-      dispatch(actionShowLoader("editRoomModalForm", false));
+      dispatch(actionShowLoader("editProjectModalForm", false));
     });
 };
 
-export const editRoomIcon = (base64EncodedImage, roomId) => {
+export const editProjectIcon = (base64EncodedImage, projectId) => {
   return async function (dispatch, getState) {
     const userId = getState().user.info._id || getState().user.info.id;
     try {
       await cloudinaryRest
         .patch(
-          `/api/rooms/${roomId}/upload_icon`,
+          `/projects/${projectId}/upload_icon`,
           JSON.stringify({ data: base64EncodedImage, userId })
         )
         .then((res) => {
@@ -294,42 +251,9 @@ export const editRoomIcon = (base64EncodedImage, roomId) => {
       );
       dispatch({ type: EDIT_PROJECT_ICON_FAIL });
     } finally {
-      dispatch(actionShowLoader("uploadRoomIconForm", false));
+      dispatch(actionShowLoader("uploadProjectIconForm", false));
     }
   };
 };
 
-// please add remove image for room
-
-export const deleteRoom = (roomId, successCb) => (dispatch, getState) => {
-  const userId = getState().user.info._id || getState().user.info.id;
-  console.log(roomId);
-
-  axios
-    .delete(`https://amussement-server.herokuapp.com/api/rooms/${roomId}`, {
-      data: { roomId, userId },
-    })
-    .then((res) => {
-      dispatch({
-        type: DELETE_PROJECT_SUCCESS,
-        payload: {
-          /*note: think about should be returned from the server as payload*/
-          ...res.data,
-        },
-      });
-
-      dispatch(clearErrors());
-      if (successCb) successCb();
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log(err.response);
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({
-        type: DELETE_PROJECT_FAIL,
-      });
-    })
-    .finally(() => {
-      dispatch(actionShowLoader("deleteRoomForm", false));
-    });
-};
+*/
