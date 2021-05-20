@@ -2,7 +2,7 @@ require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const async = require("async");
-const User = require("../models/users");
+const User = require("../models/user");
 const SECRETKEY = process.env.SECRETKEY;
 
 // note to self: this is way too long, find a way to split this into 2 (tella)
@@ -12,7 +12,7 @@ exports.google_login = async (req, res) => {
   // check if any of the following properties are empty
   if (!username || !email)
     errors.push({ msg: "Username or email are missing." });
-
+  console.log(email);
   if (errors.length > 0) {
     res.status(400).json({ errors });
   } else {
@@ -28,7 +28,7 @@ exports.google_login = async (req, res) => {
         // user object to be used for token
         const userForToken = {
           username: user.username,
-          id: user._id,
+          id: user._id.toString(),
         };
         // synchronous signing of JWT token
         const token = jwt.sign(userForToken, SECRETKEY, {
@@ -38,8 +38,7 @@ exports.google_login = async (req, res) => {
 
         // this will be the user returned to the frontend
         const responseUserObject = {
-          _id: user._id,
-          id: user._id,
+          id: user._id.toString(),
           username: user.username,
           email: user.email,
           // note: these will be properties to be added and used most likely on Sprint 3-4
@@ -65,7 +64,7 @@ exports.google_login = async (req, res) => {
         // user object to be used for token
         const userForToken = {
           username: savedUser.username,
-          id: savedUser._id,
+          id: savedUser._id.toString(),
         };
 
         // synchronous signing of JWT token
@@ -76,7 +75,7 @@ exports.google_login = async (req, res) => {
 
         // this will be the user returned to the frontend
         const responseUserObject = {
-          _id: savedUser._id,
+          id: savedUser._id.toString(),
           username: savedUser.username,
           email: savedUser.email,
           // note: these will be properties to be added and used most likely on Sprint 3-4

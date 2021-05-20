@@ -8,6 +8,7 @@ import GoogleIconImg from "../../icons/google-icon.png";
 
 class GoogleAuth extends React.Component {
   _isMounted = false;
+  previousSignedInState = null;
   state = {
     initialized: false,
   };
@@ -45,6 +46,7 @@ class GoogleAuth extends React.Component {
   componentWillUnmount() {
     this._isMounted = false;
     console.log(`ismounted is now ${this._isMounted}`);
+    this.auth.disconnect();
   }
 
   onAuthChange = async (isSignedIn) => {
@@ -54,22 +56,29 @@ class GoogleAuth extends React.Component {
     // }
     // this.context.showLoaderBeforeCheck();
     // sign in or sign out
-    if (isSignedIn) {
+
+    if (isSignedIn && this.previousSignedInState !== isSignedIn) {
+      // Update previousSignedInState
+
       const currentUser = this.auth.currentUser.get();
       const userProfile = currentUser.getBasicProfile();
       const fullname = userProfile.getName();
       const email = userProfile.getEmail();
       console.log(`user profile is ${userProfile}`);
-      /*
+      console.log(userProfile);
+
       await this.props.googleSignIn({
         userId: currentUser.getId(),
         username: fullname.trim(),
         email: email,
       });
-      */
+
       // this.context.userHasAuthenticated(true);
     } else {
     }
+    console.log(this.previousSignedInState);
+    console.log(isSignedIn);
+    this.previousSignedInState = isSignedIn;
     // make the loader fade after changing sign in status
     // this.context.setgoogleSignInChecked(true);
     // this.context.fadeLoaderAfterCheck();

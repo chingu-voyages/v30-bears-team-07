@@ -60,6 +60,11 @@ button {
   border-radius: 33.5px;
 }
 
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+}
+
 .page-container {
   display: block;
   margin: 0;
@@ -98,6 +103,10 @@ button {
 
   &:focus {
     background-color: $textfieldFocusColor;
+  }
+
+  &:disabled {
+    background-color: #ccc;
   }
 }
 

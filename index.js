@@ -16,15 +16,12 @@ app.use(logger("dev"));
 app.use(noCache());
 app.use(helmet());
 app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+app.use(express.urlencoded({ extended: false }));
 
 // get routes
 const authRouter = require("./server/routes/auth");
 //  routes
+/*
 app.use("/", function (req, res) {
   const dbState =
     mongoose.connection.readyState === 1
@@ -32,6 +29,7 @@ app.use("/", function (req, res) {
       : "Not connected to db";
   res.send("Welcome to Go-on api. " + dbState);
 });
+*/
 
 app.use("/auth", authRouter);
 

@@ -1,6 +1,5 @@
 import React from "react";
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
-import Notification from "../Notification/Notification";
 
 const LoginForm = ({
   handleLogin,
@@ -13,9 +12,16 @@ const LoginForm = ({
   return (
     <div className="auth page-container">
       {/*note: I did some reordering on the elements, hope it works and nothing bugs out (-tella)*/}
-      <form className="auth__form" onSubmit={handleLogin}>
+      <form
+        className="auth__form"
+        onSubmit={(e) => {
+          // Note: Remove any form submission for now, because this does not function (tella)
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+      >
         <h1 className="auth__heading-title">Login</h1>
-        <Notification message={message} />
+
         <div className="textfield-container">
           <label htmlFor="auth__username" className="textfield-label">
             Username
@@ -30,6 +36,7 @@ const LoginForm = ({
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
+            disabled
           />
         </div>
         <div className="textfield-container">
@@ -46,6 +53,7 @@ const LoginForm = ({
             value={password}
             name="Password"
             onChange={({ target }) => setPassword(target.value)}
+            disabled
           />
         </div>
         <div className="form-button-container">
@@ -53,53 +61,23 @@ const LoginForm = ({
             className="form-button submit"
             id="login-button"
             type="submit"
+            disabled
           >
             Login
           </button>
+          <div className="form-button-container">
+            <GoogleAuth className="login-page" />
+          </div>
         </div>
       </form>
-      <div className="form-button-container">
-        <GoogleAuth className="login-page" />
-      </div>
     </div>
   );
 };
 
 export default LoginForm;
 
-//
-//
-// Going to add this for later (tella - 5/15/21)
-/*
-  <form id="login-form" autoComplete="off">
-      <div className="login form-content-container">
-        <div className="door-title-container">
-          <h2 className="heading">Login</h2>
-        </div>
-        {renderErrorNotifications()}
-        <div className="textfield-container">
+// Note: just putting away currently unused stuff (tella)
 
-        </div>
-        <div className="textfield-container">
-
-        </div>
-
-        <div className="form-button-container">
-          <button
-            className={"form-button submit mt-20"}
-            type="submit"
-            onClick={props.handleSubmit(onSubmit)}
-          >
-            {renderLoader()} Sign In
-          </button>
-        </div>
-        <Link
-          id="register-text-link"
-          className="small-text-link"
-          to={`/auth/register`}
-        >
-          Don't have an account? Register here.
-        </Link>
-      </div>
-    </form>
-*/
+// import e from "cors";
+// import Notification from "../Notification/Notification";
+// <Notification message={message} />
