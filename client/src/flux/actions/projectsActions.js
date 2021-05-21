@@ -64,11 +64,12 @@ export const getAllProjects = (id) => (dispatch, getState) => {
 
 export const createProject =
   (formValues, successCb) => (dispatch, getState) => {
-    const userId = getState().user.info._id || getState().user.info.id;
-    console.log(formValues);
-
+    // retrieve the ID of the active user from the redux store
+    const creatorId = getState().user.info._id || getState().user.info.id;
+    console.log(formValues); /*just to check if data is being correctly sent*/
+    // send a POST request to the server
     serverRest
-      .post(`/projects/`, { ...formValues, senderId: userId })
+      .post(`/projects/`, { ...formValues, creatorId })
       .then((res) => {
         const project = res.data.project;
         dispatch({
@@ -79,10 +80,10 @@ export const createProject =
         });
         dispatch(clearErrors());
         if (successCb) successCb();
-        history.push(
-          `/chat?project=${project._id}&userType=user&projectType=${project.type}`
-        );
+        // redirect to the created project page after successful creation
+        history.push(`/projects/${project.id}`);
       })
+      // if fail, show the error on a notification
       .catch((err) => {
         console.log(err);
         console.log(err.response);
