@@ -4,12 +4,12 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { createRoom } from "../../../../flux/actions/roomsActions";
+import { createProject } from "../../../../flux/actions/roomsActions";
 
 import { renderError, getErrorClass } from "../../../../helpers";
 import ErrorNotifications from "../../../ErrorNotifications/ErrorNotifications";
 import Modal from "../../UIComponents/Modal/Modal";
-import Input from "../../UIComponents/FormElements/Input/Input";
+import ReduxInput from "../../UIComponents/FormElements/ReduxInput/ReduxInput";
 
 // import { actionShowLoader } from "../../../../flux/actions/loaderActions";
 // import LoadingSpinner from "../../../loaders/LoadingSpinner";
@@ -17,13 +17,13 @@ import Input from "../../UIComponents/FormElements/Input/Input";
 const CreateProject = (props) => {
   // submit handler
   const onSubmit = async (formValues) => {
-    const createRoomSuccessCb = () => {
+    const createProjectSuccessCb = () => {
       props.onModalClose();
     };
     console.log(formValues);
     // run an action
-    props.actionShowLoader("createRoomModalForm", true);
-    await props.createRoom(formValues, createRoomSuccessCb);
+    props.actionShowLoader("createProjectModalForm", true);
+    await props.createProject(formValues, createProjectSuccessCb);
   };
 
   const renderErrorNotifications = () => {
@@ -42,64 +42,44 @@ const CreateProject = (props) => {
   const renderContent = () => {
     return (
       <Modal
-        componentClass="create-room"
+        componentClass="create-project"
         headerClassName="settings-page-sidebar-header"
-        headingText="Create a Room"
+        headingText="Create a Project"
         onModalClose={() => {
           props.onModalClose();
         }}
         actionButtons={
           <button
-            id="create-room-submit"
+            id="create-project-submit"
             className={"form-button submit mt-20"}
             type="submit"
             onClick={props.handleSubmit(onSubmit)}
           >
-            {renderLoader()} Create Room
+            {renderLoader()} Create Project
           </button>
         }
       >
-        <form id="create-room-form" autoComplete="off">
-          <div className="create-room form-content-container modal-form-content">
+        <form id="create-project-form" autoComplete="off">
+          <div className="create-project form-content-container modal-form-content">
             {renderErrorNotifications()}
             <Field
               name="name"
-              component={renderInput}
+              component={<ReduxInput />}
               type="text"
               props={{
                 inputProps: {
-                  placeholder: "Room Name",
-                  className: "textfield",
+                  placeholder: "Project Name",
+                  className: "textfield-input",
                   maxLength: "30",
                   autoComplete: "off",
-                  id: "create-room-username-field",
+                  id: "create-project-name-field",
                   type: "text",
                   autoFocus: true,
                 },
                 labelProps: {
-                  class: "textfield-label",
-                  text: "Room Name *",
-                  id: "create-room-username-label",
-                },
-              }}
-            />
-            <Field
-              name="password"
-              component={renderInput}
-              type="text"
-              props={{
-                inputProps: {
-                  placeholder: "Room Password",
-                  className: "textfield",
-                  maxLength: "30",
-                  autoComplete: "off",
-                  id: "create-room-password-field",
-                  type: "password",
-                },
-                labelProps: {
-                  class: "textfield-label",
-                  text: "Room Password (optional)",
-                  id: "create-room-password-label",
+                  className: "textfield-label",
+                  text: "Project Name *",
+                  id: "create-project-name-label",
                 },
               }}
             />
@@ -140,20 +120,20 @@ const mapStateToProps = (state) => ({
   showLoader: state.loader.showCreateProjectFormLoader,
 });
 
-const createRoomModalComponent = connect(mapStateToProps, {
+const createProjectModalComponent = connect(mapStateToProps, {
   actionShowLoader,
-  createRoom,
+  createProject,
 })(CreateProject);
 
 export default reduxForm({
-  form: "createRoomModal",
+  form: "createProjectModal",
   keepDirtyOnReinitialize: true,
   enableReinitialize: true,
   validate,
-})(createRoomModalComponent);
+})(createProjectModalComponent);
 
 /*
-const renderInput = ({ input, meta, inputProps, labelProps }) => {
+const <ReduxInput /> = ({ input, meta, inputProps, labelProps }) => {
   const errorClass = getErrorClass(meta);
   const labelClass = labelProps.class || null;
   const labelId = labelProps.id || null;
@@ -178,7 +158,7 @@ const renderInput = ({ input, meta, inputProps, labelProps }) => {
         }}
         autoFocus={inputProps.autoFocus || false}
       />
-      {renderError(meta, "create-room")}
+      {renderError(meta, "create-project")}
     </React.Fragment>
   );
 };
