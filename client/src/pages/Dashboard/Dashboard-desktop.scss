@@ -5,12 +5,10 @@
   background-color: #fafafa;
   display: grid;
   grid-template-columns: 30vw 70vw;
-  border: 1px solid red;
 
   &__left {
     display: grid;
     grid-template-rows: 25rem 1fr;
-    border: 1px solid blue;
   }
 
   &__left--info {
@@ -40,7 +38,6 @@
   &__right {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
-    border: 1px solid green;
   }
 
   &__right--card {
