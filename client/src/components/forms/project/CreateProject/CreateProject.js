@@ -10,19 +10,23 @@ import { renderError, getErrorClass } from "../../../../helpers";
 import ErrorNotification from "../../../UIComponents/FormElements/ErrorNotification/ErrorNotification";
 import Modal from "../../../UIComponents/Modal/Modal";
 import ReduxInput from "../../../UIComponents/FormElements/ReduxInput/ReduxInput";
+import ReduxTextarea from "../../../UIComponents/FormElements/ReduxTextarea/ReduxTextarea";
 
 // import { actionShowLoader } from "../../../../flux/actions/loaderActions";
 // import LoadingSpinner from "../../../loaders/LoadingSpinner";
 
 const CreateProject = (props) => {
+  const onModalCloseHandler = () => {
+    if (props.onModalClose) props.onModalClose();
+  };
   // submit handler
   const onSubmit = async (formValues) => {
     const createProjectSuccessCb = () => {
-      props.onModalClose();
+      onModalCloseHandler();
     };
     console.log(formValues);
     // run an action
-    props.actionShowLoader("createProjectModalForm", true);
+    // props.actionShowLoader("createProjectModalForm", true);
     await props.createProject(formValues, createProjectSuccessCb);
   };
 
@@ -35,6 +39,7 @@ const CreateProject = (props) => {
     return null;
   };
 
+  // note: can be used later
   // const renderLoader = () => {
   //   return <LoadingSpinner showLoader={props.showLoader} />;
   // };
@@ -45,28 +50,18 @@ const CreateProject = (props) => {
         componentClass="create-project"
         headerClassName="settings-page-sidebar-header"
         headingText="Create a Project"
-        onModalClose={() => {
-          props.onModalClose();
-        }}
-        actionButtons={
-          <button
-            id="create-project-submit"
-            className={"form-button submit mt-20"}
-            type="submit"
-            onClick={props.handleSubmit(onSubmit)}
-          >
-            Create Project
-          </button>
-        }
+        onModalClose={onModalCloseHandler}
       >
         <form id="create-project-form" autoComplete="off">
           <div className="create-project form-content-container modal-form-content">
             {renderErrorNotification()}
+            {/*name field*/}
             <Field
               name="name"
-              component={<ReduxInput />}
+              component={ReduxInput}
               type="text"
               props={{
+                formName: "project",
                 inputProps: {
                   placeholder: "Project Name",
                   className: "textfield-input",
@@ -83,14 +78,78 @@ const CreateProject = (props) => {
                 },
               }}
             />
+            {/*target goal*/}
+            <Field
+              name="target_goal"
+              component={ReduxInput}
+              type="number"
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Target Goal",
+                  className: "textfield-input",
+                  autoComplete: "off",
+                  id: "create-project-target_goal-field",
+                  type: "number",
+                },
+                labelProps: {
+                  className: "textfield-label",
+                  text: "Target Goal *",
+                  id: "create-project-target_goal-label",
+                },
+              }}
+            />
+            {/*project deadline*/}
+            <Field
+              name="deadline"
+              component={ReduxInput}
+              type="date"
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Deadline",
+                  className: "textfield-input",
+                  autoComplete: "off",
+                  id: "create-project-deadline-field",
+                  type: "date",
+                },
+                labelProps: {
+                  className: "textfield-label",
+                  text: "Deadline *",
+                  id: "create-project-deadline-label",
+                },
+              }}
+            />
+            {/*description field*/}
+            <Field
+              name="description"
+              component={ReduxTextarea}
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Description",
+                  className: "textfield-input",
+                  autoComplete: "off",
+                  id: "create-project-description-field",
+                },
+                labelProps: {
+                  className: "textfield-label",
+                  text: "Description ",
+                  id: "create-project-description-label",
+                },
+              }}
+            />
+            <div className="form-button-container">
+              <button
+                id="create-project-submit"
+                className={"form-button submit mt-20"}
+                type="submit"
+                onClick={props.handleSubmit(onSubmit)}
+              >
+                Create Project
+              </button>
+            </div>
           </div>
-          <button
-            type="submit"
-            onClick={props.handleSubmit(onSubmit)}
-            style={{ display: "none" }}
-          >
-            Save
-          </button>
         </form>
       </Modal>
     );

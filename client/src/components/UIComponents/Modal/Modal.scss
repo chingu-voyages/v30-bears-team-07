@@ -43,30 +43,6 @@
   animation: 0.3s ease-out forwards modal-hide;
 }
 
-@keyframes modal-show {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes modal-hide {
-  0% {
-    opacity: 1;
-    visibility: visible;
-  }
-  99% {
-    opacity: 0;
-    visibility: visible;
-  }
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
 .modal__header {
   z-index: 100;
   position: fixed;
@@ -78,6 +54,7 @@
   margin: 0;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #ccc;
   // background-color: #111;
   background-color: #0000;
 }
@@ -125,7 +102,6 @@
 .modal-heading {
   text-transform: none;
   font-size: 1.25rem;
-  text-shadow: 0 1px 2px #345;
 }
 
 .modal__header-close.close-button-container {
@@ -179,6 +155,10 @@
     overflow-y: auto;
   }
 
+  .modal__header {
+    border-bottom: none;
+  }
+
   .modal__header,
   .modal__header.settings-page-sidebar-header {
     position: fixed;
@@ -197,6 +177,11 @@
   .modal__header-heading.modal-heading {
     right: 0;
   }
+
+  .modal-form-content {
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+  }
 }
 
 @keyframes backdrop-show {
@@ -211,6 +196,29 @@
 @keyframes backdrop-hide {
   0% {
     opacity: 0.8;
+    visibility: visible;
+  }
+  99% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes modal-show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-hide {
+  0% {
+    opacity: 1;
     visibility: visible;
   }
   99% {

@@ -5,10 +5,11 @@
   height: 3rem;
   padding: 0.625rem;
   background-color: #0000;
-  filter: invert(91%) sepia(2%) saturate(416%) hue-rotate(182deg)
-    brightness(96%) contrast(96%);
+  filter: invert(16%) sepia(4%) saturate(3%) hue-rotate(324deg) brightness(101%)
+    contrast(94%);
 }
-.back-button:hover {
+// don't forget to change the hover effects
+back-button:hover {
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(53deg)
     brightness(104%) contrast(102%);
 }
