@@ -1,10 +1,9 @@
-import warningImg from "../../images/warning.png";
-import "./ErrorNotifications.css";
+import warningImg from "../../../../icons/warning.png";
 
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import { clearErrors } from "../../actions/errorActions";
+import { clearErrors } from "../../../../flux/actions/errorActions";
 
 const ErrorNotification = (props) => {
   const [containerClass, setContainerClass] = useState(null);

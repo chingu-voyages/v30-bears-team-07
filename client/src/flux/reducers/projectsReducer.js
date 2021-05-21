@@ -29,8 +29,8 @@ export default (state = initialState, action) => {
     case USER_LOADED:
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      // action.payload.rooms - array of rooms
-      return [...action.payload.rooms];
+      // action.payload.projects - array of projects
+      return [...action.payload.projects];
 
     case GET_ALL_PROJECTS_SUCCESS:
       console.log(action.payload);
@@ -38,38 +38,38 @@ export default (state = initialState, action) => {
     case CREATE_PROJECT_SUCCESS:
     case JOIN_PROJECT_SUCCESS:
     case PROJECT_PASSWORD_SUBMIT_SUCCESS:
-      // action.payload is an object that contains a room property (object)
+      // action.payload is an object that contains a project property (object)
       console.log(action.payload);
-      console.log(action.payload.room);
-      return [...state, action.payload.room];
+      console.log(action.payload.project);
+      return [...state, action.payload.project];
     case LEAVE_PROJECT_SUCCESS:
-      // action.payload.rooms is array of rooms
-      return [...action.payload.rooms];
+      // action.payload.projects is array of projects
+      return [...action.payload.projects];
     case UPDATE_PROJECT_NAME_SUCCESS:
-      // action.payload is object with roomId and name
-      return state.map((room) => {
-        if (room._id === action.payload.roomId) {
-          room.name = action.payload.name;
+      // action.payload is object with projectId and name
+      return state.map((project) => {
+        if (project._id === action.payload.projectId) {
+          project.name = action.payload.name;
         }
-        return room;
+        return project;
       });
     case EDIT_PROJECT_SUCCESS:
-      // action.payload is room object
-      return state.map((room) => {
-        if (room._id === action.payload._id) {
-          room = action.payload;
+      // action.payload is project object
+      return state.map((project) => {
+        if (project._id === action.payload._id) {
+          project = action.payload;
         }
-        return room;
+        return project;
       });
     case EDIT_PROJECT_ICON_SUCCESS:
-      return state.map((room) => {
-        if (room._id === action.payload._id) {
-          room.image_url = action.payload.image_url;
+      return state.map((project) => {
+        if (project._id === action.payload._id) {
+          project.image_url = action.payload.image_url;
         }
-        return room;
+        return project;
       });
     case DELETE_PROJECT_SUCCESS:
-      return [...state].filter((room) => room._id !== action.payload.roomId);
+      return [...state].filter((project) => project._id !== action.payload.projectId);
     case CREATE_PROJECT_FAIL:
     case JOIN_PROJECT_FAIL:
     case LEAVE_PROJECT_FAIL:

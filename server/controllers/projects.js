@@ -2,35 +2,35 @@ require("dotenv").config();
 
 // import all the mongoose models
 const User = require("../models/user");
-const Room = require("../models/project");
+const Project = require("../models/project");
 
-// retrieve rooms list
-exports.get_all_rooms = async (req, res) => {
-  console.log("retrieving rooms list");
+// retrieve projects list
+exports.get_all_projects = async (req, res) => {
+  console.log("retrieving projects list");
 
   try {
-    const user = await User.findById(req.params.id).select("rooms");
+    const user = await User.findById(req.params.id).select("projects");
     if (!user) throw Error("User does not exist.");
 
-    res.status(200).json(user.rooms);
+    res.status(200).json(user.projects);
   } catch (e) {
     console.log(e);
     res.status(400).json({ msg: e.message });
   }
 };
 
-exports.get_room = async (req, res) => {
+exports.get_project = async (req, res) => {
   const { userId } = req.query;
   console.log(userId);
-  console.log("retrieving a specific room");
+  console.log("retrieving a specific project");
   try {
-    // use ID search for public rooms
-    const room = await Room.findById(req.params.id);
-    if (!room) throw Error("Unable to find room.");
+    // use ID search for public projects
+    const project = await Project.findById(req.params.id);
+    if (!project) throw Error("Unable to find project.");
 
-    // check the members of the room and check if user is a member
+    // check the members of the project and check if user is a member
     // let isMember = false;
-    // for (let member of room.members) {
+    // for (let member of project.members) {
     //   if (member.user._id == userId) {
     //     isMember = true;
     //   }
@@ -38,29 +38,29 @@ exports.get_room = async (req, res) => {
     // console.log(userId);
     // console.log(`isMember is ${isMember}`);
     // if (isMember)
-    res.status(200).json(room);
-    // else throw Error("User is not a member of this room.");
+    res.status(200).json(project);
+    // else throw Error("User is not a member of this project.");
   } catch (e) {
     res.status(400).json({ msg: e.message });
   }
 };
 
-exports.get_dm_room = async (req, res) => {
+exports.get_dm_project = async (req, res) => {
   const { userId } = req.query;
   console.log(userId);
-  console.log("retrieving a specific room");
+  console.log("retrieving a specific project");
   try {
-    // use ID search for public rooms
-    const room = await Room.findOne({ name: req.params.roomName });
-    if (!room) throw Error("Unable to find room.");
+    // use ID search for public projects
+    const project = await Project.findOne({ name: req.params.projectName });
+    if (!project) throw Error("Unable to find project.");
 
-    res.status(200).json(room);
+    res.status(200).json(project);
   } catch (e) {
     res.status(400).json({ msg: e.message });
   }
 };
 
-exports.create_room = async (req, res) => {
+exports.create_project = async (req, res) => {
   const {
     name,
     password,
@@ -74,7 +74,7 @@ exports.create_room = async (req, res) => {
 
   // check if any of the following fields are empty
   if (!name) {
-    errors.push({ msg: "Please provide a name for the room." });
+    errors.push({ msg: "Please provide a name for the project." });
   }
   // if there are errors, re-\ render the page but with the values that were filled in
   // note: figure out how to send errors to thefrontend
@@ -82,8 +82,8 @@ exports.create_room = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
-      const room = await Room.findOne({ name });
-      if (room) throw Error("Room name already taken.");
+      const project = await Project.findOne({ name });
+      if (project) throw Error("Project name already taken.");
 
       let members = [{ user: senderId, roles: ["admin", "owner", "member"] }];
       if (type === "DM") {
@@ -105,7 +105,7 @@ exports.create_room = async (req, res) => {
         if (!hash) throw Error("Something went wrong hashing the password.");
       }
 
-      const newRoom = new Room({
+      const newProject = new Project({
         name,
         password: hash,
         type: type || "public",
@@ -115,27 +115,27 @@ exports.create_room = async (req, res) => {
         image_url: image_url || "",
         requires_approval: requires_approval || false,
       });
-      const savedRoom = await newRoom.save();
-      if (!savedRoom) throw Error("Failed to create the room.");
+      const savedProject = await newProject.save();
+      if (!savedProject) throw Error("Failed to create the project.");
 
-      // update the owner of the room to add the newly created room to their list of rooms
+      // update the owner of the project to add the newly created project to their list of projects
       const owner = await User.findById(senderId);
-      console.log("owner rooms is");
+      console.log("owner projects is");
       console.log(owner);
-      console.log(owner.rooms);
-      owner.rooms = [...owner.rooms, savedRoom];
+      console.log(owner.projects);
+      owner.projects = [...owner.projects, savedProject];
       await owner.save();
 
       res.status(200).json({
-        room: {
-          _id: savedRoom._id,
-          name: savedRoom.name,
-          type: savedRoom.type || "public",
-          owner: savedRoom.owner,
+        project: {
+          _id: savedProject._id,
+          name: savedProject.name,
+          type: savedProject.type || "public",
+          owner: savedProject.owner,
           messages: [],
-          members: savedRoom.members || "",
-          image_url: savedRoom.image_url || "",
-          requires_approval: savedRoom.requires_approval || false,
+          members: savedProject.members || "",
+          image_url: savedProject.image_url || "",
+          requires_approval: savedProject.requires_approval || false,
         },
       });
     } catch (e) {
@@ -145,14 +145,14 @@ exports.create_room = async (req, res) => {
   }
 };
 
-// note: take into account what to do if the room requires a password to join
-exports.join_room = async (req, res) => {
+// note: take into account what to do if the project requires a password to join
+exports.join_project = async (req, res) => {
   const { name, userId } = req.body;
   let errors = [];
 
   // check if any of the following fields are empty
   if (!name) {
-    errors.push({ msg: "Please provide a name for the room." });
+    errors.push({ msg: "Please provide a name for the project." });
   }
   // if there are errors, re-\ render the page but with the values that were filled in
   // note: figure out how to send errors to thefrontend
@@ -160,37 +160,43 @@ exports.join_room = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
-      const user = await User.findById(userId).populate("rooms");
+      const user = await User.findById(userId).populate("projects");
       if (!user) throw Error("Unable to find user with that ID.");
 
-      // check if user is already in that room
-      for (let room of user.rooms) {
-        if (room.name === name) throw Error("Already a member of this room.");
+      // check if user is already in that project
+      for (let project of user.projects) {
+        if (project.name === name)
+          throw Error("Already a member of this project.");
       }
 
-      const room = await Room.findOne({ name });
-      if (!room) throw Error("Unable to find room with that name.");
+      const project = await Project.findOne({ name });
+      if (!project) throw Error("Unable to find project with that name.");
 
-      // check if the room requires a password to join
-      if (room.password) {
+      // check if the project requires a password to join
+      if (project.password) {
         // request the next part of the form which asks for a password
-        res
-          .status(200)
-          .json({ password_required: true, roomId: room._id, name: room.name });
+        res.status(200).json({
+          password_required: true,
+          projectId: project._id,
+          name: project.name,
+        });
       }
-      // continue and add the room to the list of the rooms of the user,
-      // and add the user as a member of the room
+      // continue and add the project to the list of the projects of the user,
+      // and add the user as a member of the project
       else {
-        // just update the room's members
-        room.members = [...room.members, { user: userId, roles: ["member"] }];
-        await room.save();
-        // update the user's room list'
-        user.rooms = [...user.rooms, room];
+        // just update the project's members
+        project.members = [
+          ...project.members,
+          { user: userId, roles: ["member"] },
+        ];
+        await project.save();
+        // update the user's project list'
+        user.projects = [...user.projects, project];
         await user.save();
 
         res.status(200).json({
-          room,
-          // user: { rooms: user.rooms },
+          project,
+          // user: { projects: user.projects },
         });
       }
       l;
@@ -201,20 +207,20 @@ exports.join_room = async (req, res) => {
   }
 };
 
-exports.submit_room_password = async (req, res) => {
-  const { password, roomId, userId } = req.body;
+exports.submit_project_password = async (req, res) => {
+  const { password, projectId, userId } = req.body;
 
   let errors = [];
 
   // check if any of the following fields are empty
   if (!password) {
-    errors.push({ msg: "Please provide the room's password." });
+    errors.push({ msg: "Please provide the project's password." });
   }
   if (!userId) {
     errors.push({ msg: "Unauthorized user. Please log in." });
   }
-  if (!roomId) {
-    errors.push({ msg: "No room ID provided." });
+  if (!projectId) {
+    errors.push({ msg: "No project ID provided." });
   }
   // if there are errors, re-\ render the page but with the values that were filled in
   // note: figure out how to send errors to thefrontend
@@ -222,31 +228,35 @@ exports.submit_room_password = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
-      const user = await User.findById(userId).populate("rooms");
+      const user = await User.findById(userId).populate("projects");
       if (!user) throw Error("Unable to find user with that ID.");
 
-      // check if user is already in that room
-      for (let room of user.rooms) {
-        if (room._id == roomId) throw Error("Already a member of this room.");
+      // check if user is already in that project
+      for (let project of user.projects) {
+        if (project._id == projectId)
+          throw Error("Already a member of this project.");
       }
 
-      const room = await Room.findById(roomId);
-      if (!room) throw Error("Unable to find room with that ID.");
+      const project = await Project.findById(projectId);
+      if (!project) throw Error("Unable to find project with that ID.");
 
       // check if the password is correct, throw an error if not
-      const isMatch = await bcrypt.compare(password, room.password);
+      const isMatch = await bcrypt.compare(password, project.password);
       if (!isMatch) throw Error("Password is incorrect.");
 
-      // just update the room's members
-      room.members = [...room.members, { user: userId, roles: ["member"] }];
-      await room.save();
-      // update the user's room list'
-      user.rooms = [...user.rooms, room];
+      // just update the project's members
+      project.members = [
+        ...project.members,
+        { user: userId, roles: ["member"] },
+      ];
+      await project.save();
+      // update the user's project list'
+      user.projects = [...user.projects, project];
       await user.save();
 
       res.status(200).json({
-        room,
-        // user: { rooms: user.rooms },
+        project,
+        // user: { projects: user.projects },
       });
     } catch (e) {
       console.log(e);
@@ -255,13 +265,13 @@ exports.submit_room_password = async (req, res) => {
   }
 };
 
-exports.leave_room = async (req, res) => {
-  const { roomId, userId } = req.body;
+exports.leave_project = async (req, res) => {
+  const { projectId, userId } = req.body;
   let errors = [];
 
   // check if any of the following fields are empty
-  if (!roomId) {
-    errors.push({ msg: "Please provide an ID for the room." });
+  if (!projectId) {
+    errors.push({ msg: "Please provide an ID for the project." });
   }
   if (!userId) {
     errors.push({ msg: "Unauthorized user." });
@@ -272,29 +282,29 @@ exports.leave_room = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
-      const user = await User.findById(userId).populate("rooms");
+      const user = await User.findById(userId).populate("projects");
       if (!user) throw Error("Unable to find user with that ID.");
 
       // note: should use ID
-      const room = await Room.findById(roomId).populate("members");
-      if (!room) throw Error("Unable to find that room.");
+      const project = await Project.findById(projectId).populate("members");
+      if (!project) throw Error("Unable to find that project.");
 
-      // just update the room's members
-      room.members = room.members.filter(
+      // just update the project's members
+      project.members = project.members.filter(
         (member) => member.user._id !== userId
       );
-      console.log(room.members);
-      await room.save();
-      // update the user's room list'
-      user.rooms = user.rooms.filter((userRoom) => {
+      console.log(project.members);
+      await project.save();
+      // update the user's project list'
+      user.projects = user.projects.filter((userProject) => {
         // using == because one is an object and the other is a string, to allow conversion between data types
         // so it works as intended
-        return userRoom._id != roomId;
+        return userProject._id != projectId;
       });
       await user.save();
 
       res.status(200).json({
-        rooms: user.rooms,
+        projects: user.projects,
       });
     } catch (e) {
       console.log(e);
@@ -303,16 +313,16 @@ exports.leave_room = async (req, res) => {
   }
 };
 
-exports.update_room_name = async (req, res) => {
-  const { name, roomId, userId } = req.body;
+exports.update_project_name = async (req, res) => {
+  const { name, projectId, userId } = req.body;
   let errors = [];
 
   // check if any of the following fields are empty
   if (!name) {
-    errors.push({ msg: "Please provide a name for the room." });
+    errors.push({ msg: "Please provide a name for the project." });
   }
-  if (!roomId) {
-    errors.push({ msg: "Please provide an ID for the room." });
+  if (!projectId) {
+    errors.push({ msg: "Please provide an ID for the project." });
   }
   if (!userId) {
     errors.push({
@@ -326,13 +336,15 @@ exports.update_room_name = async (req, res) => {
   } else {
     try {
       let authorized = false;
-      // get the room using roomId
-      const room = await Room.findById(roomId).populate("members.user");
-      if (!room) throw Error("Unable to find that room.");
+      // get the project using projectId
+      const project = await Project.findById(projectId).populate(
+        "members.user"
+      );
+      if (!project) throw Error("Unable to find that project.");
       //  allow action if the user is the owner
-      if (room.owner == userId) authorized = true;
-      // check the members of the room and check if user is authorized to perform the action (admin)
-      for (let member of room.members) {
+      if (project.owner == userId) authorized = true;
+      // check the members of the project and check if user is authorized to perform the action (admin)
+      for (let member of project.members) {
         if (member.user._id == userId) {
           for (let role of member.roles) {
             // allow the user to update the name if they are an admin
@@ -341,9 +353,9 @@ exports.update_room_name = async (req, res) => {
         }
       }
       if (authorized) {
-        room.name = name;
-        await room.save();
-        res.status(200).json({ roomId, name });
+        project.name = name;
+        await project.save();
+        res.status(200).json({ projectId, name });
       } else {
         throw Error("Unauthorized action.");
       }
@@ -358,19 +370,19 @@ exports.upload_icon = async (req, res) => {
   try {
     const fileStr = req.body.data;
     const { userId } = req.body;
-    const roomId = req.params.id;
+    const projectId = req.params.id;
 
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
       upload_preset: "amussement_setups",
-      public_id: `${roomId}-room-icon`,
+      public_id: `${projectId}-project-icon`,
       width: 350,
       height: 350,
       crop: "limit",
     });
 
     const iconUrl = uploadedResponse.secure_url;
-    const updatedRoom = await Room.findByIdAndUpdate(
-      roomId,
+    const updatedProject = await Project.findByIdAndUpdate(
+      projectId,
       {
         $set: {
           image_url: iconUrl,
@@ -380,11 +392,11 @@ exports.upload_icon = async (req, res) => {
         new: true,
       }
     );
-    if (!updatedRoom) throw Error("Failed to update the room.");
+    if (!updatedProject) throw Error("Failed to update the project.");
 
     res.status(200).json({
       image_url: iconUrl,
-      _id: roomId,
+      _id: projectId,
     });
   } catch (e) {
     console.error(e);
@@ -392,16 +404,16 @@ exports.upload_icon = async (req, res) => {
   }
 };
 
-exports.edit_room = async (req, res) => {
-  const { name, password, roomId, userId } = req.body;
+exports.edit_project = async (req, res) => {
+  const { name, password, projectId, userId } = req.body;
   let errors = [];
 
   // check if any of the following fields are empty
   if (!name) {
-    errors.push({ msg: "Please provide a name for the room." });
+    errors.push({ msg: "Please provide a name for the project." });
   }
-  if (!roomId) {
-    errors.push({ msg: "Please provide an ID for the room." });
+  if (!projectId) {
+    errors.push({ msg: "Please provide an ID for the project." });
   }
   if (!userId) {
     errors.push({
@@ -415,13 +427,15 @@ exports.edit_room = async (req, res) => {
   } else {
     try {
       let authorized = false;
-      // get the room using roomId
-      const room = await Room.findById(roomId).populate("members.user");
-      if (!room) throw Error("Unable to find that room.");
+      // get the project using projectId
+      const project = await Project.findById(projectId).populate(
+        "members.user"
+      );
+      if (!project) throw Error("Unable to find that project.");
       //  allow action if the user is the owner
-      if (room.owner == userId) authorized = true;
-      // check the members of the room and check if user is authorized to perform the action (admin)
-      for (let member of room.members) {
+      if (project.owner == userId) authorized = true;
+      // check the members of the project and check if user is authorized to perform the action (admin)
+      for (let member of project.members) {
         if (member.user._id == userId) {
           for (let role of member.roles) {
             // allow the user to update the name if they are an admin
@@ -430,7 +444,7 @@ exports.edit_room = async (req, res) => {
         }
       }
       if (authorized) {
-        room.name = name;
+        project.name = name;
         // if password was included in the request body
         if (password) {
           // check if salt generation has any errors
@@ -441,12 +455,12 @@ exports.edit_room = async (req, res) => {
           const hash = await bcrypt.hash(password, salt);
           if (!hash) throw Error("Something went wrong hashing the password.");
 
-          room.password = hash;
+          project.password = hash;
         }
-        await room.save();
+        await project.save();
         console.log("294");
-        console.log(room);
-        res.status(200).json(room);
+        console.log(project);
+        res.status(200).json(project);
       } else {
         throw Error("Unauthorized action.");
       }
@@ -457,13 +471,13 @@ exports.edit_room = async (req, res) => {
   }
 };
 
-exports.delete_room = async (req, res) => {
-  const { roomId, userId } = req.body;
+exports.delete_project = async (req, res) => {
+  const { projectId, userId } = req.body;
   let errors = [];
 
   // check if any of the following fields are empty
-  if (!roomId) {
-    errors.push({ msg: "Please provide an ID for the room." });
+  if (!projectId) {
+    errors.push({ msg: "Please provide an ID for the project." });
   }
   if (!userId) {
     errors.push({ msg: "Unauthorized user." });
@@ -474,13 +488,13 @@ exports.delete_room = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
-      const room = await Room.findById(roomId);
-      if (!room) throw Error("Unable to find that room.");
+      const project = await Project.findById(projectId);
+      if (!project) throw Error("Unable to find that project.");
 
-      // delete all the messages that belong to this room
-      await Message.deleteMany({ room: room.name });
-      await room.remove();
-      res.status(200).json({ roomId });
+      // delete all the messages that belong to this project
+      await Message.deleteMany({ project: project.name });
+      await project.remove();
+      res.status(200).json({ projectId });
     } catch (e) {
       console.log(e);
       res.status(400).json({ msg: e.message });

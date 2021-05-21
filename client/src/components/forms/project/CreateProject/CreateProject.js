@@ -4,12 +4,12 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { createProject } from "../../../../flux/actions/roomsActions";
+import { createProject } from "../../../../flux/actions/projectsActions";
 
 import { renderError, getErrorClass } from "../../../../helpers";
-import ErrorNotifications from "../../../ErrorNotifications/ErrorNotifications";
-import Modal from "../../UIComponents/Modal/Modal";
-import ReduxInput from "../../UIComponents/FormElements/ReduxInput/ReduxInput";
+import ErrorNotification from "../../../UIComponents/FormElements/ErrorNotification/ErrorNotification";
+import Modal from "../../../UIComponents/Modal/Modal";
+import ReduxInput from "../../../UIComponents/FormElements/ReduxInput/ReduxInput";
 
 // import { actionShowLoader } from "../../../../flux/actions/loaderActions";
 // import LoadingSpinner from "../../../loaders/LoadingSpinner";
@@ -26,18 +26,18 @@ const CreateProject = (props) => {
     await props.createProject(formValues, createProjectSuccessCb);
   };
 
-  const renderErrorNotifications = () => {
+  const renderErrorNotification = () => {
     const errorMessage = props.error.msg;
     console.log(errorMessage);
     if (errorMessage) {
-      return <ErrorNotifications message={errorMessage.msg || null} />;
+      return <ErrorNotification message={errorMessage.msg || null} />;
     }
     return null;
   };
 
-  const renderLoader = () => {
-    return <LoadingSpinner showLoader={props.showLoader} />;
-  };
+  // const renderLoader = () => {
+  //   return <LoadingSpinner showLoader={props.showLoader} />;
+  // };
 
   const renderContent = () => {
     return (
@@ -55,13 +55,13 @@ const CreateProject = (props) => {
             type="submit"
             onClick={props.handleSubmit(onSubmit)}
           >
-            {renderLoader()} Create Project
+            Create Project
           </button>
         }
       >
         <form id="create-project-form" autoComplete="off">
           <div className="create-project form-content-container modal-form-content">
-            {renderErrorNotifications()}
+            {renderErrorNotification()}
             <Field
               name="name"
               component={<ReduxInput />}
@@ -108,7 +108,7 @@ const validate = (formValues) => {
 
   const errors = {};
   if (!formValues.name) {
-    errors.name = "Please input a room name.";
+    errors.name = "Please input a project name.";
   }
 
   return errors;
@@ -117,11 +117,11 @@ const validate = (formValues) => {
 const mapStateToProps = (state) => ({
   user: state.user.info,
   error: state.error,
-  showLoader: state.loader.showCreateProjectFormLoader,
+  // showLoader: state.loader.showCreateProjectFormLoader,
 });
 
 const createProjectModalComponent = connect(mapStateToProps, {
-  actionShowLoader,
+  // actionShowLoader,
   createProject,
 })(CreateProject);
 

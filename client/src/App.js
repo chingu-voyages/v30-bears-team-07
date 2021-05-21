@@ -13,6 +13,10 @@ import GoogleAuth from "./components/GoogleAuth/GoogleAuth";
 import AuthenticatedRoute from "./routeWrappers/AuthenticatedRoute";
 import UnauthenticatedRoute from "./routeWrappers/UnauthenticatedRoute";
 
+//Note: Just using this for testing, feel free to remove (tella)
+import Modal from "./components/UIComponents/Modal/Modal";
+import CreateProject from "./components/forms/project/CreateProject/CreateProject";
+
 import "./normalize.css";
 import "./index.scss";
 // import "./App.scss";
@@ -20,6 +24,7 @@ import "./index.scss";
 const App = ({ isSignedIn, user }) => {
   return (
     <div id="app-outer-container" data-test="component-app">
+      <CreateProject />
       <Router history={history}>
         <Switch>
           <UnauthenticatedRoute path="/signup" exact>

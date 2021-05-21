@@ -65,6 +65,14 @@ input:disabled {
   cursor: not-allowed;
 }
 
+#modal {
+  z-index: 100;
+}
+
+#modal {
+  z-index: 200;
+}
+
 .page-container {
   display: block;
   margin: 0;

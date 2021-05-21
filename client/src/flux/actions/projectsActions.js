@@ -1,5 +1,5 @@
 import axios from "axios";
-import serverRest from "../../apis/serverRest";
+import serverRest from "../../api/serverRest";
 import history from "../../history";
 import { returnErrors, clearErrors } from "./errorActions";
 // import { actionShowLoader } from "./loaderActions";
@@ -90,10 +90,10 @@ export const createProject =
         dispatch({
           type: CREATE_PROJECT_FAIL,
         });
-      })
-      .finally(() => {
-        dispatch(actionShowLoader("createProjectModalForm", false));
       });
+    // .finally(() => {
+    //   dispatch(actionShowLoader("createProjectModalForm", false));
+    // });
   };
 
 export const cancelProject = (projectId, successCb) => (dispatch, getState) => {
@@ -152,10 +152,10 @@ export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
       dispatch({
         type: DELETE_PROJECT_FAIL,
       });
-    })
-    .finally(() => {
-      dispatch(actionShowLoader("deleteProjectForm", false));
     });
+  // .finally(() => {
+  //   dispatch(actionShowLoader("deleteProjectForm", false));
+  // });
 };
 
 /*

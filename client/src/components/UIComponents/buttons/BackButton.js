@@ -1,4 +1,4 @@
-import LeftArrowImg from "../../icons/left-arrow.png";
+import LeftArrowImg from "../../../icons/left-arrow.png";
 import "./BackButton.scss";
 
 import React, { useEffect } from "react";

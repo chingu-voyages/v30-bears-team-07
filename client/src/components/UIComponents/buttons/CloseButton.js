@@ -1,4 +1,4 @@
-import CloseIconImg from "../../icons/close-icon.png";
+import CloseIconImg from "../../../icons/close-icon.png";
 import "./CloseButton.scss";
 
 import React, { useEffect } from "react";

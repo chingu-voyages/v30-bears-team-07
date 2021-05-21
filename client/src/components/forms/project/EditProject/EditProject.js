@@ -1,4 +1,4 @@
-import "./EditRoom.scss";
+import "./EditProject.scss";
 
 import React, { useContext } from "react";
 import ReactDOM from "react-dom";
@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { editRoom } from "../../../flux/actions/roomsActions";
+import { editProject } from "../../../flux/actions/projectsActions";
 
 import { modalStatusReset } from "../../../flux/actions/modalActions";
 import { actionShowLoader } from "../../../flux/actions/loaderActions";
@@ -17,7 +17,7 @@ import Modal from "../../Modal/Modal";
 
 import LoadingSpinner from "../../loaders/LoadingSpinner";
 
-import { RoomContext } from "../../AppContext";
+import { ProjectContext } from "../../AppContext";
 
 import history from "../../../history";
 const onInput = (e) => {
@@ -51,14 +51,14 @@ const renderInput = ({ input, meta, inputProps, labelProps }) => {
         }}
         autoFocus={inputProps.autoFocus || false}
       />
-      {renderError(meta, "edit-room")}
+      {renderError(meta, "edit-project")}
     </React.Fragment>
   );
 };
 
-const EditRoom = (props) => {
-  const { isSelectedRoom } = useContext(RoomContext);
-  const room = props.initialValues;
+const EditProject = (props) => {
+  const { isSelectedProject } = useContext(ProjectContext);
+  const project = props.initialValues;
   const renderErrorNotifications = () => {
     const errorMessage = props.error.msg;
     console.log(errorMessage);
@@ -74,32 +74,32 @@ const EditRoom = (props) => {
 
   // submit handler
   const onSubmit = async (formValues) => {
-    formValues.roomId = room._id;
+    formValues.projectId = project._id;
     const successCb = () => {
-      props.actionShowLoader("editRoomModalForm", false);
+      props.actionShowLoader("editProjectModalForm", false);
       props.onClose();
-      if (isSelectedRoom)
+      if (isSelectedProject)
         history.push(
-          `chat?room=${formValues.roomId}&userType=user&roomType=public`
+          `chat?project=${formValues.projectId}&userType=user&projectType=public`
         );
     };
     console.log(formValues);
     // check if it succeeded or it produced an error
 
-    props.actionShowLoader("editRoomModalForm", true);
-    await props.editRoom(formValues, successCb);
+    props.actionShowLoader("editProjectModalForm", true);
+    await props.editProject(formValues, successCb);
   };
 
   const content = (
     <React.Fragment>
       <Modal
-        componentClass="edit-room"
+        componentClass="edit-project"
         onModalClose={() => {
-          console.log("closing edit-room modal");
+          console.log("closing edit-project modal");
           props.onClose();
         }}
         headerClassName="settings-page-sidebar-header"
-        headingText="Edit Room"
+        headingText="Edit Project"
         actionButtons={
           <button
             className={"form-button submit mt-20"}
@@ -110,8 +110,8 @@ const EditRoom = (props) => {
           </button>
         }
       >
-        <form id="edit-room-form" autoComplete="off">
-          <div className="edit-room form-content-container modal-form-content">
+        <form id="edit-project-form" autoComplete="off">
+          <div className="edit-project form-content-container modal-form-content">
             {renderErrorNotifications()}
             <div className="textfield-container">
               <Field
@@ -124,13 +124,13 @@ const EditRoom = (props) => {
                     className: "textfield",
                     maxLength: "30",
                     autoComplete: "off",
-                    id: "edit-room-name-field",
+                    id: "edit-project-name-field",
                     autoFocus: true,
                   },
                   labelProps: {
                     class: "textfield-label",
                     text: "Name *",
-                    id: "edit-room-name-label",
+                    id: "edit-project-name-label",
                   },
                 }}
               />
@@ -143,17 +143,17 @@ const EditRoom = (props) => {
                 type="password"
                 props={{
                   inputProps: {
-                    placeholder: "Room Password",
+                    placeholder: "Project Password",
                     className: "textfield",
                     maxLength: "30",
                     autoComplete: "off",
                     type: "password",
-                    id: "edit-room-password-field",
+                    id: "edit-project-password-field",
                   },
                   labelProps: {
                     class: "textfield-label",
                     text: "Password",
-                    id: "edit-room-password-label",
+                    id: "edit-project-password-label",
                   },
                 }}
               />
@@ -179,7 +179,7 @@ const validate = (formValues) => {
   console.log(formValues);
   const errors = {};
   if (!formValues.name) {
-    errors.name = "Please input a room name.";
+    errors.name = "Please input a project name.";
   }
   return errors;
 };
@@ -187,19 +187,19 @@ const validate = (formValues) => {
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   error: state.error,
-  editRoomSubmitSuccess: state.modalSubmit.editRoomSubmitSuccess,
-  showLoader: state.loader.showEditRoomModalFormLoader,
+  editProjectSubmitSuccess: state.modalSubmit.editProjectSubmitSuccess,
+  showLoader: state.loader.showEditProjectModalFormLoader,
 });
 
-const editRoomComponent = connect(mapStateToProps, {
-  editRoom,
+const editProjectComponent = connect(mapStateToProps, {
+  editProject,
   modalStatusReset,
   actionShowLoader,
-})(EditRoom);
+})(EditProject);
 
 export default reduxForm({
-  form: "editRoom",
+  form: "editProject",
   keepDirtyOnReinitialize: true,
   enableReinitialize: true,
   validate,
-})(editRoomComponent);
+})(editProjectComponent);

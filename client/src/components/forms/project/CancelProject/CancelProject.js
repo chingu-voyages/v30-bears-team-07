@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
 
-import { leaveRoom } from "../../../flux/actions/roomsActions";
+import { leaveProject } from "../../../flux/actions/projectsActions";
 import { actionShowLoader } from "../../../flux/actions/loaderActions";
 
 import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
@@ -16,8 +16,8 @@ import LoadingSpinner from "../../loaders/LoadingSpinner";
 const CancelProject = (props) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    props.actionShowLoader("leaveRoomForm", true);
-    props.leaveRoom(props.room._id, props.redirectToHomeUponRemovalCb);
+    props.actionShowLoader("leaveProjectForm", true);
+    props.leaveProject(props.project._id, props.redirectToHomeUponRemovalCb);
   };
 
   const renderErrorNotifications = () => {
@@ -36,36 +36,36 @@ const CancelProject = (props) => {
   const content = (
     <React.Fragment>
       <Modal
-        componentClass="leave-room"
+        componentClass="leave-project"
         onModalClose={() => {
-          console.log("closing leave-room modal");
+          console.log("closing leave-project modal");
           props.onClose();
         }}
         headerClassName="settings-page-sidebar-header"
-        headingText="Leave Room"
+        headingText="Leave Project"
         autoFocusOnCancel={true}
         actionButtons={
           <button
-            id="leave-room-submit"
+            id="leave-project-submit"
             className={"form-button submit mt-20 danger"}
             type="submit"
             onClick={onSubmitHandler}
           >
-            {renderLoader()} Leave Room
+            {renderLoader()} Leave Project
           </button>
         }
       >
         <form
-          id="leave-room-form"
+          id="leave-project-form"
           autoComplete="off"
           onSubmit={onSubmitHandler}
         >
-          <div className="leave-room form-content-container modal-form-content">
-            <p className="modal-paragraph leave-room">
-              Are you sure you want to leave this room?
+          <div className="leave-project form-content-container modal-form-content">
+            <p className="modal-paragraph leave-project">
+              Are you sure you want to leave this project?
             </p>
-            <p className="modal-paragraph leave-room enlarged-text centered">
-              {props.room.name}
+            <p className="modal-paragraph leave-project enlarged-text centered">
+              {props.project.name}
             </p>
 
             {renderErrorNotifications()}
@@ -75,7 +75,7 @@ const CancelProject = (props) => {
             onClick={onSubmitHandler}
             style={{ display: "none" }}
           >
-            Leave Room
+            Leave Project
           </button>
         </form>
       </Modal>
@@ -93,24 +93,24 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  leaveRoom,
+  leaveProject,
   actionShowLoader,
 })(CancelProject);
 
 {
   /* <p
-  id="leave-room-description-paragraph"
-  className="modal-paragraph small-text leave-room"
+  id="leave-project-description-paragraph"
+  className="modal-paragraph small-text leave-project"
 >
-  Warning: Deleted rooms cannot be restored.
+  Warning: Deleted projects cannot be restored.
 </p>; */
 }
 
 // // submit handler
 // const onSubmit = async (formValues) => {
 //   console.log(formValues);
-//   props.actionShowLoader("leaveRoomForm", true);
-//   await props.leaveRoom(formValues);
+//   props.actionShowLoader("leaveProjectForm", true);
+//   await props.leaveProject(formValues);
 // };
 
 // const validate = (formValues) => {
