@@ -36,7 +36,7 @@
   animation: 0.3s ease-out forwards modal-slide-up-hide !important;
 }
 
-.modal-header {
+.modal__header {
   z-index: 100;
   position: fixed;
   top: 0;
@@ -65,19 +65,19 @@
 .modal-heading-container {
   padding: 0.5rem;
 }
-.modal-header-content-container.modal-heading-container {
+.modal__header-content-container.modal-heading-container {
   position: relative;
   width: 100%;
   padding: 0;
   display: flex;
   align-items: center;
 }
-.modal-header-heading,
-.modal-header-heading.modal-heading {
+.modal__header-heading,
+.modal__header-heading.modal-heading {
   display: block;
   width: 100%;
 }
-.modal-header-heading.modal-heading {
+.modal__header-heading.modal-heading {
   position: relative;
   right: 0.5rem;
 }
@@ -97,7 +97,7 @@
   text-shadow: 0 1px 2px #345;
 }
 
-.modal-header-close.close-button-container {
+.modal__header-close.close-button-container {
   position: relative;
   left: 0.8rem;
 }
@@ -149,8 +149,8 @@
     overflow-y: auto;
   }
 
-  .modal-header,
-  .modal-header.settings-page-sidebar-header {
+  .modal__header,
+  .modal__header.settings-page-sidebar-header {
     position: fixed;
     // background-color: #0000;
     margin: 0;
@@ -161,10 +161,10 @@
     // max-height: 80vh;
     height: auto;
   }
-  .modal-header-content-container.modal-heading-container {
+  .modal__header-content-container.modal-heading-container {
     justify-content: space-between;
   }
-  .modal-header-heading.modal-heading {
+  .modal__header-heading.modal-heading {
     right: 0;
   }
 }

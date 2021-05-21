@@ -47,16 +47,14 @@ const Modal = (props) => {
         className={`backdrop ${getModalOpenClass()} ${props.className}`}
         onClick={modalOnCloseHandler}
       ></div>
-      <div
-        className={`modal ${getModalOpenClass()} ${
-          props.className
-        } ${getIsSlideUpClass()}`}
+      <section
+        className={`modal ${getModalOpenClass()} ${props.className}`}
         id={getModalId()}
         style={props.modalStyle || {}}
       >
         {renderModalHeader()}
         {props.children}
-      </div>{" "}
+      </section>{" "}
     </>
   );
 };

@@ -27,17 +27,17 @@ const ModalHeader = (props) => {
 
   return (
     <header
-      className={`modal-header ${props.className} ${props.headerClassName}`}
+      className={`modal__header ${props.className} ${props.headerClassName}`}
     >
-      <div className="modal-heading-container modal-header-content-container">
+      <div className="modal-heading-container modal__header-content-container">
         {renderBackButton()}
         <h3
-          className={`modal-heading modal-header-heading ${props.className} `}
+          className={`modal-heading modal__header-heading ${props.className} `}
         >
           {props.headingText}
         </h3>
         <CloseButton
-          className={`modal-header-close ${props.className}`}
+          className={`modal__header-close ${props.className}`}
           hideOnMobile={true}
           onClickHandler={() => {
             props.onModalClose();

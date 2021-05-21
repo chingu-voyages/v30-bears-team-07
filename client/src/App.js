@@ -28,15 +28,10 @@ const App = ({ isSignedIn, user }) => {
           <UnauthenticatedRoute path="/login" exact>
             <Login />
           </UnauthenticatedRoute>
-<<<<<<< HEAD
-          <Route path="/users/:userId/dashboard">
-            <Dashboard />
-          </Route>
-=======
+
           <AuthenticatedRoute path="/users/:userId/dashboard">
             <Dashboard />
           </AuthenticatedRoute>
->>>>>>> 31080332cde6264097efaa2fdc645b3d7e6d6d9a
           <Route path="/" exact>
             <Redirect
               to={isSignedIn ? `/users/${user.id}/dashboard` : "/login"}

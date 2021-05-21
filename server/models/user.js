@@ -17,9 +17,9 @@ const userSchema = new mongoose.Schema({
     // not required for now because Googleauth users do not have a password
     // required: true,
   },
-  projectsOwned: [],
-  projectsSupported: [],
-  created: {
+  projectsOwned: [{ type: mongoose.Schema.Types.ObjectId, ref: "Project" }],
+  projectsSupported: [{ type: mongoose.Schema.Types.ObjectId, ref: "Project" }],
+  registerDate: {
     type: Date,
     default: Date.now(),
   },
