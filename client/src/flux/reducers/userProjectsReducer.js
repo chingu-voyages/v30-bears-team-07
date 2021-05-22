@@ -7,23 +7,17 @@ import {
   GOOGLE_SIGN_OUT,
 } from "../actions/types";
 
-const INITIAL_STATE = {
-  info: null,
-};
+const INITIAL_STATE = { owned: [], supported: [] };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GOOGLE_SIGN_IN_SUCCESS:
-      return {
-        ...state,
-        info: { ...action.payload.user },
-      };
+      let { projectsOwned, projectsSupported } = action.payload.user;
+      return { owned: projectsOwned, supported: projectsSupported };
     case GOOGLE_SIGN_OUT:
     case GOOGLE_SIGN_IN_FAIL:
-      return {
-        ...state,
-        info: null,
-      };
+      return { owned: [], supported: [] };
+
     default:
       return state;
   }
