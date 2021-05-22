@@ -10,8 +10,8 @@ var ProjectSchema = new Schema({
     ref: "User",
     required: true,
   },
-  amountDonated: { type: Number, default: 0, required: true },
-  targetGoal: { type: Number, default: 1, required: true },
+  amount_donated: { type: Number, default: 0, required: true },
+  target_goal: { type: Number, default: 1, required: true },
   donors: [
     {
       user: {

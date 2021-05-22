@@ -1,10 +1,12 @@
-// Reducer related to user info, this is different from auth
-// Because it does not concern itself with authentication, just describing the user
+// Reducer related to user projects, this is different from all projects
+// Because it only stores projects owned and supported by the user
 
 import {
   GOOGLE_SIGN_IN_SUCCESS,
   GOOGLE_SIGN_IN_FAIL,
   GOOGLE_SIGN_OUT,
+  CREATE_PROJECT_SUCCESS,
+  CREATE_PROJECT_FAIL,
 } from "../actions/types";
 
 const INITIAL_STATE = { owned: [], supported: [] };
@@ -17,7 +19,9 @@ export default (state = INITIAL_STATE, action) => {
     case GOOGLE_SIGN_OUT:
     case GOOGLE_SIGN_IN_FAIL:
       return { owned: [], supported: [] };
-
+    case CREATE_PROJECT_SUCCESS:
+      return { ...state, owned: [...state.owned, action.payload] };
+    case CREATE_PROJECT_FAIL:
     default:
       return state;
   }

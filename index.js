@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // get routes
 const authRouter = require("./server/routes/auth");
+const projectsRouter = require("./server/routes/projects");
 //  routes
 /*
 app.use("/", function (req, res) {
@@ -31,6 +32,7 @@ app.use("/", function (req, res) {
 */
 
 app.use("/auth", authRouter);
+app.use("/projects", projectsRouter);
 
 const connect = async () => {
   // database connection

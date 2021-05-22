@@ -6,8 +6,8 @@ import {
   // REGISTER_SUCCESS,
   // LOGIN_SUCCESS,
   // LOGOUT_SUCCESS,
-  // GET_ALL_PROJECTS_SUCCESS,
-  // GET_ALL_PROJECTS_FAIL,
+  GET_ALL_PROJECTS_SUCCESS,
+  GET_ALL_PROJECTS_FAIL,
 } from "../actions/types";
 
 const initialState = [];

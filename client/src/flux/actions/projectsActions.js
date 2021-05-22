@@ -71,15 +71,11 @@ export const createProject =
     serverRest
       .post(`/projects/`, { ...formValues, creatorId })
       .then((res) => {
-        const project = res.data.project;
-        const user = res.data.user;
+        const project = res.data;
         // change Redux store state, and pass the updated user and project payload
         dispatch({
           type: CREATE_PROJECT_SUCCESS,
-          payload: {
-            user,
-            project,
-          },
+          payload: project,
         });
         dispatch(clearErrors());
         if (successCb) successCb();

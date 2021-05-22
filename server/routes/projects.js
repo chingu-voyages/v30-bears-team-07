@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { create_project } = require("../../controllers/projectsController");
+const { create_project } = require("../controllers/projects");
 
 // router.get("/:id", get_project);
 router.post("/", create_project);

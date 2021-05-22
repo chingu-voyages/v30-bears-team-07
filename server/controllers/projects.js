@@ -4,6 +4,71 @@ require("dotenv").config();
 const User = require("../models/user");
 const Project = require("../models/project");
 
+exports.create_project = async (req, res) => {
+  const { name, target_goal, deadline, description, creatorId } = req.body;
+  let errors = [];
+
+  // check if any of the following fields are empty
+  if (!name) {
+    errors.push({ msg: "Please provide a name for the project." });
+  }
+  if (!target_goal) {
+    errors.push({ msg: "Please provide a target_goal for the project." });
+  }
+  if (!deadline) {
+    errors.push({ msg: "Please provide a deadline for the project." });
+  }
+  // Check if user is logged in
+  if (!creatorId) {
+    errors.push({ msg: "Unauthorized user, please log in." });
+  }
+
+  if (errors.length > 0) {
+    res.status(400).json({ errors });
+  } else {
+    try {
+      // Note: Are duplicate project names ok? (tella)
+      // const project = await Project.findOne({ name });
+      // if (project) throw Error("Project name already taken.");
+
+      const newProject = new Project({
+        name,
+        target_goal,
+        deadline,
+        description,
+        creator: creatorId,
+        amount_donated: 0,
+        donors: [],
+      });
+      const savedProject = await newProject.save();
+      if (!savedProject) throw Error("Failed to create the project.");
+
+      // update the owner of the project to add the newly created project to their list of projects
+      const creator = await User.findById(creatorId);
+      creator.projects = [...creator.projects, savedProject];
+      const updatedCreator = await creator.save();
+      if (!updatedCreator) throw Error("Failed to failed to update the user.");
+
+      res.status(200).json({
+        project: {
+          id: savedProject._id.toString(),
+          name,
+          description,
+          target_goal,
+          amount_donated: 0,
+          creator,
+          donors: [],
+          created: savedProject.created,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ msg: e.message });
+    }
+  }
+};
+
+/*
 // retrieve projects list
 exports.get_all_projects = async (req, res) => {
   console.log("retrieving projects list");
@@ -60,90 +125,7 @@ exports.get_dm_project = async (req, res) => {
   }
 };
 
-exports.create_project = async (req, res) => {
-  const {
-    name,
-    password,
-    senderId,
-    receiverId,
-    type,
-    requires_approval,
-    image_url,
-  } = req.body;
-  let errors = [];
 
-  // check if any of the following fields are empty
-  if (!name) {
-    errors.push({ msg: "Please provide a name for the project." });
-  }
-  // if there are errors, re-\ render the page but with the values that were filled in
-  // note: figure out how to send errors to thefrontend
-  if (errors.length > 0) {
-    res.status(400).json({ errors });
-  } else {
-    try {
-      const project = await Project.findOne({ name });
-      if (project) throw Error("Project name already taken.");
-
-      let members = [{ user: senderId, roles: ["admin", "owner", "member"] }];
-      if (type === "DM") {
-        members = [
-          { user: senderId, roles: ["member"] },
-          { user: receiverId, roles: ["member"] },
-        ];
-      }
-
-      let hash = null;
-      // if password was included in the request body
-      if (password) {
-        // check if salt generation has any errors
-        const salt = await bcrypt.genSalt(10);
-        if (!salt)
-          throw Error("Something went wrong with encrypting the password.");
-        // check if hashing the password has any errors
-        hash = await bcrypt.hash(password, salt);
-        if (!hash) throw Error("Something went wrong hashing the password.");
-      }
-
-      const newProject = new Project({
-        name,
-        password: hash,
-        type: type || "public",
-        messages: [],
-        owner: senderId,
-        members: members,
-        image_url: image_url || "",
-        requires_approval: requires_approval || false,
-      });
-      const savedProject = await newProject.save();
-      if (!savedProject) throw Error("Failed to create the project.");
-
-      // update the owner of the project to add the newly created project to their list of projects
-      const owner = await User.findById(senderId);
-      console.log("owner projects is");
-      console.log(owner);
-      console.log(owner.projects);
-      owner.projects = [...owner.projects, savedProject];
-      await owner.save();
-
-      res.status(200).json({
-        project: {
-          _id: savedProject._id,
-          name: savedProject.name,
-          type: savedProject.type || "public",
-          owner: savedProject.owner,
-          messages: [],
-          members: savedProject.members || "",
-          image_url: savedProject.image_url || "",
-          requires_approval: savedProject.requires_approval || false,
-        },
-      });
-    } catch (e) {
-      console.log(e);
-      res.status(400).json({ msg: e.message });
-    }
-  }
-};
 
 // note: take into account what to do if the project requires a password to join
 exports.join_project = async (req, res) => {
@@ -501,3 +483,4 @@ exports.delete_project = async (req, res) => {
     }
   }
 };
+*/
