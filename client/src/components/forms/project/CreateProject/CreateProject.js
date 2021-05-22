@@ -64,7 +64,7 @@ const CreateProject = (props) => {
                 formName: "project",
                 inputProps: {
                   placeholder: "Project Name",
-                  className: "textfield-input",
+                  className: "form__input",
                   maxLength: "30",
                   autoComplete: "off",
                   id: "create-project-name-field",
@@ -72,7 +72,7 @@ const CreateProject = (props) => {
                   autoFocus: true,
                 },
                 labelProps: {
-                  className: "textfield-label",
+                  className: "form__label",
                   text: "Project Name *",
                   id: "create-project-name-label",
                 },
@@ -87,13 +87,13 @@ const CreateProject = (props) => {
                 formName: "project",
                 inputProps: {
                   placeholder: "Target Goal",
-                  className: "textfield-input",
+                  className: "form__input",
                   autoComplete: "off",
                   id: "create-project-target_goal-field",
                   type: "number",
                 },
                 labelProps: {
-                  className: "textfield-label",
+                  className: "form__label",
                   text: "Target Goal *",
                   id: "create-project-target_goal-label",
                 },
@@ -108,13 +108,13 @@ const CreateProject = (props) => {
                 formName: "project",
                 inputProps: {
                   placeholder: "Deadline",
-                  className: "textfield-input",
+                  className: "form__input",
                   autoComplete: "off",
                   id: "create-project-deadline-field",
                   type: "date",
                 },
                 labelProps: {
-                  className: "textfield-label",
+                  className: "form__label",
                   text: "Deadline *",
                   id: "create-project-deadline-label",
                 },
@@ -128,12 +128,12 @@ const CreateProject = (props) => {
                 formName: "project",
                 inputProps: {
                   placeholder: "Description",
-                  className: "textfield-input",
+                  className: "form__input",
                   autoComplete: "off",
                   id: "create-project-description-field",
                 },
                 labelProps: {
-                  className: "textfield-label",
+                  className: "form__label",
                   text: "Description ",
                   id: "create-project-description-label",
                 },
@@ -168,6 +168,12 @@ const validate = (formValues) => {
   const errors = {};
   if (!formValues.name) {
     errors.name = "Please input a project name.";
+  }
+  if (!formValues.target_goal) {
+    errors.target_goal = "Please input the target goal amount.";
+  }
+  if (!formValues.deadline) {
+    errors.deadline = "Please input the project's deadline.";
   }
 
   return errors;

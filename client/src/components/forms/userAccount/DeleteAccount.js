@@ -134,7 +134,7 @@ const DeleteAccount = (props) => {
                     autoFocus: true,
                   },
                   labelProps: {
-                    class: "textfield-label",
+                    class: "form__label",
                     text: "Password *",
                     id: "delete-account-password-label",
                   },

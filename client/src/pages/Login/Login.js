@@ -23,7 +23,7 @@ const LoginForm = ({
         <h1 className="auth__heading-title">Login</h1>
 
         <div className="textfield-container">
-          <label htmlFor="auth__username" className="textfield-label">
+          <label htmlFor="auth__username" className="form__label">
             Username
           </label>
           <input
@@ -32,7 +32,7 @@ const LoginForm = ({
             // feel free to put it back
             // id="username"
             id="auth__username"
-            className="textfield-input"
+            className="form__input"
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
@@ -40,7 +40,7 @@ const LoginForm = ({
           />
         </div>
         <div className="textfield-container">
-          <label htmlFor="auth__password" className="textfield-label">
+          <label htmlFor="auth__password" className="form__label">
             Password
           </label>
           <input
@@ -49,7 +49,7 @@ const LoginForm = ({
             // feel free to put it back
             // id="username"
             id="auth__password"
-            className="textfield-input"
+            className="form__input"
             value={password}
             name="Password"
             onChange={({ target }) => setPassword(target.value)}

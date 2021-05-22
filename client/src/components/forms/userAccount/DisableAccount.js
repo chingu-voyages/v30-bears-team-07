@@ -139,7 +139,7 @@ const DisableAccount = (props) => {
                     autoFocus: true,
                   },
                   labelProps: {
-                    class: "textfield-label",
+                    class: "form__label",
                     text: "Password *",
                     id: "disable-account-password-label",
                   },

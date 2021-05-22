@@ -5,13 +5,11 @@
   height: 3rem;
   padding: 0.625rem;
   background-color: #0000;
-  filter: invert(16%) sepia(4%) saturate(3%) hue-rotate(324deg) brightness(101%)
-    contrast(94%);
+  filter: $blackIconImageFilter;
 }
 // don't forget to change the hover effects
-back-button:hover {
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(53deg)
-    brightness(104%) contrast(102%);
+.back-button:hover {
+  filter: $blackIconImageFilterLight;
 }
 
 .back-icon-img {
@@ -20,8 +18,6 @@ back-button:hover {
   height: 1.75rem;
 }
 
-.back-icon-img:hover {
-}
 .back-button.hide-on-desktop {
   position: relative;
   right: 0.8rem;

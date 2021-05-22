@@ -127,7 +127,7 @@ const EditAccount = (props) => {
                     autoFocus: true,
                   },
                   labelProps: {
-                    class: "textfield-label",
+                    class: "form__label",
                     text: "Username *",
                     id: "edit-account-username-label",
                   },
@@ -148,7 +148,7 @@ const EditAccount = (props) => {
                     id: "edit-account-email-field",
                   },
                   labelProps: {
-                    class: "textfield-label",
+                    class: "form__label",
                     text: "Email *",
                     id: "edit-account-email-label",
                   },
@@ -171,7 +171,7 @@ const EditAccount = (props) => {
                     id: "edit-account-password-field",
                   },
                   labelProps: {
-                    class: "textfield-label",
+                    class: "form__label",
                     text: "Password *",
                     id: "edit-account-password-label",
                   },

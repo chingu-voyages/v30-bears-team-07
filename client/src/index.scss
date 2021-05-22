@@ -92,14 +92,21 @@ input:disabled {
   margin: 0 auto;
 }
 
-.textfield-label {
+.form__label {
   display: block;
   width: 100%;
   max-width: 25rem;
   margin: 0.2rem auto;
+
+  &.error {
+    color: $dangerTextColor;
+    text-shadow: 0px 1px 0px #f778;
+    font-size: 1.05rem;
+    color: $dangerTextColor;
+  }
 }
 
-.textfield-input {
+.form__input {
   display: block;
   width: 100%;
   margin: 0 auto;
@@ -111,15 +118,43 @@ input:disabled {
 
   &:focus {
     background-color: $textfieldFocusColor;
+    outline: none;
+    border: 2px solid $secondaryBlack;
+  }
+
+  &:active {
+    outline: none;
   }
 
   &:disabled {
     background-color: #ccc;
   }
+
+  &.error {
+    color: #111;
+    background-color: $dangerInputBackgroundColor;
+    border: solid 1px $dangerTextColor;
+    margin-top: 0.7rem;
+  }
+
+  &.error:focus {
+    border: solid 2px $dangerTextColor;
+  }
 }
 
-.textfield-label.error {
+.error-container {
+  width: 100%;
+  max-width: 25rem;
   color: $dangerTextColor;
+}
+
+.error-image {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  top: 0.35rem;
+  margin-right: 0.45rem;
+  filter: $dangerImageFilter;
 }
 
 .form-button-container {
@@ -189,7 +224,7 @@ input:disabled {
     max-width: 25rem;
   }
 
-  .textfield-label {
+  .form__label {
     max-width: 25rem;
   }
 

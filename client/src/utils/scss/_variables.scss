@@ -12,6 +12,13 @@ $textWhite: #fff;
 // $backgroundWhite: #e8eae8;
 $backgroundWhite: #eee;
 $buttonBlack: #2f2f2f;
+$buttonBlackDim: #1b1b1b;
+$buttonBlackLight: #4f4f4f;
+$blackIconImageFilter: invert(13%) sepia(0%) saturate(47%) hue-rotate(212deg)
+  brightness(108%) contrast(88%);
+$blackIconImageFilterLight: invert(29%) sepia(0%) saturate(1%)
+  hue-rotate(104deg) brightness(97%) contrast(88%);
+
 $secondaryBlack: #2f2f2f;
 $mainBlack: #000;
 
@@ -23,11 +30,14 @@ $warningTextColorHover: #fdb;
 $warningTextColorLight: #fc9;
 $warningBackgroundColor: #fdb;
 $warningBackgroundColorHover: #fed;
-$dangerTextColor: #f88;
-$dangerTextColorHover: #fbb;
-$dangerTextColorLight: #fcc;
+$dangerTextColor: #933;
+$dangerTextColorDim: rgb(124, 41, 41);
+$dangerTextColorLight: rgb(184, 61, 61);
+$dangerInputBackgroundColor: #fee;
 $dangerBackgroundColor: #f04747;
 $dangerBackgroundColorHover: #d02727;
+$dangerImageFilter: invert(26%) sepia(26%) saturate(3064%) hue-rotate(327deg)
+  brightness(90%) contrast(93%);
 
 // Textfield, forms, variables
 $textfieldFocusColor: #fffff2;

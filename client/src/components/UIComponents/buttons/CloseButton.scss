@@ -5,41 +5,16 @@
   height: 3rem;
   background-color: #0000;
 }
-.close-button-container.user-item {
-  position: absolute;
-  right: 0.4rem;
-  top: 0.4rem;
-  // top: 25%;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-.close-button.user-item {
-  // position: absolute;
-  // right: 0;
-  width: 1.5rem;
-  height: 1.5rem;
-  // float: right;
-}
-
-.close-button.user-item:hover {
-}
 
 .close-icon-img {
   background-color: #0000;
   width: 1.25rem;
   height: 1.25rem;
-  filter: invert(16%) sepia(4%) saturate(3%) hue-rotate(324deg) brightness(101%)
-    contrast(94%);
+  filter: $blackIconImageFilter;
 }
 
-.close-icon-img.user-item {
-  width: 0.7rem;
-  height: 0.7rem;
-}
-
-.close-icon-img.user-item:hover {
-  filter: invert(99%) sepia(5%) saturate(243%) hue-rotate(223deg)
-    brightness(114%) contrast(100%);
+.close-icon-img:hover {
+  filter: $blackIconImageFilterLight;
 }
 
 .modal-heading-container.modal__header-content-container > .close-button {

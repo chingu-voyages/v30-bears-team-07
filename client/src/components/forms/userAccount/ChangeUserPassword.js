@@ -134,7 +134,7 @@ const ChangeUserPassword = (props) => {
                   autoFocus: true,
                 },
                 labelProps: {
-                  class: "textfield-label",
+                  class: "form__label",
                   text: "Current Password *",
                   id: "change-user-password-password-label",
                 },
@@ -157,7 +157,7 @@ const ChangeUserPassword = (props) => {
                   // autoFocus: true
                 },
                 labelProps: {
-                  class: "textfield-label",
+                  class: "form__label",
                   text: "New Password *",
                   id: "change-user-password-new-password-label",
                 },
@@ -179,7 +179,7 @@ const ChangeUserPassword = (props) => {
                   type: "password",
                 },
                 labelProps: {
-                  class: "textfield-label",
+                  class: "form__label",
                   text: "Confirm New Password *",
                   id: "change-user-password-new-password-2-label",
                 },

@@ -128,7 +128,7 @@ const EditProject = (props) => {
                     autoFocus: true,
                   },
                   labelProps: {
-                    class: "textfield-label",
+                    class: "form__label",
                     text: "Name *",
                     id: "edit-project-name-label",
                   },
@@ -151,7 +151,7 @@ const EditProject = (props) => {
                     id: "edit-project-password-field",
                   },
                   labelProps: {
-                    class: "textfield-label",
+                    class: "form__label",
                     text: "Password",
                     id: "edit-project-password-label",
                   },
