@@ -45,21 +45,19 @@ exports.create_project = async (req, res) => {
 
       // update the owner of the project to add the newly created project to their list of projects
       const creator = await User.findById(creatorId);
-      creator.projects = [...creator.projects, savedProject];
+      creator.projectsOwned = [...creator.projectsOwned, savedProject];
       const updatedCreator = await creator.save();
       if (!updatedCreator) throw Error("Failed to failed to update the user.");
 
       res.status(200).json({
-        project: {
-          id: savedProject._id.toString(),
-          name,
-          description,
-          target_goal,
-          amount_donated: 0,
-          creator,
-          donors: [],
-          created: savedProject.created,
-        },
+        id: savedProject._id.toString(),
+        name,
+        description,
+        target_goal,
+        amount_donated: 0,
+        creator,
+        donors: [],
+        created: savedProject.created,
       });
     } catch (e) {
       console.log(e);

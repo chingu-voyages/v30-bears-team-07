@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { createProject } from "../../../../flux/actions/projectsActions";
 
 import { renderError, getErrorClass } from "../../../../helpers";
-import ErrorNotification from "../../../UIComponents/FormElements/ErrorNotification/ErrorNotification";
+import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
 import Modal from "../../../UIComponents/Modal/Modal";
 import ReduxInput from "../../../UIComponents/FormElements/ReduxInput/ReduxInput";
 import ReduxTextarea from "../../../UIComponents/FormElements/ReduxTextarea/ReduxTextarea";
@@ -30,11 +30,11 @@ const CreateProject = (props) => {
     await props.createProject(formValues, createProjectSuccessCb);
   };
 
-  const renderErrorNotification = () => {
+  const renderErrorNotifications = () => {
     const errorMessage = props.error.msg;
     console.log(errorMessage);
     if (errorMessage) {
-      return <ErrorNotification message={errorMessage.msg || null} />;
+      return <ErrorNotifications message={errorMessage.msg || null} />;
     }
     return null;
   };
@@ -54,7 +54,7 @@ const CreateProject = (props) => {
       >
         <form id="create-project-form" autoComplete="off">
           <div className="create-project form-content-container modal-form-content">
-            {renderErrorNotification()}
+            {renderErrorNotifications()}
             {/*name field*/}
             <Field
               name="name"
@@ -65,7 +65,7 @@ const CreateProject = (props) => {
                 inputProps: {
                   placeholder: "Project Name",
                   className: "form__input",
-                  maxLength: "30",
+                  maxLength: "60",
                   autoComplete: "off",
                   id: "create-project-name-field",
                   type: "text",

@@ -1,4 +1,5 @@
 import warningImg from "../../../../icons/warning.png";
+import "./ErrorNotifications.scss";
 
 import React, { useState } from "react";
 import { connect } from "react-redux";

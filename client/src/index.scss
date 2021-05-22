@@ -99,8 +99,6 @@ input:disabled {
   margin: 0.2rem auto;
 
   &.error {
-    color: $dangerTextColor;
-    text-shadow: 0px 1px 0px #f778;
     font-size: 1.05rem;
     color: $dangerTextColor;
   }
