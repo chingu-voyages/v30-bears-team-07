@@ -164,7 +164,6 @@ const CreateProject = (props) => {
 
 const validate = (formValues) => {
   console.log(formValues);
-
   const errors = {};
   if (!formValues.name) {
     errors.name = "Please input a project name.";
