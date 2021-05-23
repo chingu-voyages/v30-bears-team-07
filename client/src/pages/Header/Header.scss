@@ -1,0 +1,22 @@
+@import "../../utils/scss/_variables";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 2rem 0;
+}
+
+.user-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-nav__link {
+  margin: 0 1rem 0 0;
+}
+
+.user-nav__link--discover {
+  padding: 0 1rem 0 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
+}

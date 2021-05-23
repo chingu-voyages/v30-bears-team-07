@@ -1,23 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
+import "./AllProjects.scss";
 import Header from "../../pages/Header/Header";
-import "./Dashboard.scss";
 
-const Dashboard = () => {
-  const projects = [1, 2, 3, 4, 5];
+const AllProjects = () => {
+  const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   return (
     <div>
       <Header />
       <section className="main">
-        <div className="main__left">
-          <div className="main__left--info">
-            <div>Settings</div>
-            <div>Fundraiser</div>
-            <div>Donations</div>
-            <div>Info</div>
-          </div>
-        </div>
         <div className="main__right">
           {projects.map((el) => (
             <div className="main__right--card">
@@ -33,4 +25,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AllProjects;

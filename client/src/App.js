@@ -8,6 +8,7 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import AllProjects from "./pages/AllProjects/AllProjects";
 import GoogleAuth from "./components/GoogleAuth/GoogleAuth";
 // Used for URL redirection based on authentication status
 import AuthenticatedRoute from "./routeWrappers/AuthenticatedRoute";
@@ -24,6 +25,9 @@ const App = ({}) => {
         <Switch>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/allprojects">
+            <AllProjects />
           </Route>
 
           {/*
