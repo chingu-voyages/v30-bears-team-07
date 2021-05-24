@@ -22,6 +22,12 @@ var ProjectSchema = new Schema({
     },
   ],
   deadline: { type: Date, default: Date.now(), min: Date.now() },
+  status: {
+    type: String,
+    required: true,
+    default: "active",
+    enum: ["active", "inactive", "canceled"],
+  },
   created: {
     type: Date,
     default: Date.now(),

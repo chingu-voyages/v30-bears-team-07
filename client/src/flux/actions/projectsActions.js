@@ -9,6 +9,8 @@ import { compareValues } from "../../helpers";
 import {
   GET_ALL_PROJECTS_SUCCESS,
   GET_ALL_PROJECTS_FAIL,
+  GET_ALL_USER_PROJECTS_SUCCESS,
+  GET_ALL_USER_PROJECTS_FAIL,
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_FAIL,
   CANCEL_PROJECT_SUCCESS,
@@ -16,6 +18,9 @@ import {
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAIL,
   /*
+  note: will likely be relevant in the future (tella)
+  please do not remove
+
   DONATE_TO_PROJECT_SUCCESS,
   DONATE_TO_PROJECT_FAIL,
   UPDATE_PROJECT_NAME_SUCCESS,
@@ -27,26 +32,23 @@ import {
   */
 } from "./types";
 
-export const getAllProjects = (id) => (dispatch, getState) => {
+export const getAllProjects = () => (dispatch /*, getState*/) => {
   console.log("getting the list of all projects");
-  const userId = id || getState().user.info._id || getState().user.info.id;
   serverRest
-    .get(`/projects/`)
+    .get(`/projects`)
     .then((res) => {
       let projects = res.data;
       let sortedData = null;
       console.log(projects);
+      // note: think about how projects should be sorted (tella)
 
-      // note: think about whether sorting projects should be up to the user
       // first check if it contains projects
       if (typeof projects !== "undefined" && projects.length > 0) {
         // the array is defined and has at least one element
         let data = null;
-        console.log(projects);
         sortedData = projects.sort(compareValues("name"));
         console.log(sortedData);
       }
-
       dispatch({
         type: GET_ALL_PROJECTS_SUCCESS,
         payload: sortedData || projects,
@@ -58,6 +60,39 @@ export const getAllProjects = (id) => (dispatch, getState) => {
       console.log(err.response);
       dispatch({
         type: GET_ALL_PROJECTS_FAIL,
+      });
+    });
+};
+
+export const getAllUserProjects = (id) => (dispatch, getState) => {
+  console.log("getting the list of all projects");
+  const userId = id || getState().user.info._id || getState().user.info.id;
+  serverRest
+    .get(`/users/${userId}/userProjects/`)
+    .then((res) => {
+      let projects = res.data;
+      let sortedData = null;
+      console.log(projects);
+      // note: think about whether sorting projects should be up to the user (tella)
+      // first check if it contains projects
+      if (typeof projects !== "undefined" && projects.length > 0) {
+        // the array is defined and has at least one element
+        let data = null;
+        console.log(projects);
+        sortedData = projects.sort(compareValues("name"));
+        console.log(sortedData);
+      }
+      dispatch({
+        type: GET_ALL_USER_PROJECTS_SUCCESS,
+        payload: sortedData || projects,
+      });
+      dispatch(clearErrors());
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log(err.response);
+      dispatch({
+        type: GET_ALL_USER_PROJECTS_FAIL,
       });
     });
 };
@@ -105,12 +140,8 @@ export const cancelProject = (projectId, successCb) => (dispatch, getState) => {
     .then((res) => {
       dispatch({
         type: CANCEL_PROJECT_SUCCESS,
-        payload: {
-          /*note: think about should be returned from the server as payload*/
-          ...res.data,
-        },
+        payload: res.data /* project object will be returned from the backend*/,
       });
-
       dispatch(clearErrors());
       if (successCb) successCb();
     })
@@ -158,7 +189,9 @@ export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
   // });
 };
 
-/*
+/* note: probably will be used for the future (tella)
+PLEASE DO NOT REMOVE
+
 export const updateProjectName =
   (formValues, successCb) => (dispatch, getState) => {
     const userId = getState().user.info._id || getState().user.info.id;

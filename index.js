@@ -17,11 +17,15 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// get routes
+// import routes
 const authRouter = require("./server/routes/auth");
 const projectsRouter = require("./server/routes/projects");
+const usersRouter = require("./server/routes/users");
+
 //  routes
 /*
+note: this was added by Matt who isn't here anymore
+I will just leave it be (tella)
 app.use("/", function (req, res) {
   const dbState =
     mongoose.connection.readyState === 1
@@ -33,6 +37,7 @@ app.use("/", function (req, res) {
 
 app.use("/auth", authRouter);
 app.use("/projects", projectsRouter);
+app.use("/users", usersRouter);
 
 const connect = async () => {
   // database connection
