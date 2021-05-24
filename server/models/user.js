@@ -17,13 +17,12 @@ const userSchema = new mongoose.Schema({
     // not required for now because Googleauth users do not have a password
     // required: true,
   },
-  created: {
+  projectsOwned: [{ type: mongoose.Schema.Types.ObjectId, ref: "Project" }],
+  projectsSupported: [{ type: mongoose.Schema.Types.ObjectId, ref: "Project" }],
+  registerDate: {
     type: Date,
     default: Date.now(),
   },
-  // note: these will be properties to be added and used most likely on Sprint 3-4
-  // projectsOwned: []
-  // projectsSupported: []
 });
 
 userSchema.set("toJSON", {

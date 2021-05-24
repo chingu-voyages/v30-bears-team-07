@@ -14,22 +14,40 @@ import GoogleAuth from "./components/GoogleAuth/GoogleAuth";
 import AuthenticatedRoute from "./routeWrappers/AuthenticatedRoute";
 import UnauthenticatedRoute from "./routeWrappers/UnauthenticatedRoute";
 
+//Note: Just using this for testing, feel free to remove (tella)
+// import Modal from "./components/UIComponents/Modal/Modal";
+// import CreateProject from "./components/forms/project/CreateProject/CreateProject";
+// import DeleteProject from "./components/forms/project/DeleteProject/DeleteProject";
+import CancelProject from "./components/forms/project/CancelProject/CancelProject";
+
 import "./normalize.css";
 import "./index.scss";
 // import "./App.scss";
 
-const App = ({}) => {
+const App = ({ isSignedIn, user }) => {
   return (
     <div id="app-outer-container" data-test="component-app">
       <Router history={history}>
         <Switch>
-          <Route path="/dashboard">
+          <UnauthenticatedRoute path="/signup" exact>
+            <Signup />
+          </UnauthenticatedRoute>
+          <UnauthenticatedRoute path="/login" exact>
+            <Login />
+          </UnauthenticatedRoute>
+          <AuthenticatedRoute path="/users/:userId/dashboard">
             <Dashboard />
-          </Route>
+          </AuthenticatedRoute>
           <Route path="/allprojects">
             <AllProjects />
           </Route>
-
+          /* how about now? does it work - user try saving the file and then
+          let's implement logout on the header? let's check Header.js - Sure */
+          <Route path="/" exact>
+            <Redirect
+              to={isSignedIn ? `/users/${user.id}/dashboard` : "/login"}
+            />
+          </Route>
           {/*
     Note:
     Feel free to use this if the URL redirecting is getting annoying

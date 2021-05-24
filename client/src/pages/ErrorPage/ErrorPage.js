@@ -70,8 +70,7 @@ class ErrorPage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  // Note: not implemented yet (-tella)
-  // return { isSignedIn: state.auth.isSignedIn };
+  return { isSignedIn: state.auth.isSignedIn };
 };
 
 export default connect(mapStateToProps, {})(ErrorPage);

@@ -102,7 +102,7 @@ export const renderError = (meta, sectionName) => {
   // Creates an error message if there is an error in the input field is touched
   if (error && touched) {
     return (
-      <div className={`${sectionName} error`}>
+      <div className={`${sectionName} error-container`}>
         <img className="error-image" src={warningImg} alt="warning sign"></img>
         {error}
       </div>

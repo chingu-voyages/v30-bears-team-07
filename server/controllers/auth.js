@@ -41,9 +41,8 @@ exports.google_login = async (req, res) => {
           id: user._id.toString(),
           username: user.username,
           email: user.email,
-          // note: these will be properties to be added and used most likely on Sprint 3-4
-          // projectsOwned: []
-          // projectsSupported: []
+          projectsOwned: [],
+          projectsSupported: [],
         };
         //return JSON object to the frontend
         res.status(200).json({
@@ -78,9 +77,8 @@ exports.google_login = async (req, res) => {
           id: savedUser._id.toString(),
           username: savedUser.username,
           email: savedUser.email,
-          // note: these will be properties to be added and used most likely on Sprint 3-4
-          // projectsOwned: []
-          // projectsSupported: []
+          projectsOwned: [],
+          projectsSupported: [],
         };
         //return JSON object to the frontend
         res.status(200).json({

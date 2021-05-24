@@ -1,8 +1,9 @@
+@import "../../../../utils/scss/_variables.scss";
+
 .error-notifications-container {
-  width: 85%;
+  width: 100%;
   max-width: 25rem;
   margin: 0 auto;
-  margin-bottom: 2rem;
 }
 
 .error-notification-container {
@@ -13,48 +14,60 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: auto;
   min-height: 3rem;
   border-radius: 5px;
-
-  padding: 0 0.5rem;
+  padding: 0.4rem 0.5rem;
   transition: opacity 0.3s ease, visibility 0.01s ease 0.29s,
     min-height 0.01s ease 0.29s, height 0.01s ease 0.29s;
+  // padding-right: 1rem;
+  // text-align: center;
+  // vertical-align: middle;
 }
 
 .error-notification-container.hide {
+  // display: none;
   visibility: hidden;
   min-height: 0;
   height: 0;
   opacity: 0;
 }
 
+// .error-notification.error-image-container {
+//   width: fit-content;
+//   height: 100%;
+//   margin: 0;
+// }
+
 .server-side.error-image {
   display: none;
-  right: 0.2rem;
-  filter: invert(22%) sepia(89%) saturate(1798%) hue-rotate(340deg)
-    brightness(87%) contrast(85%);
 }
-.error-notification-text-span {
+.error-notification-text-div {
+  display: flex;
+  align-items: center;
   position: relative;
-  bottom: 0.15rem;
+  // bottom: 0.15rem;
   left: 0.4rem;
 }
 .server-side.error.close-button {
   margin: 0;
+  // float: right;
   width: 2rem;
   background-color: #0000;
   color: #733;
+  font-size: 1.3rem;
 }
 
 @media screen and (min-width: 400px) {
   .server-side.error-image {
     display: inline;
+    top: 0;
   }
 }
 
 @media screen and (min-width: 750px) and (min-height: 700px) {
   .error-notifications-container {
     width: 90%;
-    /* max-width: 20rem; */
+    max-width: 20rem;
   }
 }

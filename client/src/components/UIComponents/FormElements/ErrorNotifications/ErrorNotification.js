@@ -1,10 +1,10 @@
-import warningImg from "../../images/warning.png";
-import "./ErrorNotifications.css";
+import warningImg from "../../../../icons/warning.png";
+import "./ErrorNotifications.scss";
 
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import { clearErrors } from "../../actions/errorActions";
+import { clearErrors } from "../../../../flux/actions/errorActions";
 
 const ErrorNotification = (props) => {
   const [containerClass, setContainerClass] = useState(null);
@@ -13,14 +13,14 @@ const ErrorNotification = (props) => {
       className={`error-notification-container ${containerClass}`}
       role="alert"
     >
-      <div className="error-notification-text-span">
+      <div className="error-notification-text-div">
         <img
           className="server-side error-image"
           src={warningImg}
           alt="warning sign"
         ></img>
 
-        {props.message}
+        <span>{props.message}</span>
       </div>
       <button
         type="button"

@@ -1,4 +1,4 @@
-import "./ErrorNotifications.css";
+import "./ErrorNotifications.scss";
 
 import React from "react";
 
