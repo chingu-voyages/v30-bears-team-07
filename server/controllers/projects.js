@@ -23,11 +23,13 @@ exports.get_all_projects = async (req, res) => {
 };
 
 // retrieve all projects that belong only to a specific user
+//this is where the error is
 exports.get_all_user_projects = async (req, res) => {
   console.log("retrieving user projects list");
 
   try {
-    const userProjects = {};
+    //let's test it out again - okay
+    let userProjects = {};
     const user = await User.findById(req.params.id).select(
       "projectsOwned projectsSupported"
     );
