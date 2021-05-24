@@ -111,7 +111,7 @@ const EditProject = (props) => {
         }
       >
         <form id="edit-project-form" autoComplete="off">
-          <div className="edit-project form-content-container modal-form-content">
+          <div className="edit-project form__form-content modal-form-content">
             {renderErrorNotifications()}
             <div className="textfield-container">
               <Field
@@ -185,7 +185,7 @@ const validate = (formValues) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isSignedIn: state.auth.isSignedIn,
   error: state.error,
   editProjectSubmitSuccess: state.modalSubmit.editProjectSubmitSuccess,
   showLoader: state.loader.showEditProjectModalFormLoader,

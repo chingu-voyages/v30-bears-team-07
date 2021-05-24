@@ -101,13 +101,13 @@ const DeleteAccount = (props) => {
         }
       >
         <form id="delete-account-form" autoComplete="off">
-          <div className="delete-account form-content-container modal-form-content">
-            <p className="modal-paragraph delete-account">
+          <div className="delete-account form__form-content modal-form-content">
+            <p className="modal__modal-p delete-account">
               Are you sure you want to delete your account?
             </p>
             <p
               id="delete-account-description-paragraph"
-              className="modal-paragraph small-text delete-account"
+              className="modal__modal-p small-text delete-account"
             >
               Warning: Deleted accounts cannot be restored.
             </p>
@@ -168,7 +168,7 @@ const validate = (formValues) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isSignedIn: state.auth.isSignedIn,
   error: state.error,
   showLoader: state.loader.showDeleteAccountFormLoader,
 });

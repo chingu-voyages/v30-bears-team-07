@@ -168,9 +168,16 @@ input:disabled {
   width: 100%;
   margin: 0.5rem auto;
   max-width: 25rem;
-
   &:hover {
     background-color: $mainGreenDim;
+  }
+  &.danger {
+    margin: 1rem auto;
+    margin-top: 1.5rem;
+    background-color: $dangerBackgroundColor;
+  }
+  &.danger:hover {
+    background-color: $dangerBackgroundColorHover;
   }
 }
 

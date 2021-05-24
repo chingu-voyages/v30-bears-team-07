@@ -14,8 +14,10 @@ import AuthenticatedRoute from "./routeWrappers/AuthenticatedRoute";
 import UnauthenticatedRoute from "./routeWrappers/UnauthenticatedRoute";
 
 //Note: Just using this for testing, feel free to remove (tella)
-import Modal from "./components/UIComponents/Modal/Modal";
-import CreateProject from "./components/forms/project/CreateProject/CreateProject";
+// import Modal from "./components/UIComponents/Modal/Modal";
+// import CreateProject from "./components/forms/project/CreateProject/CreateProject";
+// import DeleteProject from "./components/forms/project/DeleteProject/DeleteProject";
+import CancelProject from "./components/forms/project/CancelProject/CancelProject";
 
 import "./normalize.css";
 import "./index.scss";
@@ -24,7 +26,7 @@ import "./index.scss";
 const App = ({ isSignedIn, user }) => {
   return (
     <div id="app-outer-container" data-test="component-app">
-      <CreateProject />
+      <CancelProject />
       <Router history={history}>
         <Switch>
           <UnauthenticatedRoute path="/signup" exact>

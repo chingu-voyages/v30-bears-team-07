@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
       //note: either empty the list or reset it to 9 or the amount for a one page (tella)
       return [];
     case GET_ALL_PROJECTS_SUCCESS:
-      return [...action.payload];
+      return action.payload;
     case GET_ALL_PROJECTS_FAIL:
     default:
       return state;

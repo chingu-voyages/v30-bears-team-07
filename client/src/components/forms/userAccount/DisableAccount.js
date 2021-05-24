@@ -106,13 +106,13 @@ const DisableAccount = (props) => {
         }
       >
         <form id="disable-account-form" autoComplete="off">
-          <div className="disable-account form-content-container modal-form-content">
-            <p className="modal-paragraph disable-account">
+          <div className="disable-account form__form-content modal-form-content">
+            <p className="modal__modal-p disable-account">
               Would you like to disable your account?
             </p>
             <p
               id="disable-account-description-paragraph"
-              className="modal-paragraph small-text disable-account"
+              className="modal__modal-p small-text disable-account"
             >
               Others will be unable to interact with your account until it is
               activated again on the next login.
@@ -172,7 +172,7 @@ const validate = (formValues) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isSignedIn: state.auth.isSignedIn,
   error: state.error,
 
   showLoader: state.loader.showDisableAccountFormLoader,

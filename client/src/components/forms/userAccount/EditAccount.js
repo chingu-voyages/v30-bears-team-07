@@ -110,7 +110,7 @@ const EditAccount = (props) => {
         }
       >
         <form id="edit-account-form" autoComplete="off">
-          <div className="edit-account form-content-container modal-form-content">
+          <div className="edit-account form__form-content modal-form-content">
             {renderErrorNotifications()}
             <div className="textfield-container">
               <Field
@@ -212,7 +212,7 @@ const validate = (formValues) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isSignedIn: state.auth.isSignedIn,
   error: state.error,
   editAccountSubmitSuccess: state.modalSubmit.editAccountSubmitSuccess,
   showLoader: state.loader.showEditAccountFormLoader,

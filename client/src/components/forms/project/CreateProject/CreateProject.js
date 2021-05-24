@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 
 import { createProject } from "../../../../flux/actions/projectsActions";
 
-import { renderError, getErrorClass } from "../../../../helpers";
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
 import Modal from "../../../UIComponents/Modal/Modal";
 import ReduxInput from "../../../UIComponents/FormElements/ReduxInput/ReduxInput";
@@ -48,12 +47,11 @@ const CreateProject = (props) => {
     return (
       <Modal
         componentClass="create-project"
-        headerClassName="settings-page-sidebar-header"
         headingText="Create a Project"
         onModalClose={onModalCloseHandler}
       >
         <form id="create-project-form" autoComplete="off">
-          <div className="create-project form-content-container modal-form-content">
+          <div className="create-project form__form-content modal-form-content">
             {renderErrorNotifications()}
             {/*name field*/}
             <Field

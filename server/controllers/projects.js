@@ -9,7 +9,7 @@ exports.get_all_projects = async (req, res) => {
   console.log("retrieving all projects");
   try {
     // note: ask teammates if there are any categories for retrieving all projects
-    const projects = await Message.find()
+    const projects = await Project.find()
       // note: ask teammates how to sort the projects retrieved
       .sort({ createdAt: -1 })
       // note: figure out how to keep track of retrieval count (tella)
@@ -62,8 +62,6 @@ exports.get_project = async (req, res) => {
 exports.create_project = async (req, res) => {
   const { name, target_goal, deadline, description, creatorId } = req.body;
   let errors = [];
-  // note: remove this when I am done with it
-  throw Error("showing error notification for testing purposes! please remove");
   // check if any of the following fields are empty
   if (!name) {
     errors.push({ msg: "Please provide a name for the project." });
@@ -83,6 +81,10 @@ exports.create_project = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
+      // note: remove this when I am done with it
+      throw Error(
+        "showing error notification for testing purposes! please remove add some more text"
+      );
       // Note: Are duplicate project names ok? (tella)
       // const project = await Project.findOne({ name });
       // if (project) throw Error("Project name already taken.");
