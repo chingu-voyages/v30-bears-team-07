@@ -13,14 +13,14 @@ const ErrorNotification = (props) => {
       className={`error-notification-container ${containerClass}`}
       role="alert"
     >
-      <div className="error-notification-text-span">
+      <div className="error-notification-text-div">
         <img
           className="server-side error-image"
           src={warningImg}
           alt="warning sign"
         ></img>
 
-        {props.message}
+        <span>{props.message}</span>
       </div>
       <button
         type="button"

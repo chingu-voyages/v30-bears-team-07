@@ -1,23 +1,27 @@
-import "./CancelProject.scss";
-
 import React from "react";
 import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
 
-import { leaveProject } from "../../../flux/actions/projectsActions";
-import { actionShowLoader } from "../../../flux/actions/loaderActions";
+import { cancelProject } from "../../../../flux/actions/projectsActions";
+// import { actionShowLoader } from "../../../flux/actions/loaderActions";
 
-import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
-import Modal from "../../Modal/Modal";
+import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
+import Modal from "../../../UIComponents/Modal/Modal";
 
-import LoadingSpinner from "../../loaders/LoadingSpinner";
+// import LoadingSpinner from "../../loaders/LoadingSpinner";
 
 const CancelProject = (props) => {
+  const onCloseHandler = () => {
+    console.log("closing cancel-project modal");
+    props.onClose();
+  };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    props.actionShowLoader("leaveProjectForm", true);
-    props.leaveProject(props.project._id, props.redirectToHomeUponRemovalCb);
+    // props.actionShowLoader("cancelProjectForm", true);
+    // props.cancelProject(props.project.id);
+    props.cancelProject("60a8db0e87442224787e6005");
   };
 
   const renderErrorNotifications = () => {
@@ -28,55 +32,51 @@ const CancelProject = (props) => {
     }
     return null;
   };
-
+  /*
   const renderLoader = () => {
     return <LoadingSpinner className="white" showLoader={props.showLoader} />;
   };
-
+*/
   const content = (
     <React.Fragment>
       <Modal
-        componentClass="leave-project"
-        onModalClose={() => {
-          console.log("closing leave-project modal");
-          props.onClose();
-        }}
-        headerClassName="settings-page-sidebar-header"
-        headingText="Leave Project"
+        componentClass="cancel-project"
+        headingText="Cancel Project"
         autoFocusOnCancel={true}
-        actionButtons={
-          <button
-            id="leave-project-submit"
-            className={"form-button submit mt-20 danger"}
-            type="submit"
-            onClick={onSubmitHandler}
-          >
-            {renderLoader()} Leave Project
-          </button>
-        }
+        onModalClose={onCloseHandler}
       >
         <form
-          id="leave-project-form"
+          id="cancel-project-form"
           autoComplete="off"
           onSubmit={onSubmitHandler}
         >
-          <div className="leave-project form-content-container modal-form-content">
-            <p className="modal-paragraph leave-project">
-              Are you sure you want to leave this project?
+          <div className="cancel-project modal-form-content">
+            <p className="modal__modal-p cancel-project">
+              Are you sure you want to cancel this project?
             </p>
-            <p className="modal-paragraph leave-project enlarged-text centered">
-              {props.project.name}
+            <p className="modal__modal-p cancel-project enlarged-text centered">
+              Revive our Papa John's branch
+              {/* props.project.name */}
+            </p>
+            <p
+              id="cancel-project-description-paragraph"
+              className="modal__modal-p small-text danger"
+            >
+              Warning: Canceled projects cannot be active again. You must create
+              a new project to start over.
             </p>
 
             {renderErrorNotifications()}
+
+            <button
+              id="cancel-project-submit"
+              className={"form-button submit mt-20 danger"}
+              type="submit"
+              onClick={onSubmitHandler}
+            >
+              {/* renderLoader() */} Cancel Project
+            </button>
           </div>
-          <button
-            type="submit"
-            onClick={onSubmitHandler}
-            style={{ display: "none" }}
-          >
-            Leave Project
-          </button>
         </form>
       </Modal>
     </React.Fragment>
@@ -89,39 +89,10 @@ const CancelProject = (props) => {
 const mapStateToProps = (state) => ({
   isSignedIn: state.auth.isSignedIn,
   error: state.error,
-  showLoader: state.loader.showCancelProjectFormLoader,
+  // showLoader: state.loader.showCancelProjectFormLoader,
 });
 
 export default connect(mapStateToProps, {
-  leaveProject,
-  actionShowLoader,
+  cancelProject,
+  // actionShowLoader,
 })(CancelProject);
-
-{
-  /* <p
-  id="leave-project-description-paragraph"
-  className="modal-paragraph small-text leave-project"
->
-  Warning: Deleted projects cannot be restored.
-</p>; */
-}
-
-// // submit handler
-// const onSubmit = async (formValues) => {
-//   console.log(formValues);
-//   props.actionShowLoader("leaveProjectForm", true);
-//   await props.leaveProject(formValues);
-// };
-
-// const validate = (formValues) => {
-//   console.log(formValues);
-//   const errors = {};
-//   return errors;
-// };
-
-// export default reduxForm({
-//   form: "deleteAccount",
-//   keepDirtyOnReinitialize: true,
-//   enableReinitialize: true,
-//   validate,
-// })(deleteAccount);

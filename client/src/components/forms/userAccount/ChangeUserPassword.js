@@ -116,7 +116,7 @@ const ChangeUserPassword = (props) => {
       }
     >
       <form id="change-user-password-form" autoComplete="off">
-        <div className="change-user-password form-content-container modal-form-content">
+        <div className="change-user-password form__form-content modal-form-content">
           {renderErrorNotifications()}
           <div className="textfield-container">
             <Field

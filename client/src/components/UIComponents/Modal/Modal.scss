@@ -90,7 +90,7 @@
   right: 0.5rem;
 }
 .modal-heading,
-.modal-paragraph {
+.modal__modal-p {
   display: block;
   width: 100%;
   // text-align: center;
@@ -109,25 +109,33 @@
   left: 0.8rem;
 }
 
-.modal-paragraph {
+.modal__modal-p {
   font-size: 1.1rem;
-  // text-align: center;
+  text-align: center;
+  max-width: 25rem;
+  margin: 0 auto;
 }
-.modal-paragraph.small-text {
+.modal__modal-p.small-text {
   font-size: 0.95rem;
 }
 
-.modal-paragraph.enlarged-text {
-  margin: 1rem auto;
-  font-size: 1.3rem;
-  color: $glowingYellowTextColor;
+.modal__modal-p.danger {
+  color: $dangerTextColor;
 }
 
-.modal-paragraph.centered {
+.modal__modal-p.enlarged-text {
+  margin: 1rem auto;
+  font-size: 1.3rem;
+  color: $mainBlack;
+  font-weight: 700;
+}
+
+.modal__modal-p.centered {
   text-align: center;
 }
 
 .modal-form-content {
+  padding: 0.5rem;
   padding-top: 3.4rem;
 }
 
@@ -166,11 +174,11 @@
     // background-color: #0000;
     margin: 0;
   }
-  .form-content-container.modal-form-content {
-    // overflow-y: auto;
+  .form__form-content.modal-form-content {
     min-height: 0;
-    // max-height: 80vh;
     height: auto;
+    padding: 0.5rem;
+    padding-bottom: 1rem;
   }
   .modal__header-content-container.modal-heading-container {
     justify-content: space-between;

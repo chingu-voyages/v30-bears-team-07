@@ -1,23 +1,27 @@
-import "./DeleteProject.scss";
-
 import React from "react";
 import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
 
-import { deleteProject } from "../../../flux/actions/projectsActions";
-import { actionShowLoader } from "../../../flux/actions/loaderActions";
+import { deleteProject } from "../../../../flux/actions/projectsActions";
+// import { actionShowLoader } from "../../../flux/actions/loaderActions";
 
-import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
-import Modal from "../../Modal/Modal";
+import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
+import Modal from "../../../UIComponents/Modal/Modal";
 
-import LoadingSpinner from "../../loaders/LoadingSpinner";
+// import LoadingSpinner from "../../loaders/LoadingSpinner";
 
 const DeleteProject = (props) => {
+  const onCloseHandler = () => {
+    console.log("closing delete-project modal");
+    props.onClose();
+  };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    props.actionShowLoader("deleteProjectForm", true);
-    props.deleteProject(props.project._id, props.redirectToHomeUponRemovalCb);
+    // props.actionShowLoader("deleteProjectForm", true);
+    // props.deleteProject(props.project.id);
+    props.deleteProject("60a8db0e87442224787e6005");
   };
 
   const renderErrorNotifications = () => {
@@ -37,52 +41,41 @@ const DeleteProject = (props) => {
     <React.Fragment>
       <Modal
         componentClass="delete-project"
-        onModalClose={() => {
-          console.log("closing delete-project modal");
-          props.onClose();
-        }}
-        headerClassName="settings-page-sidebar-header"
         headingText="Delete Project"
         autoFocusOnCancel={true}
-        actionButtons={
-          <button
-            id="delete-project-submit"
-            className={"form-button submit mt-20 danger"}
-            type="submit"
-            onClick={onSubmitHandler}
-          >
-            {renderLoader()} Delete Project
-          </button>
-        }
+        onModalClose={onCloseHandler}
       >
         <form
           id="delete-project-form"
           autoComplete="off"
           onSubmit={onSubmitHandler}
         >
-          <div className="delete-project form-content-container modal-form-content">
-            <p className="modal-paragraph delete-project">
+          <div className="delete-project modal-form-content">
+            <p className="modal__modal-p delete-project">
               Are you sure you want to delete this project?
             </p>
-            <p className="modal-paragraph delete-project enlarged-text centered">
-              {props.project.name}
+            <p className="modal__modal-p delete-project enlarged-text centered">
+              Revive our Papa John's branch
+              {/* props.project.name */}
             </p>
             <p
               id="delete-project-description-paragraph"
-              className="modal-paragraph small-text delete-project"
+              className="modal__modal-p small-text danger"
             >
               Warning: Deleted projects cannot be restored.
             </p>
 
             {renderErrorNotifications()}
+
+            <button
+              id="delete-project-submit"
+              className={"form-button submit mt-20 danger"}
+              type="submit"
+              onClick={onSubmitHandler}
+            >
+              {/* renderLoader() */} Delete Project
+            </button>
           </div>
-          <button
-            type="submit"
-            onClick={onSubmitHandler}
-            style={{ display: "none" }}
-          >
-            Delete Project
-          </button>
         </form>
       </Modal>
     </React.Fragment>

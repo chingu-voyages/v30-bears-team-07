@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {} = require("../../controllers/userController");
+const {} = require("../controllers/users");
 
 // nested routes
 const userProjectsRouter = require("./userProjects");

@@ -4,7 +4,7 @@
   padding-bottom: 1.5rem;
 }
 
-.delete-account.form-content-container.modal-form-content {
+.delete-account.form__form-content.modal-form-content {
   display: flex;
   // align-content: center;
   // align-items: center;
@@ -15,7 +15,7 @@
   max-width: 30rem;
 }
 
-.delete-account.modal-paragraph {
+.delete-account.modal__modal-p {
   position: relative;
   left: 0.3rem;
   max-width: 23rem;
@@ -41,7 +41,7 @@
     padding-right: 1rem;
     padding-bottom: 3rem;
   }
-  .delete-account.form-content-container.modal-form-content {
+  .delete-account.form__form-content.modal-form-content {
     padding-top: 0;
   }
   #delete-account-password-container {

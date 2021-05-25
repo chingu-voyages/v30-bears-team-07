@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  get_all_user_projects,
+  get_all_projects,
   get_project,
   create_project,
   delete_project,

@@ -4,7 +4,7 @@
   padding-bottom: 1.5rem;
 }
 
-.disable-account.form-content-container.modal-form-content {
+.disable-account.form__form-content.modal-form-content {
   display: flex;
   // align-content: center;
   // align-items: center;
@@ -15,7 +15,7 @@
   max-width: 30rem;
 }
 
-.disable-account.modal-paragraph {
+.disable-account.modal__modal-p {
   position: relative;
   left: 0.3rem;
   max-width: 21.1rem;
@@ -42,7 +42,7 @@
     padding-bottom: 3rem;
   }
 
-  .disable-account.form-content-container.modal-form-content {
+  .disable-account.form__form-content.modal-form-content {
     padding-top: 0;
   }
   #disable-account-password-container {

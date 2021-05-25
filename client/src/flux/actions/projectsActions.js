@@ -71,20 +71,10 @@ export const getAllUserProjects = (id) => (dispatch, getState) => {
     .get(`/users/${userId}/userProjects/`)
     .then((res) => {
       let projects = res.data;
-      let sortedData = null;
       console.log(projects);
-      // note: think about whether sorting projects should be up to the user (tella)
-      // first check if it contains projects
-      if (typeof projects !== "undefined" && projects.length > 0) {
-        // the array is defined and has at least one element
-        let data = null;
-        console.log(projects);
-        sortedData = projects.sort(compareValues("name"));
-        console.log(sortedData);
-      }
       dispatch({
         type: GET_ALL_USER_PROJECTS_SUCCESS,
-        payload: sortedData || projects,
+        payload: projects,
       });
       dispatch(clearErrors());
     })

@@ -1,15 +1,29 @@
+@import "../../utils/scss/_variables";
+
 .ui.primary.google.button {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100%;
   background-color: #469;
-  margin: 0.5rem auto;
+  margin: 1rem auto;
+  width: 100%;
   max-width: 25rem;
   font-size: 1rem;
+
   &:hover {
     background-color: #358;
+  }
+
+  &.user-nav__link--danger {
+    display: block;
+    width: fit-content;
+    margin: 0 1rem 0 0;
+    background-color: #0000;
+    color: $dangerTextColor;
+  }
+  &.user-nav__link--danger:hover {
+    background-color: #0001;
   }
 }
 

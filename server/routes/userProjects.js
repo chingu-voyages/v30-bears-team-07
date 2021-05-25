@@ -4,7 +4,7 @@ const router = express.Router({ mergeParams: true });
 
 const {
   get_all_user_projects,
-} = require("../../controllers/projectsController");
+} = require("../controllers/projects");
 
 // get all the userProjects of the user
 router.get("/", get_all_user_projects);

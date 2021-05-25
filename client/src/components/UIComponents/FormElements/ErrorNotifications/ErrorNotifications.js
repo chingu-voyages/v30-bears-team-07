@@ -4,13 +4,13 @@ import React from "react";
 
 import ErrorNotification from "./ErrorNotification";
 
-const ErrorNotifications = props => {
+const ErrorNotifications = (props) => {
   const renderErrors = () => {
-    const renderError = message => {
+    const renderError = (message) => {
       return <ErrorNotification message={message} />;
     };
     if (Array.isArray(props.message)) {
-      return props.message.map(message => renderError(message));
+      return props.message.map((message) => renderError(message));
     } else if (!Array.isArray(props.message)) {
       return renderError(props.message);
     } else {

@@ -111,7 +111,7 @@ const EditProject = (props) => {
         }
       >
         <form id="edit-project-form" autoComplete="off">
-          <div className="edit-project form-content-container modal-form-content">
+          <div className="edit-project form__form-content modal-form-content">
             {renderErrorNotifications()}
             <div className="textfield-container">
               <Field
