@@ -32,15 +32,12 @@ function Header(props) {
             <Link className="user-nav__link" to="/dashboard">
               Dashboard
             </Link>
-            <GoogleAuth />
-            {/*this is the culprit!
-              try spamming login and logout, let's see if it breaks
-              nice nice :slight_smile:
-              - It's good
-
+            <GoogleAuth className="user-nav__link user-nav__link--danger" />
+            {/*
               <Link className="user-nav__link" to="/login">
                 Sign out
-              </Link>              */}
+              </Link>              
+            */}
           </div>
         ) : (
           ""
