@@ -1,0 +1,21 @@
+@import "../../utils/scss/_variables";
+
+.page {
+  display: grid;
+}
+
+.btn {
+  width: 65%;
+  margin: 0 auto;
+  margin-top: 0.75rem;
+  background-color: rgba(255, 147, 79, 1);
+
+  &--share {
+    background-color: rgba(255, 147, 79, 0.7);
+  }
+}
+
+@media (min-width: 768px) {
+  // for the desktop version
+  display: grid;
+}

@@ -10,6 +10,7 @@ import Signup from "./pages/Signup/Signup";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AllProjects from "./pages/AllProjects/AllProjects";
+import Project from "./pages/Project/Project";
 import GoogleAuth from "./components/GoogleAuth/GoogleAuth";
 // Used for URL redirection based on authentication status
 import AuthenticatedRoute from "./routeWrappers/AuthenticatedRoute";
@@ -49,6 +50,9 @@ const App = ({ isSignedIn, user }) => {
         </AuthenticatedRoute>
         <Route path="/allprojects" exact>
           <AllProjects />
+        </Route>
+        <Route path="/project" exact>
+          <Project />
         </Route>
 
         {/*

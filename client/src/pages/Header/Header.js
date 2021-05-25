@@ -13,9 +13,6 @@ function Header(props) {
 
   return (
     <div className="header">
-      <div className="logo">
-        <Link to="/">Logo</Link>
-      </div>
       <div className="user-nav">
         <Link className="user-nav__link user-nav__link--discover" to="/">
           Discover
@@ -36,7 +33,7 @@ function Header(props) {
             {/*
               <Link className="user-nav__link" to="/login">
                 Sign out
-              </Link>              
+              </Link>
             */}
           </div>
         ) : (
