@@ -10,6 +10,7 @@ import {
 } from "../../flux/actions/projectsActions";
 import "./Dashboard.scss";
 import "../../index.scss";
+import CreateProjectButton from "../../components/UIComponents/buttons/CreateProjectButton/CreateProjectButton";
 
 // Shall we run and see? test that out :slight_smile:
 const Dashboard = ({
@@ -30,11 +31,15 @@ const Dashboard = ({
     /*return () => {}*/
   }, [user]);
 
+  const renderMobileCreateButton = () => {
+    return <CreateProjectButton className="dashboard" isMobile={true} />;
+  };
+
   const projects = [1, 2, 3, 4, 5];
   return (
     <div>
-      <Header />
       <section className="main">
+        {renderMobileCreateButton()}
         <div className="main__left">
           <div className="main__left--info">
             <div>Settings</div>
@@ -44,10 +49,6 @@ const Dashboard = ({
           </div>
         </div>
         <div className="main__right">
-          {/*how to name this class? I'm going to plug the redux stuff and it would be main__btn--create? am not really sure
-        I think create-button or btn--create is fine, I am not very familiar let me just plug in  react-redux
-        - Yeah. I agree with btn--create */}
-
           {projects.map((el, index) => (
             <div className="main__right--card" key={index}>
               <div>Image: </div>

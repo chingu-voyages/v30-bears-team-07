@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import history from "./history";
 
 import Home from "./pages/Home/Home";
+import Header from "./pages/Header/Header";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
@@ -28,27 +29,29 @@ const App = ({ isSignedIn, user }) => {
   return (
     <div id="app-outer-container" data-test="component-app">
       <Router history={history}>
-        <Switch>
-          <UnauthenticatedRoute path="/signup" exact>
-            <Signup />
-          </UnauthenticatedRoute>
-          <UnauthenticatedRoute path="/login" exact>
-            <Login />
-          </UnauthenticatedRoute>
-          <AuthenticatedRoute path="/users/:userId/dashboard">
-            <Dashboard />
-          </AuthenticatedRoute>
-          <Route path="/allprojects">
-            <AllProjects />
-          </Route>
-          /* how about now? does it work - user try saving the file and then
-          let's implement logout on the header? let's check Header.js - Sure */
-          <Route path="/" exact>
-            <Redirect
-              to={isSignedIn ? `/users/${user.id}/dashboard` : "/login"}
-            />
-          </Route>
-          {/*
+        <Route path="/" exact>
+          <Redirect
+            to={isSignedIn ? `/users/${user.id}/dashboard` : "/login"}
+          />
+        </Route>
+        {isSignedIn ? <Header /> : null}
+        <div style={{ display: "none" }}>
+          <GoogleAuth />
+        </div>
+        <UnauthenticatedRoute path="/signup" exact>
+          <Signup />
+        </UnauthenticatedRoute>
+        <UnauthenticatedRoute path="/login" exact>
+          <Login />
+        </UnauthenticatedRoute>
+        <AuthenticatedRoute path="/users/:userId/dashboard" exact>
+          <Dashboard />
+        </AuthenticatedRoute>
+        <Route path="/allprojects" exact>
+          <AllProjects />
+        </Route>
+
+        {/*
     Note:
     Feel free to use this if the URL redirecting is getting annoying
     for development (-tella)
@@ -60,7 +63,6 @@ const App = ({ isSignedIn, user }) => {
         <Signup />
       </Route>
     */}
-        </Switch>
       </Router>
     </div>
   );

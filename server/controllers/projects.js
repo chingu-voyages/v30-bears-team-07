@@ -83,10 +83,6 @@ exports.create_project = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
-      // note: remove this when I am done with it
-      throw Error(
-        "showing error notification for testing purposes! please remove add some more text"
-      );
       // Note: Are duplicate project names ok? (tella)
       // const project = await Project.findOne({ name });
       // if (project) throw Error("Project name already taken.");
