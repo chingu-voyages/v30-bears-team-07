@@ -20,7 +20,27 @@ const CreateProjectButton = (props) => {
 
   const getClassName = () => (props.className ? props.className : "");
 
-  const renderButton = () => {};
+  const renderButton = () => {
+    // render different things based on screen size
+    // if(isMobile)
+    return (
+      <button
+        className={`btn--create ${getClassName()}`}
+        id="create-project-button"
+        onClick={onClickHandler}
+        type="button"
+      >
+        {/*note: replace the + down there with and image (tella)*/}
+        <img
+          id=""
+          className={`btn--create__img ${getClassName()}`}
+          // src={PlusIconImg}
+          // alt="Plus Icon Icon"
+        />
+        +
+      </button>
+    );
+  };
 
   const renderModal = () => {
     if (!isModalShown) return null;
@@ -31,20 +51,7 @@ const CreateProjectButton = (props) => {
   return (
     <>
       {renderModal()}
-      <button
-        className={`btn--create ${getClassName()}`}
-        id="create-project-button"
-        onClick={onClickHandler}
-        type="button"
-      >
-        <img
-          id=""
-          className={`btn--create__img ${getClassName()}`}
-          // src={PlusIconImg}
-          // alt="Plus Icon Icon"
-        />
-        +
-      </button>
+      {renderButton()}
     </>
   );
 };
