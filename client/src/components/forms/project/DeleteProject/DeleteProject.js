@@ -28,11 +28,11 @@ const DeleteProject = (props) => {
     }
     return null;
   };
-
+  /*
   const renderLoader = () => {
     return <LoadingSpinner className="white" showLoader={props.showLoader} />;
   };
-
+*/
   const content = (
     <React.Fragment>
       <Modal
@@ -93,32 +93,12 @@ const DeleteProject = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isSignedIn: state.auth.isSignedIn,
   error: state.error,
-  showLoader: state.loader.showDeleteProjectFormLoader,
+  // showLoader: state.loader.showDeleteProjectFormLoader,
 });
 
 export default connect(mapStateToProps, {
   deleteProject,
-  actionShowLoader,
+  // actionShowLoader,
 })(DeleteProject);
-
-// // submit handler
-// const onSubmit = async (formValues) => {
-//   console.log(formValues);
-//   props.actionShowLoader("deleteProjectForm", true);
-//   await props.deleteProject(formValues);
-// };
-
-// const validate = (formValues) => {
-//   console.log(formValues);
-//   const errors = {};
-//   return errors;
-// };
-
-// export default reduxForm({
-//   form: "deleteAccount",
-//   keepDirtyOnReinitialize: true,
-//   enableReinitialize: true,
-//   validate,
-// })(deleteAccount);
