@@ -3,10 +3,12 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import history from "./history";
 
-import Home from "./pages/Home/Home";
-import Header from "./pages/Header/Header";
+// note: Home page definitely needs to be revamped way later on (Tella)
+// import Home from "./pages/Home/Home";
+import Header from "./components/Header/Header";
 import Login from "./pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
+// note: Signup page definitely needs to be revamped way later on (Tella)
+// import Signup from "./pages/Signup/Signup";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AllProjects from "./pages/AllProjects/AllProjects";
@@ -20,7 +22,7 @@ import UnauthenticatedRoute from "./routeWrappers/UnauthenticatedRoute";
 // import Modal from "./components/UIComponents/Modal/Modal";
 // import CreateProject from "./components/forms/project/CreateProject/CreateProject";
 // import DeleteProject from "./components/forms/project/DeleteProject/DeleteProject";
-import CancelProject from "./components/forms/project/CancelProject/CancelProject";
+// import CancelProject from "./components/forms/project/CancelProject/CancelProject";
 
 import "./normalize.css";
 import "./index.scss";
@@ -31,42 +33,40 @@ const App = ({ isSignedIn, user }) => {
     <div id="app-outer-container" data-test="component-app">
       <Router history={history}>
         <Route path="/" exact>
-          <Redirect
-            to={isSignedIn ? `/users/${user.id}/dashboard` : "/login"}
-          />
+          <Redirect to={isSignedIn ? `/dashboard` : "/login"} />
         </Route>
         {isSignedIn ? <Header /> : null}
         <div style={{ display: "none" }}>
           <GoogleAuth />
         </div>
-        <UnauthenticatedRoute path="/signup" exact>
-          <Signup />
-        </UnauthenticatedRoute>
         <UnauthenticatedRoute path="/login" exact>
           <Login />
         </UnauthenticatedRoute>
-        <AuthenticatedRoute path="/users/:userId/dashboard" exact>
+        <AuthenticatedRoute path="/dashboard" exact>
           <Dashboard />
         </AuthenticatedRoute>
         <Route path="/allprojects" exact>
           <AllProjects />
         </Route>
-        <Route path="/project" exact>
+        <Route path="/projects/:projectId" exact>
           <Project />
         </Route>
+        {/*note: to be added in the future, this Sprint or the next one (Tella) 
+          <Route path="/projects/:projectId/checkout" exact>
+            <Checkout />
+          </Route>
+        */}
 
-        {/*
-    Note:
-    Feel free to use this if the URL redirecting is getting annoying
-    for development (-tella)
+        {/*note: these are all of the pages that need to be worked on way later on
+          currently, they're not supposed to be used for now (Tella)
 
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/signup">
-        <Signup />
-      </Route>
-    */}
+          <Home />
+
+          <UnauthenticatedRoute path="/signup" exact>
+            <Signup />
+          </UnauthenticatedRoute>
+
+          */}
       </Router>
     </div>
   );

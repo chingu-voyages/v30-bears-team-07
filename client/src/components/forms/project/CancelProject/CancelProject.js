@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
 
-import { cancelProject } from "../../../../flux/actions/projectsActions";
-// import { actionShowLoader } from "../../../flux/actions/loaderActions";
+import { cancelProject } from "../../../../redux/actions/projectsActions";
+// import { actionShowLoader } from "../../../redux/actions/loaderActions";
 
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
 import Modal from "../../../UIComponents/Modal/Modal";

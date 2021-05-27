@@ -4,14 +4,14 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { createProject } from "../../../../flux/actions/projectsActions";
+import { createProject } from "../../../../redux/actions/projectsActions";
 
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
 import Modal from "../../../UIComponents/Modal/Modal";
-import ReduxInput from "../../../UIComponents/FormElements/ReduxInput/ReduxInput";
-import ReduxTextarea from "../../../UIComponents/FormElements/ReduxTextarea/ReduxTextarea";
+import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";
+import ReduxTextarea from "../../../../redux/FormComponents/ReduxTextarea/ReduxTextarea";
 
-// import { actionShowLoader } from "../../../../flux/actions/loaderActions";
+// import { actionShowLoader } from "../../../../redux/actions/loaderActions";
 // import LoadingSpinner from "../../../loaders/LoadingSpinner";
 
 const CreateProject = (props) => {

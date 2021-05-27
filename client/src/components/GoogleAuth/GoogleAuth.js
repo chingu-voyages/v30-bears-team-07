@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { googleSignIn, googleSignOut } from "../../flux/actions/authActions";
+import { googleSignIn, googleSignOut } from "../../redux/actions/authActions";
 import history from "../../history";
 // Style related imports
 import "./GoogleAuth.scss";
-import GoogleIconImg from "../../icons/google-icon.png";
+import GoogleIconImg from "../../assets/icons/google-icon.png";
 
 class GoogleAuth extends React.Component {
   _isMounted = false;

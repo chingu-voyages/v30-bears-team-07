@@ -6,10 +6,10 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { editProject } from "../../../flux/actions/projectsActions";
+import { editProject } from "../../../redux/actions/projectsActions";
 
-import { modalStatusReset } from "../../../flux/actions/modalActions";
-import { actionShowLoader } from "../../../flux/actions/loaderActions";
+import { modalStatusReset } from "../../../redux/actions/modalActions";
+import { actionShowLoader } from "../../../redux/actions/loaderActions";
 import { renderError, getErrorClass } from "../../../helpers";
 
 import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";

@@ -1,5 +1,5 @@
 import React from "react";
-import { renderError, getErrorClass } from "../../../../helpers";
+import { renderError, getErrorClass } from "../../../helpers";
 
 const ReduxInput = ({ input, meta, formName, inputProps, labelProps }) => {
   // variables

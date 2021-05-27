@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { renderError, getErrorClass } from "../../../../helpers";
+import { renderError, getErrorClass } from "../../../helpers";
 
 const Textarea = ({ input, meta, formName, inputProps, labelProps }) => {
   // variables

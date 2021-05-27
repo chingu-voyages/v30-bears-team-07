@@ -1,7 +1,7 @@
 import checkPropTypes from "check-prop-types";
 import { createStore, applyMiddleware } from "redux";
 
-import rootReducer from "../flux/reducers";
+import rootReducer from "../redux/reducers";
 import { middlewares } from "../configureStore";
 
 export const storeFactory = (initialState) => {

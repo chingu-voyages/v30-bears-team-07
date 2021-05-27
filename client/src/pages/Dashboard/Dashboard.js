@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
-import Header from "../../pages/Header/Header";
+import Header from "../../components/Header/Header";
 
 import {
   getAllUserProjects,
   createProject,
-} from "../../flux/actions/projectsActions";
+} from "../../redux/actions/projectsActions";
 import "./Dashboard.scss";
 import "../../index.scss";
 import CreateProjectButton from "../../components/UIComponents/buttons/CreateProjectButton/CreateProjectButton";
@@ -34,6 +34,10 @@ const Dashboard = ({
   const renderMobileCreateButton = () => {
     return <CreateProjectButton className="dashboard" isMobile={true} />;
   };
+
+  // const renderDesktopCreateButton = () => {
+  //   return <CreateProjectButton className="dashboard" isMobile={false} />;
+  // };
 
   const projects = [1, 2, 3, 4, 5];
   return (

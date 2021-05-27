@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
 import "./AllProjects.scss";
-import Header from "../../pages/Header/Header";
+import Header from "../../components/Header/Header";
 
 const AllProjects = () => {
   const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];

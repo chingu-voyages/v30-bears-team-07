@@ -1,75 +1,12 @@
-import warningImg from "../icons/warning.png";
+import warningImg from "../assets/icons/warning.png";
 
 import _ from "lodash";
 import React from "react";
+//note: will be used in the future (Tella)
 import { format } from "date-fns";
 import compareAsc from "date-fns/compareAsc";
 
 // Helper functions
-
-// date-time functions
-export const getCurrentDate = () => {
-  return format(new Date(), "yyyy-MM-dd");
-};
-
-export const getCurrentTime = () => {
-  return format(new Date(), "hh:mma");
-};
-
-export const convertToMDY = (date) => {
-  return date ? format(new Date(date.replace(/-/g, "/")), "MM/dd/yyyy") : null;
-};
-
-export const toMilitaryTime = (datetime) => {
-  return format(datetime, "HH:mm");
-};
-
-export const toStandardTime = (time) => {
-  return format(new Date(`${getCurrentDate()}T${time}`), "hh:mma");
-};
-
-export const timestampToStandardTime = (timestamp) => {
-  return format(new Date(timestamp), "hh:mma");
-};
-
-export const toStandardDateAndTime = (datetime) => {
-  if (!datetime) return null;
-  return format(new Date(datetime), "Pp");
-};
-
-export const standardToMilitary = function standardToMilitary(time) {
-  var PM = time.match("PM") ? true : false;
-  var hour;
-  var minute;
-
-  time = time.split(":");
-
-  if (PM) {
-    hour = 12 + parseInt(time[0], 10);
-    minute = time[1].replace("PM", "");
-  } else {
-    hour = time[0];
-    minute = time[1].replace("AM", "");
-  }
-
-  return `${hour}:${minute}`;
-};
-
-// string FUNCTIONS
-// retrieve the file name by splitting
-export const getFilenameFromDir = (string, separator) => {
-  if (!separator) {
-    string.split("\\").pop();
-  }
-  return string.split(separator).pop();
-};
-
-// regular expression testing
-export const validateEmail = (email) => {
-  const re =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-};
 
 // element position
 export const findPosX = (obj) => {
@@ -117,6 +54,7 @@ export const getErrorClass = ({ error, touched }) => {
 
 // This is used for helping sort object based on property names' values
 // key refers to the name of the property, order can either be asc or desc
+
 export const compareValues = (key, order = "asc") => {
   console.log("comparing values");
   // if date values are being compared
@@ -153,6 +91,7 @@ export const compareValues = (key, order = "asc") => {
     return order === "desc" ? comparison * -1 : comparison;
   };
 };
+
 // // usage: array is sorted by band, in ascending order by default:
 // // //singers.sort(compareValues('band'));
 
@@ -256,3 +195,75 @@ export const copyToClipboard = (text) => {
   document.execCommand("copy");
   document.body.removeChild(dummy);
 };
+
+// regular expression testing
+
+// email validator
+export const validateEmail = (email) => {
+  const re =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
+/* note: will most likely use in the future, but not currently used (Tella)
+PLEASE DO NOT REMOVE
+// date-time functions
+export const getCurrentDate = () => {
+  return format(new Date(), "yyyy-MM-dd");
+};
+
+export const getCurrentTime = () => {
+  return format(new Date(), "hh:mma");
+};
+
+export const convertToMDY = (date) => {
+  return date ? format(new Date(date.replace(/-/g, "/")), "MM/dd/yyyy") : null;
+};
+
+export const toMilitaryTime = (datetime) => {
+  return format(datetime, "HH:mm");
+};
+
+export const toStandardTime = (time) => {
+  return format(new Date(`${getCurrentDate()}T${time}`), "hh:mma");
+};
+
+export const timestampToStandardTime = (timestamp) => {
+  return format(new Date(timestamp), "hh:mma");
+};
+
+export const toStandardDateAndTime = (datetime) => {
+  if (!datetime) return null;
+  return format(new Date(datetime), "Pp");
+};
+
+export const standardToMilitary = function standardToMilitary(time) {
+  var PM = time.match("PM") ? true : false;
+  var hour;
+  var minute;
+
+  time = time.split(":");
+
+  if (PM) {
+    hour = 12 + parseInt(time[0], 10);
+    minute = time[1].replace("PM", "");
+  } else {
+    hour = time[0];
+    minute = time[1].replace("AM", "");
+  }
+
+  return `${hour}:${minute}`;
+};
+
+// string FUNCTIONS
+// retrieve the file name by splitting
+export const getFilenameFromDir = (string, separator) => {
+  if (!separator) {
+    string.split("\\").pop();
+  }
+  return string.split(separator).pop();
+};
+
+
+
+*/

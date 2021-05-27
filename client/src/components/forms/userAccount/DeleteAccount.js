@@ -6,8 +6,8 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { deleteUserAccount } from "../../../flux/actions/settingsActions";
-import { actionShowLoader } from "../../../flux/actions/loaderActions";
+import { deleteUserAccount } from "../../../redux/actions/settingsActions";
+import { actionShowLoader } from "../../../redux/actions/loaderActions";
 import { renderError, getErrorClass } from "../../../helpers";
 
 import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";

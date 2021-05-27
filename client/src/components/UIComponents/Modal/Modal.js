@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import ModalHeader from "./ModalHeader/ModalHeader";
 
-import { clearErrors } from "../../../flux/actions/errorActions";
+import { clearErrors } from "../../../redux/actions/errorActions";
 import { connect } from "react-redux";
 
 const Modal = (props) => {

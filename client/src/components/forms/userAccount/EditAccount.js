@@ -6,9 +6,9 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { editUserAccount } from "../../../flux/actions/settingsActions";
-import { modalStatusReset } from "../../../flux/actions/modalActions";
-import { actionShowLoader } from "../../../flux/actions/loaderActions";
+import { editUserAccount } from "../../../redux/actions/settingsActions";
+import { modalStatusReset } from "../../../redux/actions/modalActions";
+import { actionShowLoader } from "../../../redux/actions/loaderActions";
 import { renderError, getErrorClass, validateEmail } from "../../../helpers";
 
 import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
