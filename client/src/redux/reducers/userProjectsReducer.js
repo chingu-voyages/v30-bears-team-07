@@ -7,6 +7,8 @@ import {
   GOOGLE_SIGN_OUT,
   GET_ALL_USER_PROJECTS_SUCCESS,
   GET_ALL_USER_PROJECTS_FAIL,
+  GET_PROJECT_SUCCESS,
+  GET_PROJECT_FAIL,
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_FAIL,
   CANCEL_PROJECT_SUCCESS,
@@ -34,6 +36,16 @@ export default (state = INITIAL_STATE, action) => {
       return { owned, supported };
     case CREATE_PROJECT_SUCCESS:
       return { ...state, owned: [...state.owned, action.payload] };
+    case GET_PROJECT_SUCCESS:
+      return {
+        ...state,
+        owned: state.owned.map((project) => {
+          if (project.id == action.payload._id) {
+            project = action.payload;
+          }
+          return project;
+        }),
+      };
     case CANCEL_PROJECT_SUCCESS:
       return {
         ...state,
@@ -50,6 +62,7 @@ export default (state = INITIAL_STATE, action) => {
       );
     case GET_ALL_USER_PROJECTS_FAIL:
     case CREATE_PROJECT_FAIL:
+    case GET_PROJECT_FAIL:
     case CANCEL_PROJECT_FAIL:
     case DELETE_PROJECT_FAIL:
     default:

@@ -7,6 +7,8 @@ import { returnErrors, clearErrors } from "./errorActions";
 import { compareValues } from "../../helpers";
 
 import {
+  GET_PROJECT_SUCCESS,
+  GET_PROJECT_FAIL,
   GET_ALL_PROJECTS_SUCCESS,
   GET_ALL_PROJECTS_FAIL,
   GET_ALL_USER_PROJECTS_SUCCESS,
@@ -31,6 +33,30 @@ import {
   EDIT_PROJECT_ICON_FAIL,
   */
 } from "./types";
+
+export const getProject = (id) => (dispatch /* getState*/) => {
+  console.log("getting a project");
+  const userId =
+    id; /* || getState().user.info._id || getState().user.info.id; */
+  serverRest
+    .get(`/users/${userId}`)
+    .then((res) => {
+      let project = res.data;
+      console.log(project);
+      dispatch({
+        type: GET_PROJECT_SUCCESS,
+        payload: project,
+      });
+      dispatch(clearErrors());
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log(err.response);
+      dispatch({
+        type: GET_PROJECT_FAIL,
+      });
+    });
+};
 
 export const getAllProjects = () => (dispatch /*, getState*/) => {
   console.log("getting the list of all projects");

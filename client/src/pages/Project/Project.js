@@ -1,11 +1,16 @@
 import React, { useSelector } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { getProject } from "../../redux/actions/projectsActions";
 import Header from "../../components/Header/Header";
 import "./Project.scss";
 
-const Project = () => {
-  // retrieve the project from the backend after rendering
+const Project = (getProject, project) => {
+  const getProjectHandler = () => {
+    //add a guard to prevent errors if user is not loaded yet
+    if (!project || !project.id) return null;
+    getProject(project.id);
+  };
 
   return (
     <div className="page">
@@ -14,9 +19,10 @@ const Project = () => {
         <div className="main__right">
           <div className="main__right--card">
             <div>Image: </div>
-            <h4>Let's help Green Delight</h4>
-            <p>Last Donation: 8 min ago</p>
-            <p>$15,916 raised</p>
+            <button onClick={getProject()}>Get Project</button>
+            <h4></h4>
+            <p></p>
+            <p></p>
           </div>
         </div>
       </div>
