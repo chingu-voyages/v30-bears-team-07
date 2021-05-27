@@ -12,7 +12,6 @@ import "./Dashboard.scss";
 import "../../index.scss";
 import CreateProjectButton from "../../components/UIComponents/buttons/CreateProjectButton/CreateProjectButton";
 
-// Shall we run and see? test that out :slight_smile:
 const Dashboard = ({
   getAllUserProjects,
   createProject,
@@ -72,10 +71,7 @@ const mapStateToProps = (state) => ({
   user: state.user.info,
   userProjects: state.userProjects,
 });
-//are you here? I can see what you're typing now, it's just...
-//if we are going to make a create button,  we need it placed somewhere, for now styling doesnt matter much
-//do you want to work on hooks? also retrieving the projects, but I need to BRB shouldn't you eat first?
-// - I ate :)
+
 export default connect(mapStateToProps, { getAllUserProjects, createProject })(
   Dashboard
 );

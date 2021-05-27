@@ -65,6 +65,11 @@ input:disabled {
   cursor: not-allowed;
 }
 
+.btn {
+  min-height: 2.8rem;
+  width: fit-content;
+}
+
 #modal {
   z-index: 100;
 }

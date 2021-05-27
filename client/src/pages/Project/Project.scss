@@ -4,13 +4,13 @@
   display: grid;
 }
 
-.btn {
+.project.btn {
   width: 65%;
   margin: 0 auto;
   margin-top: 0.75rem;
   background-color: rgba(255, 147, 79, 1);
 
-  &--share {
+  &__share {
     background-color: rgba(255, 147, 79, 0.7);
   }
 }
