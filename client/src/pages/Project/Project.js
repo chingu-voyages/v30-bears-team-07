@@ -31,14 +31,15 @@ const Project = (props) => {
 
   return (
     <div className="page">
-      <h1>Let's help Green Delight after lockdown</h1>
-      <div className="sidebar">
+      <div className="content">
+        <h1>Let's help Green Delight after lockdown</h1>
         <div className="main__right">
           <div className="main__right--card">
-            <div>Image: </div>
-            <h4>{project.name}</h4>
-            <p></p>
-            <p></p>
+            {/* <div>Image: </div>*/}
+            <h4>Project Name: {project.name}</h4>
+            <p>Description: {project.description}</p>
+            <p>Amount Donated So Far: {project.amount_donated}</p>
+            <p>Target Goal: {project.target_goal}</p>
           </div>
         </div>
       </div>

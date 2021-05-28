@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
 @import "utils/scss/variables.scss";
 
 * {
@@ -15,6 +16,12 @@ html {
   font-size: 1rem;
   font-family: "Commissioner", sans-serif;
 }
+
+body {
+  font-family: $font-primary;
+  font-weight: normal;
+}
+
 a {
   text-decoration: none;
   cursor: pointer;
@@ -42,7 +49,6 @@ dd {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: skyblue;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
