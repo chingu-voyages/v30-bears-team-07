@@ -38,7 +38,6 @@ const Dashboard = ({
   //   return <CreateProjectButton className="dashboard" isMobile={false} />;
   // };
 
-  const projects = [1, 2, 3, 4, 5];
   return (
     <div>
       <section className="main">
@@ -52,12 +51,12 @@ const Dashboard = ({
           </div>
         </div>
         <div className="main__right">
-          {projects.map((el, index) => (
+          {userProjects.owned.map((project, index) => (
             <div className="main__right--card" key={index}>
               <div>Image: </div>
-              <h4>Let's Get Dorian and Louise Wed</h4>
+              <h4>{project.name}</h4>
               <p>Last Donation: 8 min ago</p>
-              <p>$15,916 raised</p>
+              <p>{project.amount_donated} raised</p>
             </div>
           ))}
         </div>

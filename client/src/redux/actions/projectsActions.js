@@ -33,13 +33,11 @@ import {
   EDIT_PROJECT_ICON_FAIL,
   */
 } from "./types";
-
-export const getProject = (id) => (dispatch /* getState*/) => {
+//this is clearly a function
+export const getProject = (projectId) => (dispatch /* getState*/) => {
   console.log("getting a project");
-  const userId =
-    id; /* || getState().user.info._id || getState().user.info.id; */
   serverRest
-    .get(`/users/${userId}`)
+    .get(`/projects/${projectId}`)
     .then((res) => {
       let project = res.data;
       console.log(project);
@@ -52,6 +50,7 @@ export const getProject = (id) => (dispatch /* getState*/) => {
     .catch((err) => {
       console.log(err);
       console.log(err.response);
+      dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: GET_PROJECT_FAIL,
       });
@@ -67,7 +66,7 @@ export const getAllProjects = () => (dispatch /*, getState*/) => {
       let sortedData = null;
       console.log(projects);
       // note: think about how projects should be sorted (tella)
-
+      /*
       // first check if it contains projects
       if (typeof projects !== "undefined" && projects.length > 0) {
         // the array is defined and has at least one element
@@ -75,15 +74,17 @@ export const getAllProjects = () => (dispatch /*, getState*/) => {
         sortedData = projects.sort(compareValues("name"));
         console.log(sortedData);
       }
+      */
       dispatch({
         type: GET_ALL_PROJECTS_SUCCESS,
-        payload: sortedData || projects,
+        payload: /*sortedData ||*/ projects,
       });
       dispatch(clearErrors());
     })
     .catch((err) => {
       console.log(err);
       console.log(err.response);
+      dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: GET_ALL_PROJECTS_FAIL,
       });
@@ -92,21 +93,26 @@ export const getAllProjects = () => (dispatch /*, getState*/) => {
 
 export const getAllUserProjects = (id) => (dispatch, getState) => {
   console.log("getting the list of all projects");
+  // retrieve the user ID
   const userId = id || getState().user.info._id || getState().user.info.id;
+  // send a POST request to the server
   serverRest
     .get(`/users/${userId}/userProjects/`)
     .then((res) => {
       let projects = res.data;
       console.log(projects);
+      // change Redux store state, and pass the updated user and project payload
       dispatch({
         type: GET_ALL_USER_PROJECTS_SUCCESS,
         payload: projects,
       });
       dispatch(clearErrors());
     })
+    // if fail, show the error on a notification
     .catch((err) => {
       console.log(err);
       console.log(err.response);
+      dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: GET_ALL_USER_PROJECTS_FAIL,
       });
@@ -176,8 +182,8 @@ export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
   const userId = getState().user.info._id || getState().user.info.id;
   console.log(projectId);
 
-  axios
-    .delete(``, {
+  axios /*please replace the URL here for production environment*/
+    .delete(`http://localhost:5000/projects/${projectId}`, {
       data: { projectId, userId },
     })
     .then((res) => {
@@ -188,7 +194,6 @@ export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
           ...res.data,
         },
       });
-
       dispatch(clearErrors());
       if (successCb) successCb();
     })

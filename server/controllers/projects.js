@@ -13,7 +13,8 @@ exports.get_all_projects = async (req, res) => {
       // note: ask teammates how to sort the projects retrieved
       .sort({ createdAt: -1 })
       // note: figure out how to keep track of retrieval count (tella)
-      .limit(PROJECTS_PER_BATCH /* * (retrievalCount + 1)*/);
+      .limit(PROJECTS_PER_BATCH /* * (retrievalCount + 1)*/)
+      .populate("creator donors");
     if (!projects) throw Error("Unable to retrieve projects.");
     res.status(200).json(projects);
   } catch (e) {
@@ -26,18 +27,19 @@ exports.get_all_projects = async (req, res) => {
 //this is where the error is
 exports.get_all_user_projects = async (req, res) => {
   console.log("retrieving user projects list");
-
   try {
-    //let's test it out again - okay
+    // declare empty object to be used for categorizing
     let userProjects = {};
-    const user = await User.findById(req.params.id).select(
-      "projectsOwned projectsSupported"
-    );
-    if (!user) throw Error("User does not exist.");
 
+    // retrieve the user object, and select only projectsOwned and projectsSupported
+    const user = await User.findById(req.params.id)
+      .select("projectsOwned projectsSupported")
+      .populate("projectsOwned projectsSupported");
+    if (!user) throw Error("User does not exist.");
     console.log(user);
-    const { projectsOwned, projectsSupported } = user;
+
     // categorize them first for easy retrieval
+    const { projectsOwned, projectsSupported } = user;
     userProjects = { projectsOwned, projectsSupported };
     res.status(200).json(userProjects);
   } catch (e) {
@@ -46,17 +48,24 @@ exports.get_all_user_projects = async (req, res) => {
   }
 };
 
-// retrieve a specific project using ID
+//action sends a GET method to that route, this controller function gets called, you can still follow?
+//
+// Okay!
 exports.get_project = async (req, res) => {
   console.log("retrieving a project");
   try {
+    //mongoose query
     const project = await Project.findById(req.params.id);
-    if (!project) throw Error("Project does not exist.");
-
-    res.status(200).json(project);
+    if (!project)
+      throw Error(
+        "Project does not exist."
+      ); /*this is basically error handling, if it can't find it*/
+    res.status(200).json(project); /*if it exists, send success*/
   } catch (e) {
     console.log(e);
-    res.status(400).json({ msg: e.message });
+    res
+      .status(400)
+      .json({ msg: e.message }); /*return error code, as well as message*/
   }
 };
 

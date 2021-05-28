@@ -14,7 +14,7 @@ const initialState = [];
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GOOGLE_SIGN_IN_SUCCESS:
+    // case GOOGLE_SIGN_IN_SUCCESS:
     case GOOGLE_SIGN_IN_FAIL:
     case GOOGLE_SIGN_OUT:
       //note: either empty the list or reset it to 9 or the amount for a one page (tella)

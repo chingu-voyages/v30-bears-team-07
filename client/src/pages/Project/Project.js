@@ -1,16 +1,33 @@
-import React, { useSelector } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { getProject } from "../../redux/actions/projectsActions";
+import { CLOSE_PROJECT } from "../../redux/actions/types";
 import Header from "../../components/Header/Header";
 import "./Project.scss";
 
-const Project = (getProject, project) => {
+const Project = (props) => {
+  // state variables
+  const project = useSelector((state) => state.selectedProject);
+  const dispatch = useDispatch();
+  const { projectId } = useParams();
+
   const getProjectHandler = () => {
-    //add a guard to prevent errors if user is not loaded yet
-    if (!project || !project.id) return null;
-    getProject(project.id);
+    dispatch(getProject(projectId));
   };
+
+  const unmountProjectHandler = () => {
+    dispatch({ type: CLOSE_PROJECT });
+  };
+
+  // retrieve the project from the database once after the component renders
+  useEffect(() => {
+    getProjectHandler();
+    // this is a cleanup function when component is unmounted
+    return () => {
+      unmountProjectHandler();
+    };
+  }, []);
 
   return (
     <div className="page">
@@ -19,8 +36,7 @@ const Project = (getProject, project) => {
         <div className="main__right">
           <div className="main__right--card">
             <div>Image: </div>
-            <button onClick={getProject()}>Get Project</button>
-            <h4></h4>
+            <h4>{project.name}</h4>
             <p></p>
             <p></p>
           </div>

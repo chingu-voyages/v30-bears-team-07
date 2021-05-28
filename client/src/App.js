@@ -1,6 +1,6 @@
 import React from "react";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import history from "./history";
 
 // note: Home page definitely needs to be revamped way later on (Tella)
@@ -18,24 +18,24 @@ import GoogleAuth from "./components/GoogleAuth/GoogleAuth";
 import AuthenticatedRoute from "./routeWrappers/AuthenticatedRoute";
 import UnauthenticatedRoute from "./routeWrappers/UnauthenticatedRoute";
 
-//Note: Just using this for testing, feel free to remove (tella)
-// import Modal from "./components/UIComponents/Modal/Modal";
-// import CreateProject from "./components/forms/project/CreateProject/CreateProject";
-// import DeleteProject from "./components/forms/project/DeleteProject/DeleteProject";
-// import CancelProject from "./components/forms/project/CancelProject/CancelProject";
-
 import "./normalize.css";
 import "./index.scss";
 // import "./App.scss";
 
-const App = ({ isSignedIn, user }) => {
+const App = (props) => {
+  // state variables
+  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+  const user = useSelector((state) => state.user.info);
+  const isLoadingUser = useSelector((state) => state.auth.isLoading);
+
+  // render
   return (
     <div id="app-outer-container" data-test="component-app">
       <Router history={history}>
         <Route path="/" exact>
           <Redirect to={isSignedIn ? `/dashboard` : "/login"} />
         </Route>
-        {isSignedIn ? <Header /> : null}
+        <Header />
         <div style={{ display: "none" }}>
           <GoogleAuth />
         </div>
@@ -51,7 +51,7 @@ const App = ({ isSignedIn, user }) => {
         <Route path="/projects/:projectId" exact>
           <Project />
         </Route>
-        {/*note: to be added in the future, this Sprint or the next one (Tella) 
+        {/*note: to be added in the future, this Sprint or the next one (Tella)
           <Route path="/projects/:projectId/checkout" exact>
             <Checkout />
           </Route>
@@ -72,10 +72,4 @@ const App = ({ isSignedIn, user }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isLoadingUser: state.auth.isLoading,
-  isSignedIn: state.auth.isSignedIn,
-  user: state.user.info,
-});
-
-export default connect(mapStateToProps, {})(App);
+export default App;

@@ -4,6 +4,7 @@ import authReducer from "./authReducer";
 import userReducer from "./userReducer";
 import allProjectsReducer from "./allProjectsReducer";
 import userProjectsReducer from "./userProjectsReducer";
+import selectedProjectReducer from "./selectedProjectReducer";
 import errorReducer from "./errorReducer";
 // note: I will add these later (Tella - 5/14/21)
 // import loaderReducer from "./loaderReducer.js";
@@ -14,6 +15,7 @@ export default combineReducers({
   user: userReducer,
   allProjects: allProjectsReducer,
   userProjects: userProjectsReducer,
+  selectedProject: selectedProjectReducer,
   error: errorReducer,
   // loader: loaderReducer,
 });
