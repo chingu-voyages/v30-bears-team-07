@@ -65,6 +65,10 @@ input:disabled {
   cursor: not-allowed;
 }
 
+li {
+  list-style-type: none;
+}
+
 .btn {
   min-height: 2.8rem;
   width: fit-content;

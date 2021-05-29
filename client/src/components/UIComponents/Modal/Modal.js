@@ -20,8 +20,7 @@ const Modal = (props) => {
     setTimeout(() => {
       console.log("closing modal");
       props.onModalClose();
-      // Remove errors
-      props.clearErrors();
+      props.clearErrors(); /*Remove errors*/
     }, 300);
   };
 
