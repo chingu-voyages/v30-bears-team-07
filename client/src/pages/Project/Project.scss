@@ -1,7 +1,24 @@
 @import "../../utils/scss/_variables";
 
-.page {
+.project__page {
   display: grid;
+
+  h1 {
+    color: $mainGreen;
+    font-size: 1.5rem;
+    margin: 2rem;
+  }
+}
+
+.main__right--card {
+  background-color: rgba(32, 178, 170, 0.5);
+  border-radius: 15px;
+  display: grid;
+  justify-items: start;
+
+  &:hover {
+    background-color: rgba(32, 178, 170, 0.7);
+  }
 }
 
 .project.btn {
@@ -17,5 +34,32 @@
 
 @media (min-width: 768px) {
   // for the desktop version
-  display: grid;
+  .page {
+    display: grid;
+  }
+
+  .project__content {
+    display: grid;
+    justify-items: center;
+  }
+
+  .main__right--card {
+    width: 50vw;
+    min-height: 35vh;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    display: grid;
+    justify-items: center;
+  }
+
+  .project.btn {
+    width: 15vw;
+    margin: 0 auto;
+    margin-top: 0.75rem;
+    background-color: rgba(255, 147, 79, 1);
+
+    &__share {
+      background-color: rgba(255, 147, 79, 0.7);
+    }
+  }
 }
