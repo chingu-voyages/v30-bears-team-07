@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "../UIComponents/Card/Card";
 import Modal from "../UIComponents/Modal/Modal";
+import history from "../../history";
 import DeleteProject from "../forms/project/DeleteProject/DeleteProject";
 import "./ProjectItem.scss";
 
@@ -13,11 +14,18 @@ const ProjectItem = ({ project }) => {
   const user = useSelector((state) => state.user.info);
 
   // handler functions
+
+  const projectItemOnClickHandler = () => {
+    history.push(`/projects/${project.id}`);
+  };
+
   const deleteProjectOnOpenHandler = () => {
     setShowDeleteProject(true);
   };
 
-  const deleteProjectOnCloseHandler = () => {
+  const deleteProjectOnCloseHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setShowDeleteProject(false);
   };
 
@@ -47,7 +55,7 @@ const ProjectItem = ({ project }) => {
   return (
     <>
       {renderDeleteProject()}
-      <Link className="project-item" to={`/projects/${project.id}`}>
+      <div className="project-item" onClick={projectItemOnClickHandler}>
         <Card className="project-item__content">
           <div className="project-item__image">
             {/*<img
@@ -63,7 +71,7 @@ const ProjectItem = ({ project }) => {
           </div>
           <div className="project-item__actions">{renderActionButtons()}</div>
         </Card>
-      </Link>
+      </div>
     </>
   );
 };

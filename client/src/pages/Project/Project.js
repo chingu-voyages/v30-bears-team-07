@@ -30,8 +30,11 @@ const Project = (props) => {
   }, []);
 
   return (
-    <div className="page">
-      <h1>Let's help Green Delight after lockdown</h1>
+    <div className="project page-container">
+      <h1 className="project__heading">
+        Let's help Green Delight after lockdown
+      </h1>
+      {/*most likely going to change this? */}
       <div className="sidebar">
         <div className="main__right">
           <div className="main__right--card">
