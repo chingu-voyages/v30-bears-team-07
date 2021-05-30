@@ -1,96 +1,40 @@
 @import "../../utils/scss/_variables";
+@import "../../utils/scss/_config";
 
-body {
-  background: $backgroundWhite;
+.all-projects__section {
+  padding: 0.5rem;
 }
 
-.main {
-  display: grid;
-  grid-gap: 0.5rem;
+.all-projects__heading {
+  font-size: 1.5rem;
+  text-align: center;
+}
 
-  &__left {
-    display: grid;
-    justify-items: center;
-  }
+.all-projects__items {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  // align-items:
+}
 
-  &__left--info {
-    background-color: $foregroundWhite;
-    width: 100%;
-    display: flex;
-    padding: 0.5rem;
-    margin: 0.5rem;
-
-    & div {
-      margin-top: 0.5rem;
-      margin: 0 auto;
-      padding: 0.5rem;
-      border-radius: 10px;
-      max-width: 80vw;
-
-      &:hover {
-        background-color: $mainGreen;
-      }
-    }
-  }
-
-  &__right {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(49vw, 1fr));
-  }
-
-  &__right--card {
-    background: $mainGreen;
-    min-height: 10rem;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 0.5rem;
-    padding: 0.5rem;
+.all-projects__item {
+  width: 100%;
+  margin: 0.8rem;
+}
+@media screen and (min-width: 600px) {
+  .all-projects__item {
+    width: 45%;
   }
 }
 
-@media (min-width: 768px) {
-  body {
-    background: $backgroundWhite;
+@include media-md {
+}
+@include media-lg {
+  .all-projects__item {
+    width: 30%;
   }
-  .main {
-    height: 90vh;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(33rem, 1fr));
+}
 
-    &__left {
-      display: flex;
-      flex-direction: column;
-    }
-
-    &__left--info {
-      background-color: $foregroundWhite;
-      width: 15rem;
-      height: 15rem;
-      margin: 0 auto;
-      margin-top: 3rem;
-      padding: 1rem;
-      display: grid;
-      justify-items: center;
-      border-radius: 5px;
-    }
-
-    &__right {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
-    }
-
-    &__right--card {
-      background-color: #3cb3ab;
-      border-radius: 5px;
-      max-height: 8rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-      margin: 0.5rem;
-    }
-  }
+@include media-xl {
 }

@@ -10,7 +10,7 @@ const LoginForm = ({
   message,
 }) => {
   return (
-    <div className="auth page-container">
+    <main className="auth page-container">
       {/*note: I did some reordering on the elements, hope it works and nothing bugs out (-tella)*/}
       <form
         className="auth__form"
@@ -70,7 +70,7 @@ const LoginForm = ({
           </div>
         </div>
       </form>
-    </div>
+    </main>
   );
 };
 

@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-/*@Jamie#5503  I don't know where GoogleAuth is right now because I cant see your directory
- - Nice :)
- */
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
 
 import "./Header.scss";
@@ -14,7 +11,10 @@ function Header(props) {
   return (
     <div className="header">
       <div className="user-nav">
-        <Link className="user-nav__link user-nav__link--discover" to="/">
+        <Link
+          className="user-nav__link user-nav__link--discover"
+          to="/allprojects"
+        >
           Discover
         </Link>
         {!isAuth ? (

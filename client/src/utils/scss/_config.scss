@@ -2,14 +2,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-@function set-text-color($color) {
-  @if (lightness($color) > 40%) {
-    @return #000;
-  } @else {
-    @return #fff;
-  }
-}
-
 @mixin media-md {
   @media screen and (min-width: 768px) {
     @content;

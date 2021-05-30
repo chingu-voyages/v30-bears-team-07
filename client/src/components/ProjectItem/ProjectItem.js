@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Card from "../UIComponents/Card/Card";
 import Modal from "../UIComponents/Modal/Modal";
 import DeleteProject from "../forms/project/DeleteProject/DeleteProject";
@@ -22,14 +23,31 @@ const ProjectItem = ({ project }) => {
 
   const renderDeleteProject = () => {
     if (!showDeleteProject) return null;
-    return <DeleteProject project={project} />;
+    return (
+      <DeleteProject project={project} onClose={deleteProjectOnCloseHandler} />
+    );
+  };
+
+  const renderActionButtons = () => {
+    if (!(user && user.id == project.creator.id)) return null;
+    return (
+      <>
+        <button className="project-item__action-button">Edit</button>|
+        <button
+          className="project-item__action-button danger"
+          onClick={deleteProjectOnOpenHandler}
+        >
+          Delete
+        </button>
+      </>
+    );
   };
 
   // render
   return (
     <>
       {renderDeleteProject()}
-      <li className="project-item">
+      <Link className="project-item" to={`/projects/${project.id}`}>
         <Card className="project-item__content">
           <div className="project-item__image">
             {/*<img
@@ -39,18 +57,13 @@ const ProjectItem = ({ project }) => {
           </div>
           <div className="project-item__info">
             <h2>{project.name}</h2>
-            <h3>{project.amount_donated}</h3>
-            <h3>Target Goal:{project.target_goal}</h3>
+            <h3>
+              ${project.amount_donated} / {project.target_goal} raised
+            </h3>
           </div>
-          <div className="project-item__actions">
-            {user && user.id == project.creator.id && <button>Edit</button>}
-
-            {user && user.id == project.creator.id && (
-              <button onClick={deleteProjectOnOpenHandler}>Delete</button>
-            )}
-          </div>
+          <div className="project-item__actions">{renderActionButtons()}</div>
         </Card>
-      </li>
+      </Link>
     </>
   );
 };

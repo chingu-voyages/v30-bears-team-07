@@ -24,15 +24,22 @@ const AllProjects = (props) => {
   }, []);
 
   return (
-    <div>
-      <section className="main">
-        <div className="main__right">
+    <main className="all-projects page-container">
+      <section
+        className="all-projects__section"
+        id="all-projects__projects-list-section"
+      >
+        <h1 className="all-projects__heading">All Fundraising Projects</h1>
+
+        <ul className="all-projects__items">
           {projects.map((project, index) => (
-            <ProjectItem project={project} key={project.id || index} />
+            <li className="all-projects__item" key={project.id || index}>
+              <ProjectItem project={project} />
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
-    </div>
+    </main>
   );
 };
 

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@400;700&display=swap");
 @import "utils/scss/variables.scss";
+@import "utils/scss/config.scss";
 
 * {
   margin: 0;
@@ -19,6 +20,17 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+
+a,
+a:hover,
+a:visited,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+// styles shared by multiple components
+
 h1,
 h2,
 h3,
@@ -33,23 +45,6 @@ button {
   border-width: 0;
   cursor: pointer;
 }
-ul,
-ol,
-dd {
-  list-style: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: skyblue;
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-// styles shared by multiple components
 
 button {
   display: block;
