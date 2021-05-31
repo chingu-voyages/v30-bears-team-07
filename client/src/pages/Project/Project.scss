@@ -28,10 +28,11 @@
   min-width: 45vw;
   margin: 0 auto;
   margin-top: 0.75rem;
-  background-color: rgb(139, 69, 19);
+  background-color: rgb(255, 170, 20);
+  color: $secondaryBlack;
 
   &:hover {
-    transform: translateY(3px);
+    background-color: #dd8800;
   }
 }
 
@@ -82,11 +83,6 @@
     min-width: 15vw;
     margin: 0 auto;
     margin-top: 0.75rem;
-    background-color: rgb(139, 69, 19);
-
-    &:hover {
-      transform: translateY(3px);
-    }
   }
 
   .project__action-button {
