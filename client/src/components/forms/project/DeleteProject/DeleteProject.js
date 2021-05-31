@@ -56,8 +56,7 @@ const DeleteProject = (props) => {
               Are you sure you want to delete this project?
             </p>
             <p className="modal__modal-p delete-project enlarged-text centered">
-              Revive our Papa John's branch
-              {/* props.project.name */}
+              {props.project.name}
             </p>
             <p
               id="delete-project-description-paragraph"

@@ -32,6 +32,26 @@
   }
 }
 
+.project__actions-container {
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+.project__action-button {
+  margin: 0 auto;
+  margin-top: 0.75rem;
+  width: 100%;
+  // max-width: 25rem;
+}
+
+.project__action-button.danger {
+  background-color: $dangerBackgroundColor;
+
+  &:hover {
+    background-color: $dangerBackgroundColorHover;
+  }
+}
+
 @media (min-width: 768px) {
   // for the desktop version
   .page {
@@ -61,5 +81,9 @@
     &__share {
       background-color: rgba(255, 147, 79, 0.7);
     }
+  }
+  .project__action-button {
+    padding: 0.5rem 1rem;
+    width: fit-content;
   }
 }

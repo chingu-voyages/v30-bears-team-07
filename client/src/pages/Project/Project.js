@@ -30,8 +30,6 @@ const Project = (props) => {
   };
 
   const deleteProjectOnCloseHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
     setShowDeleteProject(false);
   };
 
