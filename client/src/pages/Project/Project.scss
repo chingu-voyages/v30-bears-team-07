@@ -1,6 +1,6 @@
 @import "../../utils/scss/_variables";
 
-.project__page {
+.project__page-container {
   display: grid;
 
   h1 {
@@ -10,11 +10,14 @@
   }
 }
 
-.main__right--card {
+.project__details-card {
   background-color: rgba(32, 178, 170, 0.5);
   border-radius: 15px;
   display: grid;
   justify-items: start;
+  min-height: 35vh;
+  padding: 1rem;
+  margin: 1rem;
 
   &:hover {
     background-color: rgba(32, 178, 170, 0.7);
@@ -22,13 +25,13 @@
 }
 
 .project.btn {
-  width: 65%;
+  min-width: 45vw;
   margin: 0 auto;
   margin-top: 0.75rem;
-  background-color: rgba(255, 147, 79, 1);
+  background-color: rgb(139, 69, 19);
 
-  &__share {
-    background-color: rgba(255, 147, 79, 0.7);
+  &:hover {
+    transform: translateY(3px);
   }
 }
 
@@ -52,36 +55,40 @@
   }
 }
 
+// ----------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
+
 @media (min-width: 768px) {
   // for the desktop version
-  .page {
+  .project__page-container {
     display: grid;
   }
 
-  .project__content {
+  .project__details-container {
     display: grid;
     justify-items: center;
   }
 
-  .main__right--card {
+  .project__details-card {
     width: 50vw;
     min-height: 35vh;
-    margin: 0 auto;
     margin-bottom: 1rem;
     display: grid;
     justify-items: center;
+    align-items: center;
   }
 
   .project.btn {
-    width: 15vw;
+    min-width: 15vw;
     margin: 0 auto;
     margin-top: 0.75rem;
-    background-color: rgba(255, 147, 79, 1);
+    background-color: rgb(139, 69, 19);
 
-    &__share {
-      background-color: rgba(255, 147, 79, 0.7);
+    &:hover {
+      transform: translateY(3px);
     }
   }
+
   .project__action-button {
     padding: 0.5rem 1rem;
     width: fit-content;

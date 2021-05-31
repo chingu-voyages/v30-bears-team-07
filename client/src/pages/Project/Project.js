@@ -89,20 +89,18 @@ const Project = (props) => {
   return (
     <>
       {renderDeleteProject()}
-      <div className="project page-container">
+      <div className="project__page-container">
         {/*note: I will let you finish fixing these classes because I'm going to focus on functionality related stuff for now.*/}
         <div className="project__details-container">
           <h1>Let's help Green Delight after lockdown</h1>
-          <div className="main__right">
-            <div className="main__right--card">
-              {/* <div>Image: </div>*/}
-              {/*note: if there are no h2 or h3, there should be no h4. the headings have semantic meaning and are not related to style */}
-              {/*<h4>Project Name: {project.name}</h4>*/}
-              <h2>Project Name: {project.name}</h2>
-              <p>Description: {project.description}</p>
-              <p>Amount Donated So Far: {project.amount_donated}</p>
-              <p>Target Goal: {project.target_goal}</p>
-            </div>
+
+          <div className="project__details-card">
+            {/* <div>Image: </div>*/}
+
+            <h2>Project Name: {project.name}</h2>
+            <p>Description: {project.description}</p>
+            <p>Amount Donated So Far: {project.amount_donated}</p>
+            <p>Target Goal: {project.target_goal}</p>
           </div>
         </div>
         <div className="project__actions-container">
