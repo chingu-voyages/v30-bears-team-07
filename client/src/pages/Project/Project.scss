@@ -1,6 +1,6 @@
 @import "../../utils/scss/_variables";
 
-.page {
+.project__page {
   display: grid;
 
   h1 {
@@ -38,7 +38,7 @@
     display: grid;
   }
 
-  .content {
+  .project__content {
     display: grid;
     justify-items: center;
   }

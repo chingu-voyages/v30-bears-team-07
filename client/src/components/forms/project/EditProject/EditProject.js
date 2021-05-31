@@ -74,7 +74,7 @@ const EditProject = (props) => {
 
   // submit handler
   const onSubmit = async (formValues) => {
-    formValues.projectId = project._id;
+    formValues.projectId = project.id;
     const successCb = () => {
       props.actionShowLoader("editProjectModalForm", false);
       props.onClose();

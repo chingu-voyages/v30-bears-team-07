@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
 import Header from "../../components/Header/Header";
-import Card from "../../components/UIComponents/Card/Card";
+import ProjectItem from "../../components/ProjectItem/ProjectItem";
 import { getAllProjects } from "../../redux/actions/projectsActions";
 import "./AllProjects.scss";
 
@@ -24,21 +24,22 @@ const AllProjects = (props) => {
   }, []);
 
   return (
-    <div>
-      <section className="main">
-        <div className="main__right">
-          <Card />
-          {projects.map((project) => (
-            <div className="main__right--card">
-              <div>Image: </div>
-              <h4>{project.name}</h4>
-              <p>Last Donation: 8 min ago</p>
-              <p>{project.amount_donated} raised</p>
-            </div>
+    <main className="all-projects page-container">
+      <section
+        className="all-projects__section"
+        id="all-projects__projects-list-section"
+      >
+        <h1 className="all-projects__heading">All Fundraising Projects</h1>
+
+        <ul className="all-projects__items">
+          {projects.map((project, index) => (
+            <li className="all-projects__item" key={project.id || index}>
+              <ProjectItem project={project} />
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
-    </div>
+    </main>
   );
 };
 

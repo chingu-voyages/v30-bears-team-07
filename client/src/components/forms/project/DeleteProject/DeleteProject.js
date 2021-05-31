@@ -13,15 +13,13 @@ import Modal from "../../../UIComponents/Modal/Modal";
 
 const DeleteProject = (props) => {
   const onCloseHandler = () => {
-    console.log("closing delete-project modal");
-    props.onClose();
+    if (props.onClose) props.onClose();
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     // props.actionShowLoader("deleteProjectForm", true);
-    // props.deleteProject(props.project.id);
-    props.deleteProject("60a8db0e87442224787e6005");
+    props.deleteProject(props.project.id);
   };
 
   const renderErrorNotifications = () => {
