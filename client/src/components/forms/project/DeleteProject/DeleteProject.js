@@ -18,8 +18,11 @@ const DeleteProject = (props) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    const onSuccessCb = () => {
+      if (props.onSuccessCb) props.onSuccessCb();
+    };
     // props.actionShowLoader("deleteProjectForm", true);
-    props.deleteProject(props.project.id);
+    props.deleteProject(props.project.id, onSuccessCb);
   };
 
   const renderErrorNotifications = () => {

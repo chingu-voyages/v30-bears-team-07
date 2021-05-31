@@ -57,9 +57,10 @@ export default (state = INITIAL_STATE, action) => {
         }),
       };
     case DELETE_PROJECT_SUCCESS:
-      return [...state].filter(
+      owned = [...state.owned].filter(
         (project) => project.id != action.payload.projectId
       );
+      return { owned, supported: state.supported };
     case GET_ALL_USER_PROJECTS_FAIL:
     case CREATE_PROJECT_FAIL:
     case GET_PROJECT_FAIL:

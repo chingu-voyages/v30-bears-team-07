@@ -3,8 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
+import history from "../../history";
 import Header from "../../components/Header/Header";
-// import DeleteProject from "../forms/project/DeleteProject/DeleteProject";
+import DeleteProject from "../../components/forms/project/DeleteProject/DeleteProject";
 import "./Project.scss";
 
 const Project = (props) => {
@@ -24,7 +25,6 @@ const Project = (props) => {
     dispatch({ type: CLOSE_PROJECT });
   };
 
-  /*
   const deleteProjectOnOpenHandler = () => {
     setShowDeleteProject(true);
   };
@@ -37,26 +37,47 @@ const Project = (props) => {
 
   const renderDeleteProject = () => {
     if (!showDeleteProject) return null;
+    const onDeleteSuccessCb = () => {
+      history.push("/dashboard");
+    };
     return (
-      <DeleteProject project={project} onClose={deleteProjectOnCloseHandler} />
+      <DeleteProject
+        project={project}
+        onClose={deleteProjectOnCloseHandler}
+        onSuccessCb={onDeleteSuccessCb}
+      />
     );
   };
 
-  const renderActionButtons = () => {
-    if (!(user && user.id == project.creator.id)) return null;
+  const renderDonorActionButtons = () => {
+    // do not show these buttons if user is the creator
+    if (user && project.creator && user.id == project.creator.id) return null;
     return (
       <>
-        <button className="project-item__action-button">Edit</button>|
+        {/*note: I don't know if you were still working on the classes for these, but you can try to match the ones I have
+        on a renderCreatorActionButtons
+        */}
+        <button className="project btn">Donate</button>
+      </>
+    );
+  };
+
+  const renderCreatorActionButtons = () => {
+    // only show these buttons if user is the creator
+    if (!(user && project.creator && user.id == project.creator.id))
+      return null;
+    return (
+      <>
+        <button className="project__action-button">Edit Project</button>
         <button
-          className="project-item__action-button danger"
+          className="project__action-button danger"
           onClick={deleteProjectOnOpenHandler}
         >
-          Delete
+          Delete Project
         </button>
       </>
     );
   };
-    */
 
   // retrieve the project from the database once after the component renders
   useEffect(() => {
@@ -68,32 +89,34 @@ const Project = (props) => {
   }, []);
 
   return (
-    <div className="project page-container">
-      {" "}
-      {/*- we already have this class in index.scss*/}
-      {/*thanks
-      we should list down everything we need to do first
-      your turn to code
-      - 1) fix those classes
-      -  the page-container, right?
-      - But not project__page ?
-
-      */}
-      <div className="project__content">
-        <h1>Let's help Green Delight after lockdown</h1>
-        <div className="main__right">
-          <div className="main__right--card">
-            {/* <div>Image: </div>*/}
-            <h4>Project Name: {project.name}</h4>
-            <p>Description: {project.description}</p>
-            <p>Amount Donated So Far: {project.amount_donated}</p>
-            <p>Target Goal: {project.target_goal}</p>
+    <>
+      {renderDeleteProject()}
+      <div className="project page-container">
+        {/*note: I will let you finish fixing these classes because I'm going to focus on functionality related stuff for now.*/}
+        <div className="project__details-container">
+          <h1>Let's help Green Delight after lockdown</h1>
+          <div className="main__right">
+            <div className="main__right--card">
+              {/* <div>Image: </div>*/}
+              {/*note: if there are no h2 or h3, there should be no h4. the headings have semantic meaning and are not related to style */}
+              {/*<h4>Project Name: {project.name}</h4>*/}
+              <h2>Project Name: {project.name}</h2>
+              <p>Description: {project.description}</p>
+              <p>Amount Donated So Far: {project.amount_donated}</p>
+              <p>Target Goal: {project.target_goal}</p>
+            </div>
           </div>
         </div>
+        <div className="project__actions-container">
+          {renderDonorActionButtons()}
+          {renderCreatorActionButtons()}
+        </div>
+        {/*
+        note: I moved it from here to renderDonorActionButtons (L48-L50)
+        <button className="project btn">Donate</button>
+        */}
       </div>
-      <button className="project btn btn__share">Share</button>
-      <button className="project btn">Donate</button>
-    </div>
+    </>
   );
 };
 
