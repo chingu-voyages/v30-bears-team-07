@@ -15,11 +15,11 @@
 html {
   box-sizing: border-box;
   font-size: 1rem;
-  font-family: "Commissioner", sans-serif;
+  font-family: $fontPrimary;
 }
 
 body {
-  font-family: $font-primary;
+  font-family: $fontPrimary;
   font-weight: normal;
 }
 

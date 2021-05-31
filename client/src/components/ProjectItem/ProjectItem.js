@@ -19,13 +19,12 @@ const ProjectItem = ({ project }) => {
     history.push(`/projects/${project.id}`);
   };
 
-  const deleteProjectOnOpenHandler = () => {
+  const deleteProjectOnOpenHandler = (e) => {
+    e.stopPropagation();
     setShowDeleteProject(true);
   };
 
-  const deleteProjectOnCloseHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const deleteProjectOnCloseHandler = () => {
     setShowDeleteProject(false);
   };
 

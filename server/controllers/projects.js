@@ -55,7 +55,7 @@ exports.get_project = async (req, res) => {
   console.log("retrieving a project");
   try {
     //mongoose query
-    const project = await Project.findById(req.params.id);
+    const project = await Project.findById(req.params.id).populate("creator");
     if (!project)
       throw Error(
         "Project does not exist."

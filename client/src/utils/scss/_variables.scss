@@ -1,6 +1,7 @@
 // syntax notes can be found at the bottom
 // Font Awesome icons:
-$fa-font-path: "../webfonts";
+// note: Jamie, are we still using this? (Tella)
+// $fa-font-path: "../webfonts";
 
 // color variables
 //   backgrounds
@@ -24,8 +25,9 @@ $mainBlack: #000;
 $mainBlackLight: #222;
 
 // Google Fonts:
-//
-$font-primary: "Poppins", sans-serif;
+// note: I think I like Commissioner more (Tella)
+// $font-primary: "Poppins", sans-serif;
+$fontPrimary: "Commissioner", sans-serif;
 
 // This is for error and warnings
 $lightPink: #ffacb4;

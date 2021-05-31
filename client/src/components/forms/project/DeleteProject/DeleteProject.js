@@ -18,8 +18,11 @@ const DeleteProject = (props) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    const onSuccessCb = () => {
+      if (props.onSuccessCb) props.onSuccessCb();
+    };
     // props.actionShowLoader("deleteProjectForm", true);
-    props.deleteProject(props.project.id);
+    props.deleteProject(props.project.id, onSuccessCb);
   };
 
   const renderErrorNotifications = () => {
@@ -53,8 +56,7 @@ const DeleteProject = (props) => {
               Are you sure you want to delete this project?
             </p>
             <p className="modal__modal-p delete-project enlarged-text centered">
-              Revive our Papa John's branch
-              {/* props.project.name */}
+              {props.project.name}
             </p>
             <p
               id="delete-project-description-paragraph"
