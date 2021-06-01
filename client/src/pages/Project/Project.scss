@@ -4,7 +4,6 @@
   display: grid;
 
   h1 {
-    color: $mainGreen;
     font-size: 1.5rem;
     margin: 2rem;
   }
@@ -28,11 +27,11 @@
   min-width: 45vw;
   margin: 0 auto;
   margin-top: 0.75rem;
-  background-color: rgb(255, 170, 20);
+  background-color: #ffaa14;
   color: $secondaryBlack;
 
   &:hover {
-    background-color: #dd8800;
+    background-color: #ee9900;
   }
 }
 
