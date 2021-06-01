@@ -79,9 +79,11 @@
   }
 
   .project.btn {
-    min-width: 15vw;
+    width: fit-content;
+    min-width: 0;
     margin: 0 auto;
     margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
   }
 
   .project__action-button {
