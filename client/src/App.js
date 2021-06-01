@@ -1,5 +1,10 @@
 import React from "react";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { connect } from "react-redux";
 import history from "./history";
 
@@ -31,7 +36,7 @@ import "./index.scss";
 const App = ({ isSignedIn, user }) => {
   return (
     <div id="app-outer-container" data-test="component-app">
-      <Router history={history}>
+      <Router>
         <Route path="/" exact>
           <Redirect to={isSignedIn ? `/dashboard` : "/login"} />
         </Route>
