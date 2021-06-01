@@ -6,7 +6,7 @@
   justify-content: center;
   text-align: center;
   background-color: #469;
-  margin: 1rem auto;
+  margin: 0.5rem auto;
   width: 100%;
   max-width: 25rem;
   font-size: 1rem;
@@ -18,7 +18,7 @@
   &.user-nav__link--danger {
     display: block;
     width: fit-content;
-    margin: 0 1rem 0 0;
+    margin: 0 0.5rem 0 0;
     background-color: #0000;
     color: $dangerTextColor;
   }

@@ -6,6 +6,7 @@
   justify-content: space-around;
   padding: 2rem 0;
   background-color: $foregroundWhite;
+  z-index: 100;
 }
 
 .user-nav {
@@ -22,10 +23,23 @@
 }
 
 .user-nav__link {
-  margin: 0 1rem 0 0;
+  // margin: 0 1rem 0 0;
 }
 
 .user-nav__link--discover {
   padding: 0 1rem 0 0;
-  border-right: 1px solid rgba(0, 0, 0, 0.15);
+  // border-right: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & section {
+      margin: 0.5rem;
+    }
+  }
 }

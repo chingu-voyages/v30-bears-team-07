@@ -10,13 +10,16 @@ function Header(props) {
 
   return (
     <div className="header">
-      <div className="user-nav">
+      <section>
         <Link
           className="user-nav__link user-nav__link--discover"
           to="/allprojects"
         >
           Discover
         </Link>
+      </section>
+
+      <section>
         {!isAuth ? (
           <Link className="user-nav__link" to="/login">
             Log in
@@ -24,22 +27,19 @@ function Header(props) {
         ) : (
           ""
         )}
+
         {isAuth ? (
-          <div className="user-nav__user">
-            <Link className="user-nav__link" to="/dashboard">
-              Dashboard
-            </Link>
-            <GoogleAuth className="user-nav__link user-nav__link--danger" />
-            {/*
-              <Link className="user-nav__link" to="/login">
-                Sign out
-              </Link>
-            */}
-          </div>
+          <Link className="user-nav__link" to="/dashboard">
+            Dashboard
+          </Link>
         ) : (
           ""
         )}
-      </div>
+      </section>
+
+      <section>
+        <GoogleAuth className="user-nav__link user-nav__link--danger" />{" "}
+      </section>
     </div>
   );
 }
