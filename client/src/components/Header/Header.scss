@@ -2,44 +2,43 @@
 
 .header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 2rem 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: $foregroundWhite;
-  z-index: 100;
+
+  & section {
+    margin: 0.5rem;
+  }
 }
 
-.user-nav {
+.nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
+  background-color: $mainGreen;
+  padding: 1rem;
+  border-radius: 40px;
+  color: white;
+  min-width: 10rem;
+
+  &:hover {
+    background-color: $mainGreenDim;
+  }
 }
 
-.user-nav__user {
-  display: flex;
-  width: fit-content;
-  align-items: center;
-  justify-content: space-between;
-}
+// ------------------ breakpoint between mobile and desktop ---------------------------------------
+// ------------------------------------------------------------------------------------------------
 
-.user-nav__link {
-  // margin: 0 1rem 0 0;
-}
-
-.user-nav__link--discover {
-  padding: 0 1rem 0 0;
-  // border-right: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-@media only screen and (max-width: 768px) {
+@media (min-width: 768px) {
   .header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 2rem 0;
+  }
 
-    & section {
-      margin: 0.5rem;
-    }
+  .nav {
   }
 }

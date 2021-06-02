@@ -10,35 +10,18 @@ function Header(props) {
 
   return (
     <div className="header">
-      <section>
-        <Link
-          className="user-nav__link user-nav__link--discover"
-          to="/allprojects"
-        >
-          Discover
-        </Link>
+      <section className="nav">
+        <Link to="/allprojects">All Projects</Link>
+      </section>
+
+      <section className="nav">
+        {!isAuth ? <Link to="/login">Log in</Link> : ""}
+
+        {isAuth ? <Link to="/dashboard">Dashboard</Link> : ""}
       </section>
 
       <section>
-        {!isAuth ? (
-          <Link className="user-nav__link" to="/login">
-            Log in
-          </Link>
-        ) : (
-          ""
-        )}
-
-        {isAuth ? (
-          <Link className="user-nav__link" to="/dashboard">
-            Dashboard
-          </Link>
-        ) : (
-          ""
-        )}
-      </section>
-
-      <section>
-        <GoogleAuth className="user-nav__link user-nav__link--danger" />{" "}
+        <GoogleAuth />{" "}
       </section>
     </div>
   );

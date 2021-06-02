@@ -5,14 +5,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #469;
+  background-color: $mainGreen;
   margin: 0.5rem auto;
-  width: 100%;
-  max-width: 25rem;
+  min-width: 10rem;
   font-size: 1rem;
 
   &:hover {
-    background-color: #358;
+    background-color: $mainGreenDim;
   }
 
   &.user-nav__link--danger {
@@ -41,6 +40,6 @@
 @media screen and (min-width: 768px) {
   .ui.primary.google.button {
     width: fit-content;
-    padding: 0 1.5rem;
+    padding: 1rem;
   }
 }
