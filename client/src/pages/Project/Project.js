@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
 import history from "../../history";
-import Header from "../../components/Header/Header";
 import DeleteProject from "../../components/forms/project/DeleteProject/DeleteProject";
+import DonateForm from "../../components/forms/project/DonateForm/DonateForm";
 import "./Project.scss";
 
 const Project = (props) => {
   const [showDeleteProject, setShowDeleteProject] = useState(false);
-  // const [showEditProject,setShowEditProject]=useState(false);
+  const [showEditProject, setShowEditProject] = useState(false);
+  const [showDonateForm, setShowDonateForm] = useState(false);
   // redux store variables
   const user = useSelector((state) => state.user.info);
   const project = useSelector((state) => state.selectedProject);
@@ -25,12 +26,25 @@ const Project = (props) => {
     dispatch({ type: CLOSE_PROJECT });
   };
 
+  // retrieve the project from the database once after the component renders
+  useEffect(() => {
+    getProjectHandler();
+    // this is a cleanup function when component is unmounted
+    return () => {
+      unmountProjectHandler();
+    };
+  }, []);
+
   const deleteProjectOnOpenHandler = () => {
     setShowDeleteProject(true);
   };
 
   const deleteProjectOnCloseHandler = (e) => {
     setShowDeleteProject(false);
+  };
+
+  const donateButtonOnClickHandler = () => {
+    setShowDonateForm(true);
   };
 
   const renderDeleteProject = () => {
@@ -52,10 +66,9 @@ const Project = (props) => {
     if (user && project.creator && user.id == project.creator.id) return null;
     return (
       <>
-        {/*note: I don't know if you were still working on the classes for these, but you can try to match the ones I have
-        on a renderCreatorActionButtons
-        */}
-        <button className="project btn">Donate</button>
+        <button className="project btn" onClick={donateButtonOnClickHandler}>
+          Donate
+        </button>
       </>
     );
   };
@@ -77,20 +90,28 @@ const Project = (props) => {
     );
   };
 
-  // retrieve the project from the database once after the component renders
-  useEffect(() => {
-    getProjectHandler();
-    // this is a cleanup function when component is unmounted
-    return () => {
-      unmountProjectHandler();
-    };
-  }, []);
+  // conditionally render action buttons depending on whether donate form is shown
+  const renderActionButtons = () => {
+    if (showDonateForm) return null;
+    return (
+      <div className="project__actions-container">
+        {renderDonorActionButtons()}
+        {renderCreatorActionButtons()}
+      </div>
+    );
+  };
 
+  //conditionally render the donate form only after clicking the donate buttons
+  const renderDonateForm = () => {
+    if (!showDonateForm) return null;
+    return <DonateForm project={project} />;
+  };
+
+  // component render
   return (
     <>
       {renderDeleteProject()}
       <div className="project__page-container">
-        {/*note: I will let you finish fixing these classes because I'm going to focus on functionality related stuff for now.*/}
         <div className="project__details-container">
           <h1>Let's help Green Delight after lockdown</h1>
 
@@ -103,14 +124,8 @@ const Project = (props) => {
             <p>Target Goal: {project.target_goal}</p>
           </div>
         </div>
-        <div className="project__actions-container">
-          {renderDonorActionButtons()}
-          {renderCreatorActionButtons()}
-        </div>
-        {/*
-        note: I moved it from here to renderDonorActionButtons (L48-L50)
-        <button className="project btn">Donate</button>
-        */}
+        {renderActionButtons()}
+        {renderDonateForm()}
       </div>
     </>
   );

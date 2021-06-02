@@ -156,7 +156,7 @@ exports.user_change_password = async (req, res) => {
       // check if hashing the password has any errors
       const hash = await bcrypt.hash(new_password, salt);
       if (!hash) throw Error("Something went wrong hashing the password.");
-      console.log(SECRETKEY);
+      console.log(JWT_SECRETKEY);
 
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,

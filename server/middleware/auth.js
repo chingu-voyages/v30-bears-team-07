@@ -1,7 +1,7 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-const SECRETKEY = process.env.SECRETKEY;
+const JWT_SECRETKEY = process.env.JWT_SECRETKEY;
 
 module.exports = (req, res, next) => {
   const token = req.header("x-auth-token");
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, SECRETKEY);
+    const decoded = jwt.verify(token, JWT_SECRETKEY);
     console.log("from line seventeen");
     console.log(decoded);
     // Add user from payload

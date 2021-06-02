@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const async = require("async");
 const User = require("../models/user");
-const SECRETKEY = process.env.SECRETKEY;
+const JWT_SECRETKEY = process.env.JWT_SECRETKEY;
 
 // note to self: this is way too long, find a way to split this into 2 (tella)
 exports.google_login = async (req, res) => {
@@ -31,7 +31,7 @@ exports.google_login = async (req, res) => {
           id: user._id.toString(),
         };
         // synchronous signing of JWT token
-        const token = jwt.sign(userForToken, SECRETKEY, {
+        const token = jwt.sign(userForToken, JWT_SECRETKEY, {
           // TTL so it expires around 8 hours, and does not stay forever
           expiresIn: 28800,
         });
@@ -67,7 +67,7 @@ exports.google_login = async (req, res) => {
         };
 
         // synchronous signing of JWT token
-        const token = jwt.sign(userForToken, SECRETKEY, {
+        const token = jwt.sign(userForToken, JWT_SECRETKEY, {
           // TTL so it expires around 8 hours, and does not stay forever
           expiresIn: 28800,
         });
@@ -174,7 +174,7 @@ const login = async (req, res) => {
        // check if hashing the password has any errors
        const hash = await bcrypt.hash(password, salt);
        if (!hash) throw Error("Something went wrong hashing the password.");
-       console.log(SECRETKEY);
+       console.log(JWT_SECRETKEY);
 
        // create new user object in mongoose
        const newUser = new User({
@@ -190,7 +190,7 @@ const login = async (req, res) => {
          id: user._id,
        };
        // synchronous signing of JWT token
-       const token = jwt.sign(userForToken, SECRETKEY, {
+       const token = jwt.sign(userForToken, JWT_SECRETKEY, {
          // TTL so it expires around 8 hours, and does not stay forever
          expiresIn: 28800,
        });
