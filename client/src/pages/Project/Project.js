@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import queryString from "query-string";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
+
 import history from "../../history";
 import DeleteProject from "../../components/forms/project/DeleteProject/DeleteProject";
 import DonateForm from "../../components/forms/project/DonateForm/DonateForm";
@@ -12,11 +16,15 @@ const Project = (props) => {
   const [showDeleteProject, setShowDeleteProject] = useState(false);
   const [showEditProject, setShowEditProject] = useState(false);
   const [showDonateForm, setShowDonateForm] = useState(false);
+
   // redux store variables
   const user = useSelector((state) => state.user.info);
   const project = useSelector((state) => state.selectedProject);
   const dispatch = useDispatch();
+  // react-router constants
   const { projectId } = useParams();
+  const location = useLocation();
+  const { checkoutStatus } = queryString.parse(location.search);
 
   const getProjectHandler = () => {
     dispatch(getProject(projectId));
@@ -35,6 +43,52 @@ const Project = (props) => {
     };
   }, []);
 
+  const donateSuccessQueryHandler = () => {
+    // do not run this function if status is not success
+    if (checkoutStatus !== "success") return null;
+    // send a notification that the project donation succeeded
+    toast.success("Payout for donation successful!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    // redirect the user back to the project page without query string after a set amount of time
+    setTimeout(() => {
+      history.push(`/projects/${projectId}`);
+    }, 5000);
+  };
+
+  const donateCancelQueryHandler = () => {
+    // do not run this function if status is not canceled
+    if (checkoutStatus !== "canceled") return null;
+    // send a notification that the project donation succeeded
+    toast.error("Donation checkout canceled...", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    // redirect the user back to the project page without query string after a set amount of time
+    setTimeout(() => {
+      history.push(`/projects/${projectId}`);
+    }, 5000);
+  };
+
+  //check the location URL if there are any donation related queries
+  useEffect(() => {
+    donateSuccessQueryHandler();
+    donateCancelQueryHandler();
+    /*return () => {}*/
+  }, [location.search]);
+
+  // event action handlers
   const deleteProjectOnOpenHandler = () => {
     setShowDeleteProject(true);
   };
@@ -110,6 +164,7 @@ const Project = (props) => {
   // component render
   return (
     <>
+      <ToastContainer />
       {renderDeleteProject()}
       <div className="project__page-container">
         <div className="project__details-container">

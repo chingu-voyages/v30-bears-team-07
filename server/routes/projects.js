@@ -27,6 +27,7 @@ router.post("/:id/create-payment-intent", async (req, res) => {
   res.status(200).json({ clientSecret: paymentIntent.client_secret });
 });
 */
+// note: remember to move this controller function to the controller folder on project.js
 router.post("/:id/create-checkout-session", async (req, res) => {
   const { amount, projectId } = req.body;
   const session = await stripe.checkout.sessions.create({
@@ -46,8 +47,8 @@ router.post("/:id/create-checkout-session", async (req, res) => {
     ],
     mode: "payment",
     // note: replace for production environment
-    success_url: `http://localhost:3000/projects/${projectId}/success`,
-    cancel_url: `http://localhost:3000/projects/${projectId}/cancel`,
+    success_url: `http://localhost:3000/projects/${projectId}?checkoutStatus=success`,
+    cancel_url: `http://localhost:3000/projects/${projectId}?checkoutStatus=canceled`,
   });
 
   res.status(200).json({ id: session.id });

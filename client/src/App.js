@@ -39,24 +39,23 @@ const App = (props) => {
         <div style={{ display: "none" }}>
           <GoogleAuth />
         </div>
-        <UnauthenticatedRoute path="/login" exact>
-          <Login />
-        </UnauthenticatedRoute>
-        <AuthenticatedRoute path="/dashboard" exact>
-          <Dashboard />
-        </AuthenticatedRoute>
-        <Route path="/allprojects" exact>
-          <AllProjects />
-        </Route>
-        <Route path="/projects/:projectId" exact>
-          <Project />
-        </Route>
-        {/*note: to be added in the future, this Sprint or the next one (Tella)
-          <Route path="/projects/:projectId/checkout" exact>
-            <Checkout />
+        <Switch>
+          <UnauthenticatedRoute path="/login" exact>
+            <Login />
+          </UnauthenticatedRoute>
+          <AuthenticatedRoute path="/dashboard" exact>
+            <Dashboard />
+          </AuthenticatedRoute>
+          <Route path="/allprojects" exact>
+            <AllProjects />
           </Route>
-        */}
-
+          <Route path="/projects/:projectId" exact>
+            <Project />
+          </Route>
+          <Route>
+            <ErrorPage errorType="404" />
+          </Route>
+        </Switch>
         {/*note: these are all of the pages that need to be worked on way later on
           currently, they're not supposed to be used for now (Tella)
 

@@ -74,17 +74,17 @@ const DonateForm = (props) => {
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
     });
-
+    // note: still need to figure out what this does
     if (result.id && !result.error) {
       // handle success
       console.log("success");
-      history.push(`/projects/${props.project.id}`);
+      // history.push(`/projects/${props.project.id}`);
       // show success notification
     }
     // handle error
     else if (result.error) {
       console.log("failure");
-      history.push(`/projects/${props.project.id}`);
+      // history.push(`/projects/${props.project.id}`);
       // show failure notification
     }
   };
