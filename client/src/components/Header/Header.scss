@@ -17,14 +17,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: $mainGreen;
+  background-color: $foregroundWhite;
   padding: 1rem;
   border-radius: 40px;
-  color: white;
   min-width: 10rem;
 
   &:hover {
-    background-color: $mainGreenDim;
+    background-color: lightgray;
   }
 }
 
@@ -35,7 +34,7 @@
   .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-end;
     padding: 2rem 0;
   }
 
