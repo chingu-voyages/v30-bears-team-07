@@ -108,9 +108,8 @@ li {
   width: 100%;
   max-width: 25rem;
   margin: 0.2rem auto;
-
+  color: $secondaryBlack;
   &.error {
-    font-size: 1.05rem;
     color: $dangerTextColor;
   }
 }
@@ -178,6 +177,7 @@ li {
   min-height: 2.8rem;
   width: 100%;
   margin: 0.5rem auto;
+  min-width: 12rem;
   max-width: 25rem;
   &:hover {
     background-color: $mainGreenDim;

@@ -1,53 +1,61 @@
 @import "../../utils/scss/_variables";
 
-.project__page-container {
-  display: grid;
-
-  h1 {
-    font-size: 1.5rem;
-    margin: 2rem;
-  }
+.project.page-container {
 }
 
-.project__details-card {
-  background-color: rgba(32, 178, 170, 0.5);
-  border-radius: 15px;
-  display: grid;
-  justify-items: start;
-  min-height: 35vh;
-  padding: 1rem;
-  margin: 1rem;
-
-  &:hover {
-    background-color: rgba(32, 178, 170, 0.7);
-  }
+.project h1 {
+  font-size: 1.5rem;
 }
 
-.project.btn {
-  min-width: 45vw;
+.project p {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.project__flex-outer-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.project__details-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 35rem;
+  // border: 1px solid black;
+  // border-radius: 15px;
+  margin: 0.5rem auto;
+}
+
+.project__actions-container {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+.project__button {
   margin: 0 auto;
   margin-top: 0.75rem;
+  width: 100%;
+  min-width: 12rem;
+  // max-width: 25rem;
+}
+
+.project__button.cta {
   background-color: #ffaa14;
-  color: $secondaryBlack;
+  color: $mainBlack;
 
   &:hover {
     background-color: #ee9900;
   }
 }
 
-.project__actions-container {
-  padding: 0.5rem 1rem;
-  width: 100%;
-}
-
-.project__action-button {
-  margin: 0 auto;
-  margin-top: 0.75rem;
-  width: 100%;
-  // max-width: 25rem;
-}
-
-.project__action-button.danger {
+.project__button.danger {
   background-color: $dangerBackgroundColor;
 
   &:hover {
@@ -59,25 +67,15 @@
 // ----------------------------------------------------------------------------------------------
 
 @media (min-width: 768px) {
-  // for the desktop version
-  .project__page-container {
-    display: grid;
-  }
-
+  .project__actions-container,
   .project__details-container {
-    display: grid;
-    justify-items: center;
+    width: 50%;
+    max-width: 28rem;
+    margin: 0;
   }
-
-  .project__details-card {
-    width: 50vw;
-    min-height: 35vh;
-    margin-bottom: 1rem;
-    display: grid;
-    justify-items: center;
-    align-items: center;
+  .project__details-container {
+    max-width: 35rem;
   }
-
   .project.btn {
     width: fit-content;
     min-width: 0;
@@ -86,7 +84,7 @@
     padding: 0.5rem 1rem;
   }
 
-  .project__action-button {
+  .project__button {
     padding: 0.5rem 1rem;
     width: fit-content;
   }

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
 
@@ -43,11 +43,8 @@ const Project = (props) => {
     };
   }, []);
 
-  const donateSuccessQueryHandler = () => {
-    // do not run this function if status is not success
-    if (checkoutStatus !== "success") return null;
-    // send a notification that the project donation succeeded
-    toast.success("Payout for donation successful!", {
+  const renderNotification = ({ message, type, onOpenCb, onCloseCb }) => {
+    toast[type](message, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -55,30 +52,39 @@ const Project = (props) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
+      onOpen: () => {
+        if (onOpenCb) onOpenCb();
+      },
+      onClose: () => {
+        if (onCloseCb) onCloseCb();
+      },
     });
-    // redirect the user back to the project page without query string after a set amount of time
-    setTimeout(() => {
-      history.push(`/projects/${projectId}`);
-    }, 5000);
+  };
+
+  const removeQuery = () => {
+    history.push(`/projects/${projectId}`);
+  };
+
+  const donateSuccessQueryHandler = () => {
+    // do not run this function if status is not success
+    if (checkoutStatus !== "success") return null;
+    // send a notification that the project donation succeeded
+    renderNotification({
+      message: "Payout for donation successful!",
+      type: "success",
+      onOpenCb: removeQuery,
+    });
   };
 
   const donateCancelQueryHandler = () => {
     // do not run this function if status is not canceled
     if (checkoutStatus !== "canceled") return null;
     // send a notification that the project donation succeeded
-    toast.error("Donation checkout canceled...", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+    renderNotification({
+      message: "Donation checkout canceled...",
+      type: "error",
+      onOpenCb: removeQuery,
     });
-    // redirect the user back to the project page without query string after a set amount of time
-    setTimeout(() => {
-      history.push(`/projects/${projectId}`);
-    }, 5000);
   };
 
   //check the location URL if there are any donation related queries
@@ -120,7 +126,10 @@ const Project = (props) => {
     if (user && project.creator && user.id == project.creator.id) return null;
     return (
       <>
-        <button className="project btn" onClick={donateButtonOnClickHandler}>
+        <button
+          className="project__button cta"
+          onClick={donateButtonOnClickHandler}
+        >
           Donate
         </button>
       </>
@@ -133,9 +142,9 @@ const Project = (props) => {
       return null;
     return (
       <>
-        <button className="project__action-button">Edit Project</button>
+        <button className="project__button">Edit Project</button>
         <button
-          className="project__action-button danger"
+          className="project__button danger"
           onClick={deleteProjectOnOpenHandler}
         >
           Delete Project
@@ -158,29 +167,40 @@ const Project = (props) => {
   //conditionally render the donate form only after clicking the donate buttons
   const renderDonateForm = () => {
     if (!showDonateForm) return null;
-    return <DonateForm project={project} />;
+    return (
+      <div className="project__actions-container">
+        <DonateForm project={project} />
+      </div>
+    );
+  };
+
+  const renderProjectDetails = () => {
+    if (!project.id) return <h1>Loading Project...</h1>;
+    return (
+      <>
+        <h1>{project.name} </h1>
+
+        {/*<img className="project__image" src={project.url} alt="Project Image" />*/}
+        <p>
+          ${project.amount_donated} / {project.target_goal} raised.
+        </p>
+        <p>{project.description}</p>
+      </>
+    );
   };
 
   // component render
   return (
     <>
-      <ToastContainer />
       {renderDeleteProject()}
-      <div className="project__page-container">
-        <div className="project__details-container">
-          <h1>Let's help Green Delight after lockdown</h1>
-
-          <div className="project__details-card">
-            {/* <div>Image: </div>*/}
-
-            <h2>Project Name: {project.name}</h2>
-            <p>Description: {project.description}</p>
-            <p>Amount Donated So Far: {project.amount_donated}</p>
-            <p>Target Goal: {project.target_goal}</p>
+      <div className="project page-container">
+        <div className="project__flex-outer-container">
+          <div className="project__details-container">
+            {renderProjectDetails()}
           </div>
+          {renderActionButtons()}
+          {renderDonateForm()}
         </div>
-        {renderActionButtons()}
-        {renderDonateForm()}
       </div>
     </>
   );

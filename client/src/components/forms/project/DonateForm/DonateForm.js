@@ -27,47 +27,17 @@ const DonateForm = (props) => {
   const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
   // state variables
-  const [amount, setAmount] = useState(0);
-
-  /*
-  const onModalCloseHandler = () => {
-    if (props.onModalClose) props.onModalClose();
-  };
-  */
+  // const [amount, setAmount] = useState(0);
 
   // submit handler
   const onSubmit = async (formValues) => {
-    const donateToProjectSuccessCb = () => {
-      // onModalCloseHandler();
-    };
-    console.log(formValues);
-    // run an action
-    // props.actionShowLoader("donateToProjectModalForm", true);
-    await props.donateToProject(formValues, donateToProjectSuccessCb);
-  };
-
-  const renderErrorNotifications = () => {
-    const errorMessage = error.msg;
-    console.log(errorMessage);
-    if (errorMessage) {
-      return <ErrorNotifications message={errorMessage.msg || null} />;
-    }
-    return null;
-  };
-
-  // note: can be used later
-  // const renderLoader = () => {
-  //   return <LoadingSpinner showLoader={props.showLoader} />;
-  // };
-
-  const checkoutOnClickHandler = async (event) => {
     // Get Stripe.js instance
     const stripe = await stripePromise;
 
     // Call your backend to create the Checkout Session
     const response = await serverRest.post(
       `/projects/${props.project.id}/create-checkout-session`,
-      { amount, projectId: props.project.id }
+      { amount: formValues.amount, projectId: props.project.id }
     );
     const session = await response.data;
     // When the customer clicks on the button, redirect them to Checkout.
@@ -89,36 +59,63 @@ const DonateForm = (props) => {
     }
   };
 
+  const renderErrorNotifications = () => {
+    const errorMessage = error.msg;
+    console.log(errorMessage);
+    if (errorMessage) {
+      return <ErrorNotifications message={errorMessage.msg || null} />;
+    }
+    return null;
+  };
+
+  // note: can be used later
+  // const renderLoader = () => {
+  //   return <LoadingSpinner showLoader={props.showLoader} />;
+  // };
+
+  const checkoutOnClickHandler = async (event) => {};
+
   const renderContent = () => {
     return (
-      <div className="donate-form form__form-content modal-form-content">
+      <form className="donate-form">
         {renderErrorNotifications()}
-        <input
-          type="number"
-          placeholder="Donation Amount"
-          value={amount}
+        <Field
           name="amount"
-          onChange={({ target }) => setAmount(target.value)}
+          component={ReduxInput}
+          type="number"
+          props={{
+            formName: "project",
+            inputProps: {
+              placeholder: "Donation Amount (in USD)",
+              className: "form__input",
+              maxLength: "60",
+              autoComplete: "off",
+              id: "donate-form-amount-field",
+              type: "text",
+              autoFocus: true,
+            },
+            labelProps: {
+              className: "form__label",
+              text: "Donation Amount (in USD) *",
+              id: "donate-form-amount-label",
+            },
+          }}
         />
 
         <div className="form-button-container">
-          <button role="link" onClick={checkoutOnClickHandler}>
+          <button
+            className="form-button submit"
+            role="link"
+            onClick={props.handleSubmit(onSubmit)}
+          >
             Checkout
           </button>
         </div>
-      </div>
+      </form>
     );
   };
 
   return renderContent();
-
-  /*
-  // render
-  return ReactDOM.createPortal(
-    renderContent(),
-    document.getElementById("modal")
-  );
-  */
 };
 
 const validate = (formValues) => {
@@ -155,7 +152,7 @@ return (
           props={{
             formName: "project",
             inputProps: {
-              placeholder: "Project Name",
+              placeholder: "Donation Amount (in USD)",
               className: "form__input",
               maxLength: "60",
               autoComplete: "off",
@@ -165,7 +162,7 @@ return (
             },
             labelProps: {
               className: "form__label",
-              text: "Project Name *",
+              text: "Donation Amount (in USD) *",
               id: "donate-form-amount-label",
             },
           }}
