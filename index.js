@@ -7,6 +7,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const noCache = require("nocache");
 const logger = require("morgan");
+const { process_checkout_session } = require("./server/controllers/stripe");
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,14 @@ app.use(logger("dev"));
 // helmet security
 app.use(noCache());
 app.use(helmet());
+
+// adding the stripe web book first because it should stay unaffected by other middleware
+app.post(
+  "/stripe/webhook",
+  bodyParser.raw({ type: "application/json" }),
+  process_checkout_session
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -21,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 const authRouter = require("./server/routes/auth");
 const projectsRouter = require("./server/routes/projects");
 const usersRouter = require("./server/routes/users");
+const stripeRouter = require("./server/routes/stripe");
 
 //  routes
 /*
@@ -38,6 +48,7 @@ app.use("/", function (req, res) {
 app.use("/auth", authRouter);
 app.use("/projects", projectsRouter);
 app.use("/users", usersRouter);
+// app.use("/stripe", stripeRouter);
 
 const connect = async () => {
   // database connection

@@ -12,13 +12,6 @@ var ProjectSchema = new Schema({
   },
   amount_donated: { type: Number, default: 0, required: true },
   target_goal: { type: Number, default: 1, required: true },
-  donors: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-  ],
   deadline: { type: Date, default: Date.now(), min: Date.now() },
   status: {
     type: String,
@@ -41,3 +34,13 @@ ProjectSchema.set("toJSON", {
 });
 
 module.exports = mongoose.model("Project", ProjectSchema);
+
+/* note: properties that are not really necessary
+donors: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+],
+*/

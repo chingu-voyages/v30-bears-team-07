@@ -29,7 +29,7 @@ router.post("/:id/create-payment-intent", async (req, res) => {
 */
 // note: remember to move this controller function to the controller folder on project.js
 router.post("/:id/create-checkout-session", async (req, res) => {
-  const { amount, projectId } = req.body;
+  const { amount, projectId, projectCreatorId, userId } = req.body;
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
@@ -46,6 +46,9 @@ router.post("/:id/create-checkout-session", async (req, res) => {
       },
     ],
     mode: "payment",
+    // customer related stuff
+    client_reference_id: userId,
+    metadata: { projectId, projectCreatorId, userId, amount },
     // note: replace for production environment
     success_url: `http://localhost:3000/projects/${projectId}?checkoutStatus=success`,
     cancel_url: `http://localhost:3000/projects/${projectId}?checkoutStatus=canceled`,

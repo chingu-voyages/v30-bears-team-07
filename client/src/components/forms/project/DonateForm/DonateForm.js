@@ -24,6 +24,7 @@ const stripePromise = loadStripe(
 
 const DonateForm = (props) => {
   // redux store variables
+  const user = useSelector((state) => state.user.info);
   const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
   // state variables
@@ -37,7 +38,12 @@ const DonateForm = (props) => {
     // Call your backend to create the Checkout Session
     const response = await serverRest.post(
       `/projects/${props.project.id}/create-checkout-session`,
-      { amount: formValues.amount, projectId: props.project.id }
+      {
+        amount: formValues.amount,
+        projectId: props.project.id,
+        projectCreatorId: props.project.creator.id,
+        userId: user.id,
+      }
     );
     const session = await response.data;
     // When the customer clicks on the button, redirect them to Checkout.
@@ -88,10 +94,10 @@ const DonateForm = (props) => {
             inputProps: {
               placeholder: "Donation Amount (in USD)",
               className: "form__input",
-              maxLength: "60",
+              min: "1",
               autoComplete: "off",
               id: "donate-form-amount-field",
-              type: "text",
+              type: "number",
               autoFocus: true,
             },
             labelProps: {
