@@ -17,7 +17,7 @@ var ProjectSchema = new Schema({
     type: String,
     required: true,
     default: "active",
-    enum: ["active", "inactive", "canceled", "failed", "success"],
+    enum: ["active", "inactive", "canceled", "failed", "completed"],
   },
   created: {
     type: Date,

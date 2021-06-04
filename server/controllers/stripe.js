@@ -26,7 +26,7 @@ const updateProjectAmountDonated = async (project, amount) => {
   project.amount_donated = Number(project.amount_donated) + Number(amount);
   // change the status of the project if target goal has been reached
   if (project.amount_donated >= project.target_goal) {
-    project.status = "success";
+    project.status = "completed";
   }
   await project.save();
 };

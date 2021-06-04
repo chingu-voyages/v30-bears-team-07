@@ -2,17 +2,9 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { useSelector, useDispatch } from "react-redux";
-import history from "../../../../history";
 import serverRest from "../../../../api/serverRest";
-
-//note: I think this is deprecated so I'm going to leave it here for now (Tella)
-// import StripeCheckout from "react-stripe-checkout";
-import { donateToProject } from "../../../../redux/actions/projectsActions";
-
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
-// import Modal from "../../../UIComponents/Modal/Modal";
 import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";
-
 // import { actionShowLoader } from "../../../../redux/actions/loaderActions";
 // import LoadingSpinner from "../../../loaders/LoadingSpinner";
 import { loadStripe } from "@stripe/stripe-js";
@@ -27,8 +19,6 @@ const DonateForm = (props) => {
   const user = useSelector((state) => state.user.info);
   const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
-  // state variables
-  // const [amount, setAmount] = useState(0);
 
   // submit handler
   const onSubmit = async (formValues) => {
@@ -53,15 +43,11 @@ const DonateForm = (props) => {
     // note: still need to figure out what this does
     if (result.id && !result.error) {
       // handle success
-      console.log("success");
-      // history.push(`/projects/${props.project.id}`);
-      // show success notification
+      console.log("completed");
     }
     // handle error
     else if (result.error) {
       console.log("failure");
-      // history.push(`/projects/${props.project.id}`);
-      // show failure notification
     }
   };
 
@@ -124,11 +110,13 @@ const DonateForm = (props) => {
   return renderContent();
 };
 
-const validate = (formValues) => {
-  console.log(formValues);
+const validate = ({ amount }) => {
   const errors = {};
-  if (!formValues.amount) {
+  if (!amount) {
     errors.amount = "Please input an amount to be donated.";
+  }
+  if (Number(amount) < 1) {
+    errors.amount = "Donation amount cannot be lower than $1.";
   }
   return errors;
 };
@@ -139,129 +127,3 @@ export default reduxForm({
   enableReinitialize: true,
   validate,
 })(DonateForm);
-
-/*previous render function
-
-return (
-  <Modal
-    componentClass="donate-form"
-    headingText="Create a Project"
-    onModalClose={onModalCloseHandler}
-  >
-    <form id="donate-form-form" autoComplete="off">
-      <div className="donate-form form__form-content modal-form-content">
-        {renderErrorNotifications()}
-        <Field
-          name="amount"
-          component={ReduxInput}
-          type="number"
-          props={{
-            formName: "project",
-            inputProps: {
-              placeholder: "Donation Amount (in USD)",
-              className: "form__input",
-              maxLength: "60",
-              autoComplete: "off",
-              id: "donate-form-amount-field",
-              type: "text",
-              autoFocus: true,
-            },
-            labelProps: {
-              className: "form__label",
-              text: "Donation Amount (in USD) *",
-              id: "donate-form-amount-label",
-            },
-          }}
-        />
-
-        <div className="form-button-container">
-          <button role="link">Checkout</button>
-        </div>
-      </div>
-    </form>
-  </Modal>
-);
-*/
-
-/*
-
-<button
-  id="donate-form-submit"
-  className={"form-button submit mt-20"}
-  type="submit"
-  onClick={props.handleSubmit(onSubmit)}
->
-  Create Project
-</button>
-
-*/
-
-/*
-// const stripe = window.Stripe(
-//   "pk_test_51IxJ2SIxV9qIAWAE0331WoGbLUtUd2dCTAM8mgZu4mhSs7euesdremY1D7olfsoqPx4gK1P7ChbIiRIXnxRRcrY300elzL1hA6"
-// );
-
-const setup = () => {
-  serverRest
-    .post(
-      `/projects/${props.project.id}/create-payment-intent`,
-      { amount: formValues.amount }
-    )
-    .then(function (result) {
-      return result.json();
-    })
-    .then(function (data) {
-      var elements = stripe.elements();
-      var style = {
-        base: {
-          color: "#32325d",
-          fontFamily: "Arial, sans-serif",
-          fontSmoothing: "antialiased",
-          fontSize: "16px",
-          "::placeholder": {
-            color: "#32325d",
-          },
-        },
-        invalid: {
-          fontFamily: "Arial, sans-serif",
-          color: "#fa755a",
-          iconColor: "#fa755a",
-        },
-      };
-      var card = elements.create("card", { style: style });
-      // Stripe injects an iframe into the DOM
-      card.mount("#card-element");
-      card.on("change", function (event) {
-        // Disable the Pay button if there are no card details in the Element
-        document.querySelector("button").disabled = event.empty;
-        document.querySelector("#card-error").textContent = event.error
-          ? event.error.message
-          : "";
-      });
-      var form = document.getElementById("payment-form");
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        // Complete payment when the submit button is clicked
-        payWithCard(stripe, card, data.clientSecret);
-      });
-    });
-};
-
-//render
-<form id="payment-form">
-  <div id="card-element">
-    </div>
-  <button id="submit">
-    <div class="spinner hidden" id="spinner"></div>
-    <span id="button-text">Pay now</span>
-  </button>
-  <p id="card-error" role="alert"></p>
-  <p class="result-message hidden">
-    Payment succeeded, see the result in your
-    <a href="" target="_blank">
-      Stripe dashboard.
-    </a>{" "}
-    Refresh the page to pay again.
-  </p>
-</form>
-*/

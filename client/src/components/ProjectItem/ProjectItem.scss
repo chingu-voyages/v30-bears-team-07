@@ -45,6 +45,11 @@
   color: $mainBlackLight;
 }
 
+.project-item__amount-donated {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
 .project-item__actions {
   display: flex;
   justify-content: center;

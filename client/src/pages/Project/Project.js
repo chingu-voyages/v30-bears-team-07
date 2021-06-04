@@ -1,3 +1,5 @@
+import DefaultProjectImg from "../../assets/images/default-project-image.jpg";
+
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,6 +10,7 @@ import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
 
 import history from "../../history";
+import { capitalizeFirstLetter } from "../../helpers";
 import DeleteProject from "../../components/forms/project/DeleteProject/DeleteProject";
 import DonateForm from "../../components/forms/project/DonateForm/DonateForm";
 import "./Project.scss";
@@ -67,11 +70,11 @@ const Project = (props) => {
 
   const donateSuccessQueryHandler = () => {
     // do not run this function if status is not success
-    if (checkoutStatus !== "success") return null;
+    if (checkoutStatus !== "completed") return null;
     // send a notification that the project donation succeeded
     renderNotification({
       message: "Payout for donation successful!",
-      type: "success",
+      type: "completed",
       onOpenCb: removeQuery,
     });
   };
@@ -107,6 +110,13 @@ const Project = (props) => {
     setShowDonateForm(true);
   };
 
+  // class and styling methods
+  const getProjectStatusClass = () => {
+    if (!project || !project.status) return "";
+    return project.status;
+  };
+
+  // render methods
   const renderDeleteProject = () => {
     if (!showDeleteProject) return null;
     const onDeleteSuccessCb = () => {
@@ -179,12 +189,23 @@ const Project = (props) => {
     return (
       <>
         <h1>{project.name} </h1>
-
-        {/*<img className="project__image" src={project.url} alt="Project Image" />*/}
         <p>
-          ${project.amount_donated} / {project.target_goal} raised.
+          <span className="project__amount-donated">
+            ${project.amount_donated}
+          </span>{" "}
+          / {project.target_goal} raised.
         </p>
-        <p>{project.description}</p>
+        <p className={`project__status ${getProjectStatusClass()}`}>
+          Status: {capitalizeFirstLetter(project.status)}
+        </p>
+
+        <img
+          className="project__image"
+          src={project.image_url || DefaultProjectImg}
+          alt="Project Image"
+        />
+
+        <p className="project__description">{project.description}</p>
       </>
     );
   };

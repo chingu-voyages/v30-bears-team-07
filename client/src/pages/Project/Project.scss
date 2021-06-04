@@ -4,13 +4,20 @@
 }
 
 .project h1 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  text-align: left;
+  margin-bottom: 0;
 }
 
 .project p {
   width: 100%;
   margin: 0 auto;
   text-align: center;
+}
+
+.project__amount-donated {
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .project__flex-outer-container {
@@ -32,7 +39,24 @@
   margin: 0.5rem auto;
 }
 
+.project__image {
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+  display: block;
+  width: 88vw;
+  max-width: 32rem;
+  height: 66vw;
+  max-height: 24rem;
+}
+
+p.project__description {
+  border-top: 1px solid #bbb;
+  margin-top: 0.7rem;
+  padding-top: 0.7rem;
+}
+
 .project__actions-container {
+  border-top: 1px solid #bbb;
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   width: 100%;
@@ -75,6 +99,19 @@
   }
   .project__details-container {
     max-width: 35rem;
+    justify-content: flex-start;
+  }
+  .project__actions-container {
+    border-top: 0px solid #0000;
+  }
+  .project__image {
+    width: 48vw;
+    max-width: 32rem;
+    height: 36vw;
+    max-height: 24rem;
+  }
+  .project p {
+    text-align: left;
   }
   .project.btn {
     width: fit-content;

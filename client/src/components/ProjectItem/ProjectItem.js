@@ -1,3 +1,5 @@
+import DefaultProjectImg from "../../assets/images/default-project-image.jpg";
+
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -65,7 +67,10 @@ const ProjectItem = ({ project }) => {
           <div className="project-item__info">
             <h2>{project.name}</h2>
             <h3>
-              ${project.amount_donated} / {project.target_goal} raised
+              <span className="project-item__amount-donated">
+                ${project.amount_donated}
+              </span>{" "}
+              / {project.target_goal} raised
             </h3>
           </div>
           <div className="project-item__actions">{renderActionButtons()}</div>
