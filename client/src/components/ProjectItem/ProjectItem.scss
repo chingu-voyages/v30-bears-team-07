@@ -10,6 +10,11 @@
 
 .project-item__content {
   padding: 0;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.6);
+  }
 }
 
 .project-item__info {
@@ -76,11 +81,12 @@
 .project-item__action-button {
   background-color: #0000;
   color: $secondaryBlack;
+  border: 1px solid $secondaryBlack;
   width: fit-content;
   height: auto;
   min-height: 0;
   border-radius: 3px;
-  padding: 0.3rem 0.5rem;
+  padding: 0.4rem 0.7rem;
   margin: 0.5rem;
 
   &:hover {
@@ -89,10 +95,12 @@
 }
 
 .project-item__action-button.danger {
-  color: $dangerTextColor;
+  background-color: $dangerBackgroundColor;
+  color: #fff;
+  border: none;
 
   &:hover {
-    background-color: #9001;
+    background-color: $dangerBackgroundColorHover;
   }
 }
 

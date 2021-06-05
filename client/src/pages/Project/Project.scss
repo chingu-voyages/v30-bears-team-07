@@ -68,6 +68,10 @@ p.project__description {
   width: 100%;
   min-width: 12rem;
   // max-width: 25rem;
+
+  &:hover {
+    background-color: $mainGreenDim;
+  }
 }
 
 .project__button.cta {
