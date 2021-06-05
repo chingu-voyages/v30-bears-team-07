@@ -1,71 +1,33 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { changeUserPassword } from "../../../redux/actions/settingsActions";
-import { modalStatusReset } from "../../../redux/actions/modalActions";
-import { actionShowLoader } from "../../../redux/actions/loaderActions";
-import { renderError, getErrorClass } from "../../../../helpers";
+// import { changeUserPassword } from "../../../../redux/actions/projectsActions";
 
-import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
-import Modal from "../../Modal/Modal";
+import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
+import Modal from "../../../UIComponents/Modal/Modal";
+import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";
+import ReduxTextarea from "../../../../redux/FormComponents/ReduxTextarea/ReduxTextarea";
 
-import LoadingSpinner from "../../loaders/LoadingSpinner";
-
-const onInput = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-};
-const handleEnterKeyOnField = (e) => {
-  // This prevents submission bugging or refreshing upon pressing enter
-  // in an input field inside a form
-  /* if (e.keyCode === 13) {
-    e.preventDefault();
-    e.stopPropagation();
-  } */
-};
-
-const renderInput = ({ input, meta, inputProps, labelProps }) => {
-  const errorClass = getErrorClass(meta);
-  const labelClass = labelProps.class || null;
-  const labelId = labelProps.id || null;
-  return (
-    <React.Fragment>
-      <label
-        htmlFor={inputProps.id}
-        className={`${errorClass} ${labelClass}`}
-        id={labelId || ""}
-      >
-        {labelProps.text}
-      </label>
-      <input
-        {...inputProps}
-        {...input}
-        className={`${inputProps.className} ${errorClass}`}
-        onKeyDown={(e) => {
-          handleEnterKeyOnField(e);
-        }}
-        onInput={(e) => {
-          onInput(e);
-        }}
-        autoFocus={inputProps.autoFocus || false}
-      />
-      {renderError(meta, "change-user-password")}
-    </React.Fragment>
-  );
-};
+// import { actionShowLoader } from "../../../../redux/actions/loaderActions";
+// import LoadingSpinner from "../../../loaders/LoadingSpinner";
 
 const ChangeUserPassword = (props) => {
-  useEffect(() => {
-    console.log("this runs upon render");
-    if (props.changePasswordSubmitSuccess) {
-      props.hideSection();
-      // reset success status through MODAL_STATUS_RESET
-      props.modalStatusReset();
-    }
-  }, [props.changePasswordSubmitSuccess]);
+  const onModalCloseHandler = () => {
+    if (props.onModalClose) props.onModalClose();
+  };
+  // submit handler
+  const onSubmit = async (formValues) => {
+    const changeUserPasswordSuccessCb = () => {
+      onModalCloseHandler();
+    };
+    console.log(formValues);
+    // run an action
+    // props.actionShowLoader("changeUserPasswordModalForm", true);
+    await props.changeUserPassword(formValues, changeUserPasswordSuccessCb);
+  };
 
   const renderErrorNotifications = () => {
     const errorMessage = props.error.msg;
@@ -76,167 +38,144 @@ const ChangeUserPassword = (props) => {
     return null;
   };
 
-  const renderLoader = () => {
-    return <LoadingSpinner showLoader={props.showLoader} />;
-  };
+  // note: can be used later
+  // const renderLoader = () => {
+  //   return <LoadingSpinner showLoader={props.showLoader} />;
+  // };
 
-  // submit handler
-  const onSubmit = async (formValues) => {
-    console.log(formValues);
-    props.actionShowLoader("changeUserPasswordForm", true);
-    await props.changeUserPassword(formValues);
-  };
-
-  // just change the header message depending on window width
-  const renderHeadingText = () => {
-    // this needs to be based on state
-
-    return window.innerWidth >= 450
-      ? "Change Your Password"
-      : "Change Password";
-  };
-
-  const content = (
-    <Modal
-      componentClass="change-user-password"
-      onModalClose={() => {
-        console.log("closing change-user-password modal");
-        props.hideSection();
-      }}
-      headerClassName="settings-page-sidebar-header"
-      headingText={renderHeadingText()}
-      actionButtons={
-        <button
-          className={"form-button submit mt-20"}
-          type="submit"
-          onClick={props.handleSubmit(onSubmit)}
-        >
-          {renderLoader()} Change Password
-        </button>
-      }
-    >
-      <form id="change-user-password-form" autoComplete="off">
-        <div className="change-user-password form__form-content modal-form-content">
-          {renderErrorNotifications()}
-          <div className="textfield-container">
+  const renderContent = () => {
+    return (
+      <Modal
+        componentClass="change-user-password"
+        headingText="Create a Project"
+        onModalClose={onModalCloseHandler}
+      >
+        <form id="change-user-password-form" autoComplete="off">
+          <div className="change-user-password form__form-content modal-form-content">
+            {renderErrorNotifications()}
+            {/*current password field*/}
             <Field
-              name="password"
-              component={renderInput}
+              name="name"
+              component={ReduxInput}
               type="password"
               props={{
+                formName: "project",
                 inputProps: {
                   placeholder: "Current Password",
-                  className: "textfield",
-                  maxLength: "30",
+                  className: "form__input",
+                  maxLength: "60",
                   autoComplete: "off",
-                  id: "change-user-password-password-field",
+                  id: "change-user-password-name-field",
                   type: "password",
                   autoFocus: true,
                 },
                 labelProps: {
-                  class: "form__label",
+                  className: "form__label",
                   text: "Current Password *",
-                  id: "change-user-password-password-label",
+                  id: "change-user-password-name-label",
                 },
               }}
             />
-          </div>
-          <div className="textfield-container">
+            {/*new password field*/}
             <Field
-              name="new_password"
-              component={renderInput}
+              name="name"
+              component={ReduxInput}
               type="password"
               props={{
+                formName: "project",
                 inputProps: {
                   placeholder: "New Password",
-                  className: "textfield",
-                  maxLength: "30",
+                  className: "form__input",
+                  maxLength: "60",
                   autoComplete: "off",
-                  id: "change-user-password-new-password-field",
+                  id: "change-user-password-name-field",
                   type: "password",
-                  // autoFocus: true
+                  autoFocus: true,
                 },
                 labelProps: {
-                  class: "form__label",
+                  className: "form__label",
                   text: "New Password *",
-                  id: "change-user-password-new-password-label",
+                  id: "change-user-password-name-label",
                 },
               }}
             />
-          </div>
-          <div className="textfield-container">
+            {/*confirm new password field*/}
             <Field
-              name="new_password_2"
-              component={renderInput}
+              name="name"
+              component={ReduxInput}
               type="password"
               props={{
+                formName: "project",
                 inputProps: {
                   placeholder: "Confirm New Password",
-                  className: "textfield",
-                  maxLength: "30",
+                  className: "form__input",
+                  maxLength: "60",
                   autoComplete: "off",
-                  id: "change-user-password-new-password-2-field",
+                  id: "change-user-password-name-field",
                   type: "password",
+                  autoFocus: true,
                 },
                 labelProps: {
-                  class: "form__label",
+                  className: "form__label",
                   text: "Confirm New Password *",
-                  id: "change-user-password-new-password-2-label",
+                  id: "change-user-password-name-label",
                 },
               }}
             />
-          </div>
-        </div>
-        <button
-          type="submit"
-          onClick={props.handleSubmit(onSubmit)}
-          style={{ display: "none" }}
-        >
-          Save
-        </button>
-      </form>
-    </Modal>
-  );
 
-  return ReactDOM.createPortal(content, document.getElementById("modal"));
+            <div className="form-button-container">
+              <button
+                id="change-user-password-submit"
+                className={"form-button submit mt-20"}
+                type="submit"
+                onClick={props.handleSubmit(onSubmit)}
+              >
+                Change User Password
+              </button>
+            </div>
+          </div>
+        </form>
+      </Modal>
+    );
+  };
+
+  // render
+  return ReactDOM.createPortal(
+    renderContent(),
+    document.getElementById("modal")
+  );
 };
 
 const validate = (formValues) => {
   console.log(formValues);
   const errors = {};
-  if (!formValues.password || formValues.password.length < 6) {
-    errors.password = "Please input your current password.";
+  if (!formValues.name) {
+    errors.name = "Please input a project name.";
   }
-  if (!formValues.new_password) {
-    errors.new_password = "Please input your new password.";
-  } else if (formValues.new_password.length < 6) {
-    errors.new_password = "Password has to be at least 6 characters long.";
+  if (!formValues.target_goal) {
+    errors.target_goal = "Please input the target goal amount.";
   }
-  if (!formValues.new_password_2 || formValues.new_password_2.length < 6) {
-    errors.new_password_2 = "Please repeat your new password.";
+  if (!formValues.deadline) {
+    errors.deadline = "Please input the project's deadline.";
   }
-  if (formValues.new_password !== formValues.new_password_2) {
-    errors.new_password_2 = "Password confirmation does not match.";
-  }
+
   return errors;
 };
 
 const mapStateToProps = (state) => ({
-  isSignedIn: state.auth.isSignedIn,
+  user: state.user.info,
   error: state.error,
-  changePasswordSubmitSuccess: state.modalSubmit.changePasswordSubmitSuccess,
-  showLoader: state.loader.showChangeUserPasswordFormLoader,
+  // showLoader: state.loader.showChangeUserPasswordFormLoader,
 });
 
-const changeUserPass = connect(mapStateToProps, {
+const changeUserPasswordModalComponent = connect(mapStateToProps, {
+  // actionShowLoader,
   changeUserPassword,
-  modalStatusReset,
-  actionShowLoader,
 })(ChangeUserPassword);
 
 export default reduxForm({
-  form: "changeUserPassword",
+  form: "changeUserPasswordModal",
   keepDirtyOnReinitialize: true,
   enableReinitialize: true,
   validate,
-})(changeUserPass);
+})(changeUserPasswordModalComponent);

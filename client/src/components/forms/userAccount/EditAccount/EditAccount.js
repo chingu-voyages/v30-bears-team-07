@@ -1,73 +1,33 @@
-import "./EditAccount.scss";
-
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { editUserAccount } from "../../../redux/actions/settingsActions";
-import { modalStatusReset } from "../../../redux/actions/modalActions";
-import { actionShowLoader } from "../../../redux/actions/loaderActions";
-import { renderError, getErrorClass, validateEmail } from "../../../../helpers";
+// import { editAccount } from "../../../../redux/actions/projectsActions";
 
-import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
-import Modal from "../../Modal/Modal";
+import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
+import Modal from "../../../UIComponents/Modal/Modal";
+import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";
+import ReduxTextarea from "../../../../redux/FormComponents/ReduxTextarea/ReduxTextarea";
 
-import LoadingSpinner from "../../loaders/LoadingSpinner";
-
-const onInput = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-};
-const handleEnterKeyOnField = (e) => {
-  // This prevents submission bugging or refreshing upon pressing enter
-  // in an input field inside a form
-  // if (e.keyCode === 13) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  // }
-};
-
-const renderInput = ({ input, meta, inputProps, labelProps }) => {
-  const errorClass = getErrorClass(meta);
-  const labelClass = labelProps.class || null;
-  const labelId = labelProps.id || null;
-  return (
-    <React.Fragment>
-      <label
-        htmlFor={inputProps.id}
-        className={`${errorClass} ${labelClass}`}
-        id={labelId || ""}
-      >
-        {labelProps.text}
-      </label>
-      <input
-        {...inputProps}
-        {...input}
-        className={`${inputProps.className} ${errorClass}`}
-        onKeyDown={(e) => {
-          handleEnterKeyOnField(e);
-        }}
-        onInput={(e) => {
-          onInput(e);
-        }}
-        autoFocus={inputProps.autoFocus || false}
-      />
-      {renderError(meta, "edit-account")}
-    </React.Fragment>
-  );
-};
+// import { actionShowLoader } from "../../../../redux/actions/loaderActions";
+// import LoadingSpinner from "../../../loaders/LoadingSpinner";
 
 const EditAccount = (props) => {
-  useEffect(() => {
-    console.log("this runs upon render");
-    if (props.editAccountSubmitSuccess) {
-      props.hideSection();
-      // reset success status through MODAL_STATUS_RESET
-      props.modalStatusReset();
-    }
-  }, [props.editAccountSubmitSuccess]);
+  const onModalCloseHandler = () => {
+    if (props.onModalClose) props.onModalClose();
+  };
+  // submit handler
+  const onSubmit = async (formValues) => {
+    const editAccountSuccessCb = () => {
+      onModalCloseHandler();
+    };
+    console.log(formValues);
+    // run an action
+    // props.actionShowLoader("editAccountModalForm", true);
+    await props.editAccount(formValues, editAccountSuccessCb);
+  };
 
   const renderErrorNotifications = () => {
     const errorMessage = props.error.msg;
@@ -78,155 +38,119 @@ const EditAccount = (props) => {
     return null;
   };
 
-  const renderLoader = () => {
-    return <LoadingSpinner showLoader={props.showLoader} />;
-  };
-  // submit handler
-  const onSubmit = async (formValues) => {
-    console.log(formValues);
-    // check if it succeeded or it produced an error
-    props.actionShowLoader("editAccountForm", true);
-    await props.editUserAccount(formValues);
-  };
+  // note: can be used later
+  // const renderLoader = () => {
+  //   return <LoadingSpinner showLoader={props.showLoader} />;
+  // };
 
-  const content = (
-    <React.Fragment>
+  const renderContent = () => {
+    return (
       <Modal
         componentClass="edit-account"
-        onModalClose={() => {
-          console.log("closing edit-account modal");
-          props.hideSection();
-        }}
-        headerClassName="settings-page-sidebar-header"
-        headingText="Edit Account"
-        actionButtons={
-          <button
-            className={"form-button submit mt-20"}
-            type="submit"
-            onClick={props.handleSubmit(onSubmit)}
-          >
-            {renderLoader()} Save
-          </button>
-        }
+        headingText="Create a Project"
+        onModalClose={onModalCloseHandler}
       >
         <form id="edit-account-form" autoComplete="off">
           <div className="edit-account form__form-content modal-form-content">
             {renderErrorNotifications()}
-            <div className="textfield-container">
-              <Field
-                name="username"
-                component={renderInput}
-                type="text"
-                props={{
-                  inputProps: {
-                    placeholder: "Username",
-                    className: "textfield",
-                    maxLength: "30",
-                    autoComplete: "off",
-                    id: "edit-account-username-field",
-                    autoFocus: true,
-                  },
-                  labelProps: {
-                    class: "form__label",
-                    text: "Username *",
-                    id: "edit-account-username-label",
-                  },
-                }}
-              />
-            </div>
-            <div className="textfield-container">
-              <Field
-                name="email"
-                component={renderInput}
-                type="text"
-                props={{
-                  inputProps: {
-                    placeholder: "Email",
-                    className: "textfield",
-                    maxLength: "64",
-                    autoComplete: "off",
-                    id: "edit-account-email-field",
-                  },
-                  labelProps: {
-                    class: "form__label",
-                    text: "Email *",
-                    id: "edit-account-email-label",
-                  },
-                }}
-              />
-            </div>
 
-            <div className="textfield-container">
-              <Field
-                name="password"
-                component={renderInput}
-                type="password"
-                props={{
-                  inputProps: {
-                    placeholder: "Enter Password for Confirmation",
-                    className: "textfield",
-                    maxLength: "30",
-                    autoComplete: "off",
-                    type: "password",
-                    id: "edit-account-password-field",
-                  },
-                  labelProps: {
-                    class: "form__label",
-                    text: "Password *",
-                    id: "edit-account-password-label",
-                  },
-                }}
-              />
+            {/*username field*/}
+            <Field
+              name="username"
+              component={ReduxInput}
+              type="text"
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Username",
+                  className: "form__input",
+                  maxLength: "60",
+                  autoComplete: "off",
+                  id: "edit-account-name-field",
+                  type: "text",
+                  autoFocus: true,
+                },
+                labelProps: {
+                  className: "form__label",
+                  text: "Username *",
+                  id: "edit-account-name-label",
+                },
+              }}
+            />
+            {/*password field*/}
+            <Field
+              name="name"
+              component={ReduxInput}
+              type="password"
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Password",
+                  className: "form__input",
+                  maxLength: "60",
+                  autoComplete: "off",
+                  id: "edit-account-name-field",
+                  type: "password",
+                  autoFocus: true,
+                },
+                labelProps: {
+                  className: "form__label",
+                  text: "Password *",
+                  id: "edit-account-name-label",
+                },
+              }}
+            />
+
+            <div className="form-button-container">
+              <button
+                id="edit-account-submit"
+                className={"form-button submit mt-20"}
+                type="submit"
+                onClick={props.handleSubmit(onSubmit)}
+              >
+                Edit Account
+              </button>
             </div>
           </div>
-          <button
-            type="submit"
-            onClick={props.handleSubmit(onSubmit)}
-            style={{ display: "none" }}
-          >
-            Save
-          </button>
         </form>
       </Modal>
-    </React.Fragment>
-  );
+    );
+  };
 
-  return ReactDOM.createPortal(content, document.getElementById("modal"));
+  // render
+  return ReactDOM.createPortal(
+    renderContent(),
+    document.getElementById("modal")
+  );
 };
 
 const validate = (formValues) => {
   console.log(formValues);
   const errors = {};
-  if (!formValues.email) {
-    errors.email = "Please input an email.";
-  } else if (!validateEmail(formValues.email)) {
-    errors.email = "Invalid email address.";
-  }
-  if (!formValues.username) {
-    errors.username = "Please input a username.";
+  if (!formValues.name) {
+    errors.name = "Please input a project name.";
   }
   if (!formValues.password) {
-    errors.password = "Please input your password.";
+    errors.password = "Please input a project password.";
   }
+
   return errors;
 };
 
 const mapStateToProps = (state) => ({
-  isSignedIn: state.auth.isSignedIn,
+  user: state.user.info,
   error: state.error,
-  editAccountSubmitSuccess: state.modalSubmit.editAccountSubmitSuccess,
-  showLoader: state.loader.showEditAccountFormLoader,
+  // showLoader: state.loader.showEditAccountFormLoader,
 });
 
-const editAccount = connect(mapStateToProps, {
-  editUserAccount,
-  modalStatusReset,
-  actionShowLoader,
+const editAccountModalComponent = connect(mapStateToProps, {
+  // actionShowLoader,
+  editAccount,
 })(EditAccount);
 
 export default reduxForm({
-  form: "editAccount",
+  form: "editAccountModal",
   keepDirtyOnReinitialize: true,
   enableReinitialize: true,
   validate,
-})(editAccount);
+})(editAccountModalComponent);

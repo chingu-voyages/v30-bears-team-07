@@ -193,35 +193,3 @@ export default reduxForm({
   enableReinitialize: true,
   validate,
 })(createProjectModalComponent);
-
-/*
-const <ReduxInput /> = ({ input, meta, inputProps, labelProps }) => {
-  const errorClass = getErrorClass(meta);
-  const labelClass = labelProps.class || null;
-  const labelId = labelProps.id || null;
-  return (
-    <React.Fragment>
-      <label
-        htmlFor={inputProps.id}
-        className={`${errorClass} ${labelClass}`}
-        id={labelId || ""}
-      >
-        {labelProps.text}
-      </label>
-      <input
-        {...inputProps}
-        {...input}
-        className={`${inputProps.className} ${errorClass}`}
-        onKeyDown={(e) => {
-          handleEnterKeyOnField(e);
-        }}
-        onInput={(e) => {
-          onInput(e);
-        }}
-        autoFocus={inputProps.autoFocus || false}
-      />
-      {renderError(meta, "create-project")}
-    </React.Fragment>
-  );
-};
-*/
