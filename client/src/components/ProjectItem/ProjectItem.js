@@ -59,10 +59,10 @@ const ProjectItem = ({ project }) => {
       <div className="project-item" onClick={projectItemOnClickHandler}>
         <Card className="project-item__content">
           <div className="project-item__image">
-            {/*<img
-              src={`http://localhost:5000/${props.image}`}
-              alt={props.title}
-            />*/}
+            <img
+              src={project.image_url || DefaultProjectImg}
+              alt="Project Image"
+            />
           </div>
           <div className="project-item__info">
             <h2>{project.name}</h2>
