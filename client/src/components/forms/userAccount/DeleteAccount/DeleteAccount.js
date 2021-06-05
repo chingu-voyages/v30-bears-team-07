@@ -1,15 +1,14 @@
-import "./EditAccount.scss";
+import "./DeleteAccount.scss";
 
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { editUserAccount } from "../../../redux/actions/settingsActions";
-import { modalStatusReset } from "../../../redux/actions/modalActions";
+import { deleteUserAccount } from "../../../redux/actions/settingsActions";
 import { actionShowLoader } from "../../../redux/actions/loaderActions";
-import { renderError, getErrorClass, validateEmail } from "../../../helpers";
+import { renderError, getErrorClass } from "../../../../helpers";
 
 import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
 import Modal from "../../Modal/Modal";
@@ -23,10 +22,10 @@ const onInput = (e) => {
 const handleEnterKeyOnField = (e) => {
   // This prevents submission bugging or refreshing upon pressing enter
   // in an input field inside a form
-  // if (e.keyCode === 13) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  // }
+  /* if (e.keyCode === 13) {
+    e.preventDefault();
+    e.stopPropagation();
+  } */
 };
 
 const renderInput = ({ input, meta, inputProps, labelProps }) => {
@@ -54,21 +53,12 @@ const renderInput = ({ input, meta, inputProps, labelProps }) => {
         }}
         autoFocus={inputProps.autoFocus || false}
       />
-      {renderError(meta, "edit-account")}
+      {renderError(meta, "delete-account")}
     </React.Fragment>
   );
 };
 
-const EditAccount = (props) => {
-  useEffect(() => {
-    console.log("this runs upon render");
-    if (props.editAccountSubmitSuccess) {
-      props.hideSection();
-      // reset success status through MODAL_STATUS_RESET
-      props.modalStatusReset();
-    }
-  }, [props.editAccountSubmitSuccess]);
-
+const DeleteAccount = (props) => {
   const renderErrorNotifications = () => {
     const errorMessage = props.error.msg;
     console.log(errorMessage);
@@ -79,84 +69,55 @@ const EditAccount = (props) => {
   };
 
   const renderLoader = () => {
-    return <LoadingSpinner showLoader={props.showLoader} />;
+    return <LoadingSpinner className="white" showLoader={props.showLoader} />;
   };
+
   // submit handler
   const onSubmit = async (formValues) => {
     console.log(formValues);
-    // check if it succeeded or it produced an error
-    props.actionShowLoader("editAccountForm", true);
-    await props.editUserAccount(formValues);
+    props.actionShowLoader("deleteAccountForm", true);
+    await props.deleteUserAccount(formValues);
   };
 
   const content = (
     <React.Fragment>
       <Modal
-        componentClass="edit-account"
+        componentClass="delete-account"
         onModalClose={() => {
-          console.log("closing edit-account modal");
+          console.log("closing delete-account modal");
           props.hideSection();
         }}
         headerClassName="settings-page-sidebar-header"
-        headingText="Edit Account"
+        headingText="Delete Account"
         actionButtons={
           <button
-            className={"form-button submit mt-20"}
+            id="delete-account-submit"
+            className={"form-button submit mt-20 danger"}
             type="submit"
             onClick={props.handleSubmit(onSubmit)}
           >
-            {renderLoader()} Save
+            {renderLoader()} Delete Account
           </button>
         }
       >
-        <form id="edit-account-form" autoComplete="off">
-          <div className="edit-account form__form-content modal-form-content">
-            {renderErrorNotifications()}
-            <div className="textfield-container">
-              <Field
-                name="username"
-                component={renderInput}
-                type="text"
-                props={{
-                  inputProps: {
-                    placeholder: "Username",
-                    className: "textfield",
-                    maxLength: "30",
-                    autoComplete: "off",
-                    id: "edit-account-username-field",
-                    autoFocus: true,
-                  },
-                  labelProps: {
-                    class: "form__label",
-                    text: "Username *",
-                    id: "edit-account-username-label",
-                  },
-                }}
-              />
-            </div>
-            <div className="textfield-container">
-              <Field
-                name="email"
-                component={renderInput}
-                type="text"
-                props={{
-                  inputProps: {
-                    placeholder: "Email",
-                    className: "textfield",
-                    maxLength: "64",
-                    autoComplete: "off",
-                    id: "edit-account-email-field",
-                  },
-                  labelProps: {
-                    class: "form__label",
-                    text: "Email *",
-                    id: "edit-account-email-label",
-                  },
-                }}
-              />
-            </div>
+        <form id="delete-account-form" autoComplete="off">
+          <div className="delete-account form__form-content modal-form-content">
+            <p className="modal__modal-p delete-account">
+              Are you sure you want to delete your account?
+            </p>
+            <p
+              id="delete-account-description-paragraph"
+              className="modal__modal-p small-text delete-account"
+            >
+              Warning: Deleted accounts cannot be restored.
+            </p>
 
-            <div className="textfield-container">
+            {renderErrorNotifications()}
+
+            <div
+              className="textfield-container"
+              id="delete-account-password-container"
+            >
               <Field
                 name="password"
                 component={renderInput}
@@ -168,12 +129,14 @@ const EditAccount = (props) => {
                     maxLength: "30",
                     autoComplete: "off",
                     type: "password",
-                    id: "edit-account-password-field",
+                    id: "delete-account-password-field",
+
+                    autoFocus: true,
                   },
                   labelProps: {
                     class: "form__label",
                     text: "Password *",
-                    id: "edit-account-password-label",
+                    id: "delete-account-password-label",
                   },
                 }}
               />
@@ -191,20 +154,13 @@ const EditAccount = (props) => {
     </React.Fragment>
   );
 
+  // render
   return ReactDOM.createPortal(content, document.getElementById("modal"));
 };
 
 const validate = (formValues) => {
   console.log(formValues);
   const errors = {};
-  if (!formValues.email) {
-    errors.email = "Please input an email.";
-  } else if (!validateEmail(formValues.email)) {
-    errors.email = "Invalid email address.";
-  }
-  if (!formValues.username) {
-    errors.username = "Please input a username.";
-  }
   if (!formValues.password) {
     errors.password = "Please input your password.";
   }
@@ -214,19 +170,17 @@ const validate = (formValues) => {
 const mapStateToProps = (state) => ({
   isSignedIn: state.auth.isSignedIn,
   error: state.error,
-  editAccountSubmitSuccess: state.modalSubmit.editAccountSubmitSuccess,
-  showLoader: state.loader.showEditAccountFormLoader,
+  showLoader: state.loader.showDeleteAccountFormLoader,
 });
 
-const editAccount = connect(mapStateToProps, {
-  editUserAccount,
-  modalStatusReset,
+const deleteAccount = connect(mapStateToProps, {
+  deleteUserAccount,
   actionShowLoader,
-})(EditAccount);
+})(DeleteAccount);
 
 export default reduxForm({
-  form: "editAccount",
+  form: "deleteAccount",
   keepDirtyOnReinitialize: true,
   enableReinitialize: true,
   validate,
-})(editAccount);
+})(deleteAccount);

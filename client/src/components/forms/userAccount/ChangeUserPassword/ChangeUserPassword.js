@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { changeUserPassword } from "../../../redux/actions/settingsActions";
 import { modalStatusReset } from "../../../redux/actions/modalActions";
 import { actionShowLoader } from "../../../redux/actions/loaderActions";
-import { renderError, getErrorClass } from "../../../helpers";
+import { renderError, getErrorClass } from "../../../../helpers";
 
 import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
 import Modal from "../../Modal/Modal";
