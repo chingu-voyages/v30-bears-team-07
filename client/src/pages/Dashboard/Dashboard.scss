@@ -1,5 +1,66 @@
 @import "../../utils/scss/_variables";
+@import "../../utils/scss/_config";
 
+// this is only a flex box on desktop
+.dashboard__flex-outer-container {
+  width: 100%;
+  // background-color: pink;
+}
+
+.dashboard__menu-container,
+.dashboard__menu-items,
+.dashboard__menu-button,
+.dashboard__menu-item {
+  width: 100%;
+}
+
+.dashboard__menu-button {
+  display: block;
+  border-top: 1px solid #bbb;
+  border-radius: 0px;
+  background-color: #0000;
+  color: $secondaryBlack;
+  min-height: 3rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: left;
+  padding-left: 1.3rem;
+}
+
+.dashboard__content {
+  display: none;
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $backgroundWhite;
+  width: 100vw;
+  height: 100vh;
+}
+
+////////////////////DASHBOARD CONTENT////////////////////
+.dashboard-content__header {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  border-bottom: 1px solid #bbb;
+}
+.dashboard-content__heading {
+  font-size: 1.25rem;
+}
+////////////////////DASHBOARD CONTENT////////////////////
+
+@include media-md {
+  .dashboard__flex-outer-container {
+    display: flex;
+  }
+  .dashboard__menu-container {
+    width: 47%;
+    border: 1px solid #bbb;
+  }
+}
+
+/* Jamie's stuff'
 body {
   background: $backgroundWhite;
 }
@@ -92,3 +153,4 @@ body {
     }
   }
 }
+*/

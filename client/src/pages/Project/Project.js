@@ -198,6 +198,7 @@ const Project = (props) => {
         <p className={`project__status ${getProjectStatusClass()}`}>
           Status: {capitalizeFirstLetter(project.status)}
         </p>
+        {/*note: should probably add the deadline for the project*/}
 
         <img
           className="project__image"

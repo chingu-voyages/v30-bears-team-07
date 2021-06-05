@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
+import BackButton from "../../components/UIComponents/buttons/BackButton";
 import Header from "../../components/Header/Header";
 
 import {
@@ -18,6 +19,12 @@ const Dashboard = ({
   user,
   userProjects,
 }) => {
+  // useState
+  const [showSettingsSection, setShowSettingsSection] = useState(false);
+  const [showFundraisingSection, setShowFundraisingSection] = useState(false);
+  const [showDonationsSection, setShowDonationsSection] = useState(false);
+
+  //note:  this should just be moved to its own component
   const getAllProjectsHandler = () => {
     //add a guard to prevent errors if user is not loaded yet
     if (!user || !user.id) return null;
@@ -38,8 +45,59 @@ const Dashboard = ({
   //   return <CreateProjectButton className="dashboard" isMobile={false} />;
   // };
 
+  const renderSettingsSection = () => {
+    if (!showSettingsSection) return null;
+    return <section className="dashboard__content"></section>;
+  };
+  const renderFundraisingSection = () => {
+    if (!showFundraisingSection) return null;
+    return <section className="dashboard__content"></section>;
+  };
+  const renderDonationsSection = () => {
+    if (!showDonationsSection) return null;
+    return <section className="dashboard__content"></section>;
+  };
+
   return (
-    <div>
+    <>
+      <main className="dashboard page-container">
+        <div className="dashboard__flex-outer-container">
+          <section className="dashboard__menu-container">
+            <ul className="dashboard__menu-items">
+              <button className="dashboard__menu-button">
+                <li className="dashboard__menu-item">Settings</li>
+              </button>
+              <button className="dashboard__menu-button">
+                <li className="dashboard__menu-item">Fundraising</li>
+              </button>
+              <button className="dashboard__menu-button">
+                <li className="dashboard__menu-item">Donations</li>
+              </button>
+            </ul>
+          </section>
+          {renderSettingsSection()}
+          {renderFundraisingSection()}
+          {renderDonationsSection()}
+          {/*generic template for dashboard sections*/}
+          <section className="dashboard__content">
+            <div className="dashboard-content__header">
+              <BackButton
+                className="dashboard-content"
+                hideOnDesktop={true}
+                // onClickHandler={props.}
+              />
+
+              <h1 className="dashboard-content__heading">
+                My Fundraising Projects
+              </h1>
+            </div>
+            <section className="dashboard-content__section"></section>
+          </section>
+        </div>
+      </main>
+    </>
+
+    /*<div>
       <section className="main">
         {renderMobileCreateButton()}
         <div className="main__left">
@@ -61,7 +119,7 @@ const Dashboard = ({
           ))}
         </div>
       </section>
-    </div>
+    </div>*/
   );
 };
 
@@ -74,3 +132,32 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { getAllUserProjects, createProject })(
   Dashboard
 );
+
+/*
+old render function
+
+<div>
+  <section className="main">
+    {renderMobileCreateButton()}
+    <div className="main__left">
+      <div className="main__left--info">
+        <div>Settings</div>
+        <div>Fundraiser</div>
+        <div>Donations</div>
+        <div>Info</div>
+      </div>
+    </div>
+    <div className="main__right">
+      {userProjects.owned.map((project, index) => (
+        <div className="main__right--card" key={index}>
+          <div>Image: </div>
+          <h4>{project.name}</h4>
+          <p>Last Donation: 8 min ago</p>
+          <p>{project.amount_donated} raised</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</div>
+
+*/
