@@ -25,19 +25,10 @@ function Header(props) {
           X
         </p>
         <section className="nav">
-          <button className="navlink">
-            <Link to="/allprojects">All Projects</Link>
-          </button>
-
-          <button className="navlink">
-            {!isAuth ? <Link to="/login">Log in</Link> : ""}
-
-            {isAuth ? <Link to="/dashboard">Dashboard</Link> : ""}
-          </button>
-
-          <button>
-            <GoogleAuth />{" "}
-          </button>
+          <Link to="/allprojects">All Projects</Link>
+          {!isAuth ? <Link to="/login">Log in</Link> : ""}
+          {isAuth ? <Link to="/dashboard">Dashboard</Link> : ""}
+          <GoogleAuth />{" "}
         </section>
       </div>
     </div>
