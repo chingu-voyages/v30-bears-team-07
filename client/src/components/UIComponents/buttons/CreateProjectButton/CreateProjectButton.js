@@ -22,16 +22,16 @@ const CreateProjectButton = (props) => {
 
   const renderButton = () => {
     // render different things based on screen size
-    // if(isMobile)
-    return (
-      <button
-        className={`btn btn--create ${getClassName()}`}
-        id="create-project-button"
-        onClick={onClickHandler}
-        type="button"
-      >
-        {/*note: replace the + down there with and image (tella)*/}
-        {/*
+    if (props.isMobile)
+      return (
+        <button
+          className={`btn btn--create ${getClassName()}`}
+          id="create-project-button"
+          onClick={onClickHandler}
+          type="button"
+        >
+          {/*note: replace the + down there with and image (tella)*/}
+          {/*
           <img
             id=""
             className={`btn btn--create__img ${getClassName()}`}
@@ -39,7 +39,18 @@ const CreateProjectButton = (props) => {
             // alt="Plus Icon Icon"
           />
           */}
-        +
+          +
+        </button>
+      );
+    // if on non-mobile resolution, render a different type of button
+    return (
+      <button
+        className={`btn btn--create ${getClassName()}`}
+        id="create-project-button"
+        onClick={onClickHandler}
+        type="button"
+      >
+        Create Fundraiser
       </button>
     );
   };

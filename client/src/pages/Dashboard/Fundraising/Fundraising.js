@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import BackButton from "../../../components/UIComponents/buttons/BackButton";
 import ProjectItem from "../../../components/ProjectItem/ProjectItem";
 import "./Fundraising.scss";
 import CreateProjectButton from "../../../components/UIComponents/buttons/CreateProjectButton/CreateProjectButton";
+import { WindowContext } from "../../../AppContext";
 
 const Fundraising = ({ user, projects, onClose }) => {
+  const { isNonMobileWidth, isNonMobileHeight } = useContext(WindowContext);
+
   const renderMobileCreateButton = () => {
+    if (isNonMobileWidth) return null;
     return <CreateProjectButton className="dashboard" isMobile={true} />;
   };
 
-  // const renderDesktopCreateButton = () => {
-  //   return <CreateProjectButton className="dashboard" isMobile={false} />;
-  // };
+  const renderDesktopCreateButton = () => {
+    if (!isNonMobileWidth) return null;
+    return <CreateProjectButton className="dashboard" isMobile={false} />;
+  };
   return (
     <>
       {renderMobileCreateButton()}
@@ -26,6 +31,7 @@ const Fundraising = ({ user, projects, onClose }) => {
           <h1 className="dashboard-content__heading">
             My Fundraising Projects
           </h1>
+          {renderDesktopCreateButton()}
         </div>
         <section className="dashboard-content__section">
           <ul className="dashboard-projects__items">
