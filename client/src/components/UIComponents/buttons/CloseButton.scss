@@ -27,7 +27,7 @@
   display: none;
 }
 
-@media screen and (min-width: 1200px) and (min-height: 600px) {
+@media screen and (min-width: 768px) {
   .close-button.hide-on-mobile,
   .close-button-container.hide-on-mobile {
     display: block;

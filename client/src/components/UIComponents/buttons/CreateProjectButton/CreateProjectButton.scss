@@ -1,6 +1,7 @@
 @import "../../../../utils/scss/_variables.scss";
 
 .btn.btn--create {
+  z-index: 30;
   position: fixed;
   display: block;
   background-color: $mainGreen;

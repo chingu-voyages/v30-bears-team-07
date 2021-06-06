@@ -115,6 +115,10 @@
 }
 
 @include media-md {
+  // custom version for a different page
+  .dashboard.project-item {
+    // width: ;
+  }
   .project-item__image {
     // height: 20rem;
   }

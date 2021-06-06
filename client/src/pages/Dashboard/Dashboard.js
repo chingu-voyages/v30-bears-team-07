@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
-import BackButton from "../../components/UIComponents/buttons/BackButton";
-import Header from "../../components/Header/Header";
+import Fundraising from "./Fundraising/Fundraising";
+import Donations from "./Donations/Donations";
+// import BackButton from "../../components/UIComponents/buttons/BackButton";
 
-import {
-  getAllUserProjects,
-  createProject,
-} from "../../redux/actions/projectsActions";
+import { getAllUserProjects } from "../../redux/actions/projectsActions";
+import { WindowContext } from "../../AppContext";
 import "./Dashboard.scss";
-import "../../index.scss";
-import CreateProjectButton from "../../components/UIComponents/buttons/CreateProjectButton/CreateProjectButton";
+// import CreateProjectButton from "../../components/UIComponents/buttons/CreateProjectButton/CreateProjectButton";
 
-const Dashboard = ({
-  getAllUserProjects,
-  createProject,
-  user,
-  userProjects,
-}) => {
-  // useState
-  const [showSettingsSection, setShowSettingsSection] = useState(false);
+const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
+  // should be opened by default in desktop mode
   const [showFundraisingSection, setShowFundraisingSection] = useState(false);
   const [showDonationsSection, setShowDonationsSection] = useState(false);
+  const [showSettingsSection, setShowSettingsSection] = useState(false);
+  const { isNonMobileWidth, isNonMobileHeight } = useContext(WindowContext);
 
-  //note:  this should just be moved to its own component
+  useEffect(() => {
+    // automatically show the fundraising section when it is on non-mobile screen size
+    if (isNonMobileWidth) setShowFundraisingSection(true);
+    /*return () => {}*/
+  }, []);
+
   const getAllProjectsHandler = () => {
     //add a guard to prevent errors if user is not loaded yet
     if (!user || !user.id) return null;
@@ -37,25 +35,49 @@ const Dashboard = ({
     /*return () => {}*/
   }, [user]);
 
-  const renderMobileCreateButton = () => {
-    return <CreateProjectButton className="dashboard" isMobile={true} />;
+  const closeAllSectionsHandler = () => {
+    setShowFundraisingSection(false);
+    setShowDonationsSection(false);
+    setShowSettingsSection(false);
   };
 
-  // const renderDesktopCreateButton = () => {
-  //   return <CreateProjectButton className="dashboard" isMobile={false} />;
-  // };
+  const fundraisingButtonOnClickHandler = () => {
+    closeAllSectionsHandler();
+    setShowFundraisingSection(true);
+  };
+  const donationsButtonOnClickHandler = () => {
+    closeAllSectionsHandler();
+    setShowDonationsSection(true);
+  };
+  const settingsButtonOnClickHandler = () => {
+    closeAllSectionsHandler();
+    setShowSettingsSection(true);
+  };
 
   const renderSettingsSection = () => {
     if (!showSettingsSection) return null;
     return <section className="dashboard__content"></section>;
   };
+
   const renderFundraisingSection = () => {
     if (!showFundraisingSection) return null;
-    return <section className="dashboard__content"></section>;
+    return (
+      <Fundraising
+        user={user}
+        projects={userProjects.owned}
+        onClose={closeAllSectionsHandler}
+      />
+    );
   };
   const renderDonationsSection = () => {
     if (!showDonationsSection) return null;
-    return <section className="dashboard__content"></section>;
+    return (
+      <Donations
+        user={user}
+        projects={userProjects.supported}
+        onClose={closeAllSectionsHandler}
+      />
+    );
   };
 
   return (
@@ -64,62 +86,33 @@ const Dashboard = ({
         <div className="dashboard__flex-outer-container">
           <section className="dashboard__menu-container">
             <ul className="dashboard__menu-items">
-              <button className="dashboard__menu-button">
-                <li className="dashboard__menu-item">Settings</li>
-              </button>
-              <button className="dashboard__menu-button">
+              <button
+                className="dashboard__menu-button"
+                onClick={fundraisingButtonOnClickHandler}
+              >
                 <li className="dashboard__menu-item">Fundraising</li>
               </button>
-              <button className="dashboard__menu-button">
+              <button
+                className="dashboard__menu-button"
+                onClick={donationsButtonOnClickHandler}
+              >
                 <li className="dashboard__menu-item">Donations</li>
+              </button>
+              {/*note: if there is not enough time this can be removed */}
+              <button
+                className="dashboard__menu-button"
+                onClick={settingsButtonOnClickHandler}
+              >
+                <li className="dashboard__menu-item">Settings</li>
               </button>
             </ul>
           </section>
           {renderSettingsSection()}
           {renderFundraisingSection()}
           {renderDonationsSection()}
-          {/*generic template for dashboard sections*/}
-          <section className="dashboard__content">
-            <div className="dashboard-content__header">
-              <BackButton
-                className="dashboard-content"
-                hideOnDesktop={true}
-                // onClickHandler={props.}
-              />
-
-              <h1 className="dashboard-content__heading">
-                My Fundraising Projects
-              </h1>
-            </div>
-            <section className="dashboard-content__section"></section>
-          </section>
         </div>
       </main>
     </>
-
-    /*<div>
-      <section className="main">
-        {renderMobileCreateButton()}
-        <div className="main__left">
-          <div className="main__left--info">
-            <div>Settings</div>
-            <div>Fundraiser</div>
-            <div>Donations</div>
-            <div>Info</div>
-          </div>
-        </div>
-        <div className="main__right">
-          {userProjects.owned.map((project, index) => (
-            <div className="main__right--card" key={index}>
-              <div>Image: </div>
-              <h4>{project.name}</h4>
-              <p>Last Donation: 8 min ago</p>
-              <p>{project.amount_donated} raised</p>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>*/
   );
 };
 
@@ -129,9 +122,7 @@ const mapStateToProps = (state) => ({
   userProjects: state.userProjects,
 });
 
-export default connect(mapStateToProps, { getAllUserProjects, createProject })(
-  Dashboard
-);
+export default connect(mapStateToProps, { getAllUserProjects })(Dashboard);
 
 /*
 old render function

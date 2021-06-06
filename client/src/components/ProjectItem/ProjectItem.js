@@ -9,14 +9,15 @@ import history from "../../history";
 import DeleteProject from "../forms/project/DeleteProject/DeleteProject";
 import "./ProjectItem.scss";
 
-const ProjectItem = ({ project }) => {
+const ProjectItem = ({ project, className }) => {
   const [showDeleteProject, setShowDeleteProject] = useState(false);
   // const [showEditProject,setShowEditProject]=useState(false);
   // redux store variables
   const user = useSelector((state) => state.user.info);
 
-  // handler functions
+  const getClassName = () => (className ? className : "");
 
+  // handler functions
   const projectItemOnClickHandler = () => {
     history.push(`/projects/${project.id}`);
   };
@@ -38,7 +39,11 @@ const ProjectItem = ({ project }) => {
   };
 
   const renderActionButtons = () => {
-    if (!(user && user.id == project.creator.id)) return null;
+    console.log();
+    if (
+      !(user && (user.id == project.creator || user.id == project.creator.id))
+    )
+      return null;
     return (
       <>
         <button className="project-item__action-button">Edit</button>|
@@ -56,9 +61,12 @@ const ProjectItem = ({ project }) => {
   return (
     <>
       {renderDeleteProject()}
-      <div className="project-item" onClick={projectItemOnClickHandler}>
+      <div
+        className={`project-item ${getClassName()}`}
+        onClick={projectItemOnClickHandler}
+      >
         <Card className="project-item__content">
-          <div className="project-item__image">
+          <div className={`project-item__image ${getClassName()}}`}>
             <img
               src={project.image_url || DefaultProjectImg}
               alt="Project Image"
