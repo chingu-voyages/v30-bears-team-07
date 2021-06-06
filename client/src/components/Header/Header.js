@@ -14,28 +14,30 @@ function Header(props) {
   const handleClose = () => setOpen(!open);
 
   return (
-    <div>
+    <div className="wrapper">
       <section className={toggleBurger} onClick={handleClose}>
         <div />
         <div />
         <div />
       </section>
       <div className={toggleHeader}>
-        <span className={toggleIcon} onClick={handleClose}>
-          Minimize
-        </span>
+        <p className={toggleIcon} onClick={handleClose}>
+          X
+        </p>
         <section className="nav">
-          <Link to="/allprojects">All Projects</Link>
-        </section>
+          <button className="navlink">
+            <Link to="/allprojects">All Projects</Link>
+          </button>
 
-        <section className="nav">
-          {!isAuth ? <Link to="/login">Log in</Link> : ""}
+          <button className="navlink">
+            {!isAuth ? <Link to="/login">Log in</Link> : ""}
 
-          {isAuth ? <Link to="/dashboard">Dashboard</Link> : ""}
-        </section>
+            {isAuth ? <Link to="/dashboard">Dashboard</Link> : ""}
+          </button>
 
-        <section>
-          <GoogleAuth />{" "}
+          <button>
+            <GoogleAuth />{" "}
+          </button>
         </section>
       </div>
     </div>
