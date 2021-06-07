@@ -135,7 +135,7 @@ class GoogleAuth extends React.Component {
         </button>
       );
     } else {
-      return this.renderGoogleSignButton("Sign In w/ Google", () => {
+      return this.renderGoogleSignButton("Sign in with Google", () => {
         this.onSignInClick();
       });
     }

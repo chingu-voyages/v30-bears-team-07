@@ -5,20 +5,20 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #469;
-  margin: 1rem auto;
-  width: 100%;
-  max-width: 25rem;
+  background-color: $foregroundWhite;
+  color: black;
+  margin: 0.5rem auto;
+  min-width: 10rem;
   font-size: 1rem;
 
   &:hover {
-    background-color: #358;
+    background-color: lightgray;
   }
 
   &.user-nav__link--danger {
     display: block;
     width: fit-content;
-    margin: 0 1rem 0 0;
+    margin: 0 0.5rem 0 0;
     background-color: #0000;
     color: $dangerTextColor;
   }
@@ -41,6 +41,6 @@
 @media screen and (min-width: 768px) {
   .ui.primary.google.button {
     width: fit-content;
-    padding: 0 1.5rem;
+    padding: 1rem;
   }
 }
