@@ -7,11 +7,12 @@ import Card from "../UIComponents/Card/Card";
 import Modal from "../UIComponents/Modal/Modal";
 import history from "../../history";
 import DeleteProject from "../forms/project/DeleteProject/DeleteProject";
+// import EditProject from "../forms/project/EditProject/EditProject";
 import "./ProjectItem.scss";
 
 const ProjectItem = ({ project, className }) => {
   const [showDeleteProject, setShowDeleteProject] = useState(false);
-  // const [showEditProject,setShowEditProject]=useState(false);
+  const [showEditProject, setShowEditProject] = useState(false);
   // redux store variables
   const user = useSelector((state) => state.user.info);
 
@@ -20,6 +21,23 @@ const ProjectItem = ({ project, className }) => {
   // handler functions
   const projectItemOnClickHandler = () => {
     history.push(`/projects/${project.id}`);
+  };
+
+  // event listener handlers
+  const editProjectOnOpenHandler = (e) => {
+    e.stopPropagation();
+    setShowEditProject(true);
+  };
+
+  const editProjectOnCloseHandler = () => {
+    setShowEditProject(false);
+  };
+
+  const renderEditProject = () => {
+    if (!showEditProject) return null;
+    return (
+      <EditProject project={project} onClose={editProjectOnCloseHandler} />
+    );
   };
 
   const deleteProjectOnOpenHandler = (e) => {
@@ -61,6 +79,7 @@ const ProjectItem = ({ project, className }) => {
   return (
     <>
       {renderDeleteProject()}
+      {renderEditProject()}
       <div
         className={`project-item ${getClassName()}`}
         onClick={projectItemOnClickHandler}
