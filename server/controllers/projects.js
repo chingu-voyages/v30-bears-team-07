@@ -48,9 +48,7 @@ exports.get_all_user_projects = async (req, res) => {
   }
 };
 
-//action sends a GET method to that route, this controller function gets called, you can still follow?
-//
-// Okay!
+//action sends a GET method to that route, this controller function gets called
 exports.get_project = async (req, res) => {
   console.log("retrieving a project");
   try {
@@ -92,10 +90,6 @@ exports.create_project = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
-      // Note: Are duplicate project names ok? (tella)
-      // const project = await Project.findOne({ name });
-      // if (project) throw Error("Project name already taken.");
-
       const newProject = new Project({
         name,
         target_goal,
@@ -126,6 +120,52 @@ exports.create_project = async (req, res) => {
         created: savedProject.created,
         status: "active",
       });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ msg: e.message });
+    }
+  }
+};
+
+exports.edit_project = async (req, res) => {
+  const { name, target_goal, deadline, description, creatorId, projectId } =
+    req.body;
+  let errors = [];
+  // check if any of the following fields are empty
+  if (!name) {
+    errors.push({ msg: "Please provide a name for the project." });
+  }
+  if (!target_goal) {
+    errors.push({ msg: "Please provide a target_goal for the project." });
+  }
+  if (!deadline) {
+    errors.push({ msg: "Please provide a deadline for the project." });
+  }
+  // Check if user is logged in
+  if (!creatorId) {
+    errors.push({ msg: "Unauthorized user, please log in." });
+  }
+
+  if (errors.length > 0) {
+    res.status(400).json({ errors });
+  } else {
+    try {
+      let authorized = false;
+      // get the project using projectId
+      const project = await Room.findById(projectId);
+      if (!project) throw Error("Unable to find that project.");
+      // check if the user is the owner of the project
+      if (userId == project.creator.toString()) authorized = true;
+      // only allow the project to be edited if user is authorized
+      if (authorized) {
+        // Note: change the properties of the project based on form values
+
+        // update project status in database
+        await project.save();
+        res.status(200).json(project);
+      } else {
+        throw Error("Unauthorized user. Unable to edit the project.");
+      }
     } catch (e) {
       console.log(e);
       res.status(400).json({ msg: e.message });

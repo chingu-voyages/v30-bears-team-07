@@ -26,6 +26,7 @@ const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
   const getAllProjectsHandler = () => {
     //add a guard to prevent errors if user is not loaded yet
     if (!user || !user.id) return null;
+    console.log(getAllUserProjects);
     getAllUserProjects(user.id);
   };
 

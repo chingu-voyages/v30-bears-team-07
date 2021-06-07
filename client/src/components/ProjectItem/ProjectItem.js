@@ -7,7 +7,7 @@ import Card from "../UIComponents/Card/Card";
 import Modal from "../UIComponents/Modal/Modal";
 import history from "../../history";
 import DeleteProject from "../forms/project/DeleteProject/DeleteProject";
-// import EditProject from "../forms/project/EditProject/EditProject";
+import EditProject from "../forms/project/EditProject/EditProject";
 import "./ProjectItem.scss";
 
 const ProjectItem = ({ project, className }) => {

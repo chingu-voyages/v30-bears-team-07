@@ -15,6 +15,8 @@ import {
   CANCEL_PROJECT_FAIL,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAIL,
+  EDIT_PROJECT_SUCCESS,
+  EDIT_PROJECT_FAIL,
 } from "../actions/types";
 
 const INITIAL_STATE = { owned: [], supported: [] };
@@ -46,6 +48,7 @@ export default (state = INITIAL_STATE, action) => {
           return project;
         }),
       };
+    case EDIT_PROJECT_SUCCESS:
     case CANCEL_PROJECT_SUCCESS:
       return {
         ...state,
@@ -64,6 +67,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_ALL_USER_PROJECTS_FAIL:
     case CREATE_PROJECT_FAIL:
     case GET_PROJECT_FAIL:
+    case EDIT_PROJECT_FAIL:
     case CANCEL_PROJECT_FAIL:
     case DELETE_PROJECT_FAIL:
     default:

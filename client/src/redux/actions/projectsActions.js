@@ -19,6 +19,8 @@ import {
   CANCEL_PROJECT_FAIL,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAIL,
+  EDIT_PROJECT_SUCCESS,
+  EDIT_PROJECT_FAIL,
   /*
   note: will likely be relevant in the future (tella)
   please do not remove
@@ -27,8 +29,7 @@ import {
   DONATE_TO_PROJECT_FAIL,
   UPDATE_PROJECT_NAME_SUCCESS,
   UPDATE_PROJECT_NAME_FAIL,
-  EDIT_PROJECT_SUCCESS,
-  EDIT_PROJECT_FAIL,
+  
   EDIT_PROJECT_ICON_SUCCESS,
   EDIT_PROJECT_ICON_FAIL,
   */
@@ -152,6 +153,42 @@ export const createProject =
     //   dispatch(actionShowLoader("createProjectModalForm", false));
     // });
   };
+
+export const editProject = (formValues, successCb) => (dispatch, getState) => {
+  // retrieve the ID of the active user from the redux store
+  const creatorId = getState().user.info._id || getState().user.info.id;
+  console.log(formValues); /*just to check if data is being correctly sent*/
+  // send a POST request to the server
+  serverRest
+    .patch(`/projects/${formValues.projectId}/edit_project`, {
+      ...formValues,
+      creatorId,
+    })
+    .then((res) => {
+      const project = res.data;
+      // change Redux store state, and pass the updated user and project payload
+      dispatch({
+        type: EDIT_PROJECT_SUCCESS,
+        payload: project,
+      });
+      dispatch(clearErrors());
+      if (successCb) successCb();
+      // redirect to the edited project page after successful creation
+      history.push(`/projects/${project.id}`);
+    })
+    // if fail, show the error on a notification
+    .catch((err) => {
+      console.log(err);
+      console.log(err.response);
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: EDIT_PROJECT_FAIL,
+      });
+    });
+  // .finally(() => {
+  //   dispatch(actionShowLoader("editProjectModalForm", false));
+  // });
+};
 
 export const cancelProject = (projectId, successCb) => (dispatch, getState) => {
   const userId = getState().user.info._id || getState().user.info.id;
