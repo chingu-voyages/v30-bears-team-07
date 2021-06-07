@@ -6,7 +6,7 @@ import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
 import "./Header.scss";
 
 function Header(props) {
-  const isAuth = useSelector((state) => state.auth.isSignedIn);
+  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
   const [open, setOpen] = useState(false);
   const toggleHeader = open ? "header display-block" : "header display-none";
   const toggleBurger = open ? "burger display-none" : "burger display-block";
@@ -26,9 +26,13 @@ function Header(props) {
         </p>
         <section className="nav">
           <Link to="/allprojects">All Projects</Link>
-          {!isAuth ? <Link to="/login">Log in</Link> : ""}
-          {isAuth ? <Link to="/dashboard">Dashboard</Link> : ""}
-          <GoogleAuth />{" "}
+          {!isSignedIn ? <Link to="/login">Login</Link> : null}
+          {isSignedIn ? (
+            <>
+              <Link to="/dashboard">Dashboard</Link>{" "}
+              <GoogleAuth className="user-nav__link" />
+            </>
+          ) : null}
         </section>
       </div>
     </div>

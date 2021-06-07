@@ -11,7 +11,6 @@
   bottom: 0.8rem;
   right: 0.8rem;
   border: 1px solid #0002;
-
   -webkit-box-shadow: 0px 10px 13px -7px #000000,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
@@ -30,6 +29,14 @@
     border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+    margin-top: 1rem;
+    // margin-left: auto;
+  }
+}
+
+@include media-lg {
+  .btn.btn--create {
+    margin-top: 0;
     margin-left: auto;
   }
 }

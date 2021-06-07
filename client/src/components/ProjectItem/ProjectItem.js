@@ -8,6 +8,7 @@ import Modal from "../UIComponents/Modal/Modal";
 import history from "../../history";
 import DeleteProject from "../forms/project/DeleteProject/DeleteProject";
 import EditProject from "../forms/project/EditProject/EditProject";
+import { convertDateToHtmlInputValue } from "../../helpers";
 import "./ProjectItem.scss";
 
 const ProjectItem = ({ project, className }) => {
@@ -36,7 +37,14 @@ const ProjectItem = ({ project, className }) => {
   const renderEditProject = () => {
     if (!showEditProject) return null;
     return (
-      <EditProject project={project} onClose={editProjectOnCloseHandler} />
+      <EditProject
+        initialValues={{
+          ...project,
+          deadline: convertDateToHtmlInputValue(project.deadline),
+        }}
+        project={project}
+        onModalClose={editProjectOnCloseHandler}
+      />
     );
   };
 
@@ -64,7 +72,13 @@ const ProjectItem = ({ project, className }) => {
       return null;
     return (
       <>
-        <button className="project-item__action-button">Edit</button>|
+        <button
+          className="project-item__action-button"
+          onClick={editProjectOnOpenHandler}
+        >
+          Edit
+        </button>
+        |
         <button
           className="project-item__action-button danger"
           onClick={deleteProjectOnOpenHandler}

@@ -29,7 +29,7 @@ import {
   DONATE_TO_PROJECT_FAIL,
   UPDATE_PROJECT_NAME_SUCCESS,
   UPDATE_PROJECT_NAME_FAIL,
-  
+
   EDIT_PROJECT_ICON_SUCCESS,
   EDIT_PROJECT_ICON_FAIL,
   */
@@ -175,6 +175,7 @@ export const editProject = (formValues, successCb) => (dispatch, getState) => {
       if (successCb) successCb();
       // redirect to the edited project page after successful creation
       history.push(`/projects/${project.id}`);
+      // getProject()
     })
     // if fail, show the error on a notification
     .catch((err) => {

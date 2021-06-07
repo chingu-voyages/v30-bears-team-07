@@ -46,10 +46,12 @@
 .dashboard-content__header {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   padding: 0 0.5rem;
   border-bottom: 1px solid #bbb;
 }
 .dashboard-content__heading {
+  width: 100%;
   font-size: 1.25rem;
 }
 .dashboard-projects__items {
@@ -116,6 +118,9 @@
 }
 
 @include media-lg {
+  .dashboard-content__heading {
+    width: fit-content;
+  }
   .dashboard__menu-container {
     width: 28%;
   }

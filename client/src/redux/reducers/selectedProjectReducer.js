@@ -2,6 +2,8 @@
 import {
   GET_PROJECT_SUCCESS,
   GET_PROJECT_FAIL,
+  EDIT_PROJECT_SUCCESS,
+  EDIT_PROJECT_FAIL,
   CLOSE_PROJECT,
 } from "../actions/types";
 
@@ -10,11 +12,13 @@ const initialState = {};
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_PROJECT_SUCCESS:
+    case EDIT_PROJECT_SUCCESS:
       return action.payload;
     // when you close a project page, it should reset back to {}
     case CLOSE_PROJECT:
       return {};
     case GET_PROJECT_FAIL:
+    case EDIT_PROJECT_FAIL:
     default:
       return state;
   }

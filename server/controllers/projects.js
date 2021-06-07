@@ -13,7 +13,8 @@ exports.get_all_projects = async (req, res) => {
       // note: ask teammates how to sort the projects retrieved
       .sort({ createdAt: -1 })
       // note: figure out how to keep track of retrieval count (tella)
-      .limit(PROJECTS_PER_BATCH /* * (retrievalCount + 1)*/)
+      // note:running out of time so this will be removed
+      // .limit(PROJECTS_PER_BATCH /* * (retrievalCount + 1)*/)
       .populate("creator donors");
     if (!projects) throw Error("Unable to retrieve projects.");
     res.status(200).json(projects);
@@ -152,16 +153,21 @@ exports.edit_project = async (req, res) => {
     try {
       let authorized = false;
       // get the project using projectId
-      const project = await Room.findById(projectId);
+      const project = await Project.findById(projectId);
       if (!project) throw Error("Unable to find that project.");
       // check if the user is the owner of the project
-      if (userId == project.creator.toString()) authorized = true;
+      if (creatorId == project.creator.toString()) authorized = true;
       // only allow the project to be edited if user is authorized
       if (authorized) {
-        // Note: change the properties of the project based on form values
-
+        project.name = name;
+        project.target_goal = target_goal;
+        project.deadline = deadline;
+        project.description = description;
+        project.status =
+          project.amount_donated > project.target_goal ? "completed" : "active";
         // update project status in database
-        await project.save();
+        const updatedProject = await project.save();
+        if (!updatedProject) throw Error("Failed to update the project.");
         res.status(200).json(project);
       } else {
         throw Error("Unauthorized user. Unable to edit the project.");

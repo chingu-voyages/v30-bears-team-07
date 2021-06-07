@@ -5,24 +5,24 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: $foregroundWhite;
-  color: black;
-  margin: 0.5rem auto;
-  min-width: 10rem;
+  background-color: #469;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 25rem;
   font-size: 1rem;
 
   &:hover {
-    background-color: lightgray;
+    background-color: #358;
   }
 
-  &.user-nav__link--danger {
+  &.user-nav__link {
     display: block;
     width: fit-content;
     margin: 0 0.5rem 0 0;
     background-color: #0000;
-    color: $dangerTextColor;
+    color: $mainBlack;
   }
-  &.user-nav__link--danger:hover {
+  &.user-nav__link:hover {
     background-color: #0001;
   }
 }

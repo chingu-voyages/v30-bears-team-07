@@ -13,6 +13,8 @@ class GoogleAuth extends React.Component {
     initialized: false,
   };
 
+  // getClassName = () => (this.props.className ? this.props.className : "");
+
   componentDidMount() {
     this._isMounted = true;
     console.log(`ismounted is now ${this._isMounted}`);
@@ -100,6 +102,15 @@ class GoogleAuth extends React.Component {
   };
 
   renderGoogleSignButton = (text, cb) => {
+    const renderIcon = () =>
+      !this.props.className ? (
+        <img
+          className="google-icon-button-img"
+          src={GoogleIconImg}
+          alt="Google Icon"
+        />
+      ) : null;
+
     return (
       <button
         className={`ui primary google button ${this.props.className || null}`}
@@ -110,11 +121,7 @@ class GoogleAuth extends React.Component {
           }
         }}
       >
-        <img
-          className="google-icon-button-img"
-          src={GoogleIconImg}
-          alt="Google Icon"
-        />
+        {renderIcon()}
         {text}
       </button>
     );

@@ -205,8 +205,6 @@ export const validateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 };
 
-/* note: will most likely use in the future, but not currently used (Tella)
-PLEASE DO NOT REMOVE
 // date-time functions
 export const getCurrentDate = () => {
   return format(new Date(), "yyyy-MM-dd");
@@ -214,6 +212,10 @@ export const getCurrentDate = () => {
 
 export const getCurrentTime = () => {
   return format(new Date(), "hh:mma");
+};
+
+export const convertDateToHtmlInputValue = (date) => {
+  return format(new Date(date), "yyyy-MM-dd");
 };
 
 export const convertToMDY = (date) => {
@@ -263,7 +265,3 @@ export const getFilenameFromDir = (string, separator) => {
   }
   return string.split(separator).pop();
 };
-
-
-
-*/

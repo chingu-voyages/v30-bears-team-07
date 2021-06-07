@@ -8,11 +8,12 @@ import { toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
-
 import history from "../../history";
 import { capitalizeFirstLetter } from "../../helpers";
 import DeleteProject from "../../components/forms/project/DeleteProject/DeleteProject";
+import EditProject from "../../components/forms/project/EditProject/EditProject";
 import DonateForm from "../../components/forms/project/DonateForm/DonateForm";
+import { convertDateToHtmlInputValue } from "../../helpers";
 import "./Project.scss";
 
 const Project = (props) => {
@@ -97,6 +98,16 @@ const Project = (props) => {
     /*return () => {}*/
   }, [location.search]);
 
+  // event listener handlers
+  const editProjectOnOpenHandler = (e) => {
+    e.stopPropagation();
+    setShowEditProject(true);
+  };
+
+  const editProjectOnCloseHandler = () => {
+    setShowEditProject(false);
+  };
+
   // event action handlers
   const deleteProjectOnOpenHandler = () => {
     setShowDeleteProject(true);
@@ -117,6 +128,21 @@ const Project = (props) => {
   };
 
   // render methods
+
+  const renderEditProject = () => {
+    if (!showEditProject) return null;
+    return (
+      <EditProject
+        initialValues={{
+          ...project,
+          deadline: convertDateToHtmlInputValue(project.deadline),
+        }}
+        project={project}
+        onModalClose={editProjectOnCloseHandler}
+      />
+    );
+  };
+
   const renderDeleteProject = () => {
     if (!showDeleteProject) return null;
     const onDeleteSuccessCb = () => {
@@ -133,7 +159,12 @@ const Project = (props) => {
 
   const renderDonorActionButtons = () => {
     // do not show these buttons if user is the creator
-    if (user && project.creator && user.id == project.creator.id) return null;
+    if (
+      user &&
+      project.creator &&
+      (user.id == project.creator || user.id == project.creator.id)
+    )
+      return null;
     return (
       <>
         <button
@@ -148,11 +179,19 @@ const Project = (props) => {
 
   const renderCreatorActionButtons = () => {
     // only show these buttons if user is the creator
-    if (!(user && project.creator && user.id == project.creator.id))
+    if (
+      !(
+        user &&
+        project.creator &&
+        (user.id == project.creator || user.id == project.creator.id)
+      )
+    )
       return null;
     return (
       <>
-        <button className="project__button">Edit Project</button>
+        <button className="project__button" onClick={editProjectOnOpenHandler}>
+          Edit Project
+        </button>
         <button
           className="project__button danger"
           onClick={deleteProjectOnOpenHandler}
@@ -165,7 +204,7 @@ const Project = (props) => {
 
   // conditionally render action buttons depending on whether donate form is shown
   const renderActionButtons = () => {
-    if (showDonateForm) return null;
+    if (!project.id || showDonateForm) return null;
     return (
       <div className="project__actions-container">
         {renderDonorActionButtons()}
@@ -176,7 +215,7 @@ const Project = (props) => {
 
   //conditionally render the donate form only after clicking the donate buttons
   const renderDonateForm = () => {
-    if (!showDonateForm) return null;
+    if (!project.id || !showDonateForm) return null;
     return (
       <div className="project__actions-container">
         <DonateForm project={project} />
@@ -205,7 +244,6 @@ const Project = (props) => {
           src={project.image_url || DefaultProjectImg}
           alt="Project Image"
         />
-
         <p className="project__description">{project.description}</p>
       </>
     );
@@ -215,6 +253,7 @@ const Project = (props) => {
   return (
     <>
       {renderDeleteProject()}
+      {renderEditProject()}
       <div className="project page-container">
         <div className="project__flex-outer-container">
           <div className="project__details-container">

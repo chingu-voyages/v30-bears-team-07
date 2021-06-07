@@ -24,6 +24,7 @@ const EditProject = (props) => {
       onModalCloseHandler();
     };
     console.log(formValues);
+    formValues.projectId = props.project.id;
     // run an action
     // props.actionShowLoader("editProjectModalForm", true);
     await props.editProject(formValues, editProjectSuccessCb);
@@ -47,7 +48,7 @@ const EditProject = (props) => {
     return (
       <Modal
         componentClass="edit-project"
-        headingText="Create a Project"
+        headingText="Edit Project"
         onModalClose={onModalCloseHandler}
       >
         <form id="edit-project-form" autoComplete="off">

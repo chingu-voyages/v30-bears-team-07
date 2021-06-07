@@ -8,6 +8,8 @@ const {
   get_all_projects,
   get_project,
   create_project,
+  cancel_project,
+  edit_project,
   delete_project,
 } = require("../controllers/projects");
 
@@ -18,15 +20,6 @@ router.patch("/:id/cancel", cancel_project);
 router.patch("/:id/edit_project", edit_project);
 router.delete("/:id", delete_project);
 
-/*
-router.post("/:id/create-payment-intent", async (req, res) => {
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: req.body.amount,
-    currency: "usd",
-  });
-  res.status(200).json({ clientSecret: paymentIntent.client_secret });
-});
-*/
 // note: remember to move this controller function to the controller folder on project.js
 router.post("/:id/create-checkout-session", async (req, res) => {
   const { amount, projectId, projectCreatorId, userId } = req.body;
