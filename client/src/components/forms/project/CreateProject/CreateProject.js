@@ -84,7 +84,7 @@ const CreateProject = (props) => {
               props={{
                 formName: "project",
                 inputProps: {
-                  placeholder: "Target Goal",
+                  placeholder: "Target Goal (in USD)",
                   className: "form__input",
                   autoComplete: "off",
                   id: "create-project-target_goal-field",
@@ -92,7 +92,7 @@ const CreateProject = (props) => {
                 },
                 labelProps: {
                   className: "form__label",
-                  text: "Target Goal *",
+                  text: "Target Goal (in USD) *",
                   id: "create-project-target_goal-label",
                 },
               }}

@@ -1,64 +1,34 @@
-import "./EditProject.scss";
-
-import React, { useContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-import { editProject } from "../../../redux/actions/projectsActions";
+import { editProject } from "../../../../redux/actions/projectsActions";
 
-import { modalStatusReset } from "../../../redux/actions/modalActions";
-import { actionShowLoader } from "../../../redux/actions/loaderActions";
-import { renderError, getErrorClass } from "../../../helpers";
+import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
+import Modal from "../../../UIComponents/Modal/Modal";
+import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";
+import ReduxTextarea from "../../../../redux/FormComponents/ReduxTextarea/ReduxTextarea";
 
-import ErrorNotifications from "../../ErrorNotifications/ErrorNotifications";
-import Modal from "../../Modal/Modal";
-
-import LoadingSpinner from "../../loaders/LoadingSpinner";
-
-import { ProjectContext } from "../../AppContext";
-
-import history from "../../../history";
-const onInput = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-};
-const handleEnterKeyOnField = (e) => {};
-
-const renderInput = ({ input, meta, inputProps, labelProps }) => {
-  const errorClass = getErrorClass(meta);
-  const labelClass = labelProps.class || null;
-  const labelId = labelProps.id || null;
-  return (
-    <React.Fragment>
-      <label
-        htmlFor={inputProps.id}
-        className={`${errorClass} ${labelClass}`}
-        id={labelId || ""}
-      >
-        {labelProps.text}
-      </label>
-      <input
-        {...inputProps}
-        {...input}
-        className={`${inputProps.className} ${errorClass}`}
-        onKeyDown={(e) => {
-          handleEnterKeyOnField(e);
-        }}
-        onInput={(e) => {
-          onInput(e);
-        }}
-        autoFocus={inputProps.autoFocus || false}
-      />
-      {renderError(meta, "edit-project")}
-    </React.Fragment>
-  );
-};
+// import { actionShowLoader } from "../../../../redux/actions/loaderActions";
+// import LoadingSpinner from "../../../loaders/LoadingSpinner";
 
 const EditProject = (props) => {
-  const { isSelectedProject } = useContext(ProjectContext);
-  const project = props.initialValues;
+  const onModalCloseHandler = () => {
+    if (props.onModalClose) props.onModalClose();
+  };
+  // submit handler
+  const onSubmit = async (formValues) => {
+    const editProjectSuccessCb = () => {
+      onModalCloseHandler();
+    };
+    console.log(formValues);
+    // run an action
+    // props.actionShowLoader("editProjectModalForm", true);
+    await props.editProject(formValues, editProjectSuccessCb);
+  };
+
   const renderErrorNotifications = () => {
     const errorMessage = props.error.msg;
     console.log(errorMessage);
@@ -68,111 +38,126 @@ const EditProject = (props) => {
     return null;
   };
 
-  const renderLoader = () => {
-    return <LoadingSpinner showLoader={props.showLoader} />;
-  };
+  // note: can be used later
+  // const renderLoader = () => {
+  //   return <LoadingSpinner showLoader={props.showLoader} />;
+  // };
 
-  // submit handler
-  const onSubmit = async (formValues) => {
-    formValues.projectId = project.id;
-    const successCb = () => {
-      props.actionShowLoader("editProjectModalForm", false);
-      props.onClose();
-      if (isSelectedProject)
-        history.push(
-          `chat?project=${formValues.projectId}&userType=user&projectType=public`
-        );
-    };
-    console.log(formValues);
-    // check if it succeeded or it produced an error
-
-    props.actionShowLoader("editProjectModalForm", true);
-    await props.editProject(formValues, successCb);
-  };
-
-  const content = (
-    <React.Fragment>
+  const renderContent = () => {
+    return (
       <Modal
         componentClass="edit-project"
-        onModalClose={() => {
-          console.log("closing edit-project modal");
-          props.onClose();
-        }}
-        headerClassName="settings-page-sidebar-header"
-        headingText="Edit Project"
-        actionButtons={
-          <button
-            className={"form-button submit mt-20"}
-            type="submit"
-            onClick={props.handleSubmit(onSubmit)}
-          >
-            {renderLoader()} Save
-          </button>
-        }
+        headingText="Create a Project"
+        onModalClose={onModalCloseHandler}
       >
         <form id="edit-project-form" autoComplete="off">
           <div className="edit-project form__form-content modal-form-content">
             {renderErrorNotifications()}
-            <div className="textfield-container">
-              <Field
-                name="name"
-                component={renderInput}
-                type="text"
-                props={{
-                  inputProps: {
-                    placeholder: "Name",
-                    className: "textfield",
-                    maxLength: "30",
-                    autoComplete: "off",
-                    id: "edit-project-name-field",
-                    autoFocus: true,
-                  },
-                  labelProps: {
-                    class: "form__label",
-                    text: "Name *",
-                    id: "edit-project-name-label",
-                  },
-                }}
-              />
-            </div>
-
-            <div className="textfield-container">
-              <Field
-                name="password"
-                component={renderInput}
-                type="password"
-                props={{
-                  inputProps: {
-                    placeholder: "Project Password",
-                    className: "textfield",
-                    maxLength: "30",
-                    autoComplete: "off",
-                    type: "password",
-                    id: "edit-project-password-field",
-                  },
-                  labelProps: {
-                    class: "form__label",
-                    text: "Password",
-                    id: "edit-project-password-label",
-                  },
-                }}
-              />
+            {/*name field*/}
+            <Field
+              name="name"
+              component={ReduxInput}
+              type="text"
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Project Name",
+                  className: "form__input",
+                  maxLength: "60",
+                  autoComplete: "off",
+                  id: "edit-project-name-field",
+                  type: "text",
+                  autoFocus: true,
+                },
+                labelProps: {
+                  className: "form__label",
+                  text: "Project Name *",
+                  id: "edit-project-name-label",
+                },
+              }}
+            />
+            {/*target goal*/}
+            <Field
+              name="target_goal"
+              component={ReduxInput}
+              type="number"
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Target Goal (in USD)",
+                  className: "form__input",
+                  autoComplete: "off",
+                  id: "edit-project-target_goal-field",
+                  type: "number",
+                },
+                labelProps: {
+                  className: "form__label",
+                  text: "Target Goal (in USD) *",
+                  id: "edit-project-target_goal-label",
+                },
+              }}
+            />
+            {/*project deadline*/}
+            <Field
+              name="deadline"
+              component={ReduxInput}
+              type="date"
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Deadline",
+                  className: "form__input",
+                  autoComplete: "off",
+                  id: "edit-project-deadline-field",
+                  type: "date",
+                },
+                labelProps: {
+                  className: "form__label",
+                  text: "Deadline *",
+                  id: "edit-project-deadline-label",
+                },
+              }}
+            />
+            {/*description field*/}
+            <Field
+              name="description"
+              component={ReduxTextarea}
+              props={{
+                formName: "project",
+                inputProps: {
+                  placeholder: "Description",
+                  className: "form__input",
+                  autoComplete: "off",
+                  id: "edit-project-description-field",
+                },
+                labelProps: {
+                  className: "form__label",
+                  text: "Description ",
+                  id: "edit-project-description-label",
+                },
+              }}
+            />
+            <div className="form-button-container">
+              <button
+                id="edit-project-submit"
+                className={"form-button submit mt-20"}
+                type="submit"
+                onClick={props.handleSubmit(onSubmit)}
+              >
+                Edit Project
+              </button>
             </div>
           </div>
-          {/*this is only here so that Enter submit works*/}
-          <button
-            type="submit"
-            onClick={props.handleSubmit(onSubmit)}
-            style={{ display: "none" }}
-          >
-            Save
-          </button>
         </form>
       </Modal>
-    </React.Fragment>
-  );
+    );
+  };
 
-  return ReactDOM.createPortal(content, document.getElementById("modal"));
+  // render
+  return ReactDOM.createPortal(
+    renderContent(),
+    document.getElementById("modal")
+  );
 };
 
 const validate = (formValues) => {
@@ -181,25 +166,30 @@ const validate = (formValues) => {
   if (!formValues.name) {
     errors.name = "Please input a project name.";
   }
+  if (!formValues.target_goal) {
+    errors.target_goal = "Please input the target goal amount.";
+  }
+  if (!formValues.deadline) {
+    errors.deadline = "Please input the project's deadline.";
+  }
+
   return errors;
 };
 
 const mapStateToProps = (state) => ({
-  isSignedIn: state.auth.isSignedIn,
+  user: state.user.info,
   error: state.error,
-  editProjectSubmitSuccess: state.modalSubmit.editProjectSubmitSuccess,
-  showLoader: state.loader.showEditProjectModalFormLoader,
+  // showLoader: state.loader.showEditProjectFormLoader,
 });
 
-const editProjectComponent = connect(mapStateToProps, {
+const editProjectModalComponent = connect(mapStateToProps, {
+  // actionShowLoader,
   editProject,
-  modalStatusReset,
-  actionShowLoader,
 })(EditProject);
 
 export default reduxForm({
-  form: "editProject",
+  form: "editProjectModal",
   keepDirtyOnReinitialize: true,
   enableReinitialize: true,
   validate,
-})(editProjectComponent);
+})(editProjectModalComponent);
