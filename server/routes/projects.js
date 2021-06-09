@@ -10,6 +10,7 @@ const {
   create_project,
   cancel_project,
   edit_project,
+  upload_image,
   delete_project,
 } = require("../controllers/projects");
 
@@ -18,6 +19,7 @@ router.get("/:id", get_project);
 router.post("/", create_project);
 router.patch("/:id/cancel", cancel_project);
 router.patch("/:id/edit_project", edit_project);
+router.patch("/:id/upload_image", upload_image);
 router.delete("/:id", delete_project);
 
 // note: remember to move this controller function to the controller folder on project.js

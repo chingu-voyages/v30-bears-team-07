@@ -3,6 +3,7 @@ require("dotenv").config();
 const User = require("../models/user");
 const Project = require("../models/project");
 const { PROJECTS_PER_BATCH } = require("../utils/constants.js");
+const { cloudinary } = require("../utils/cloudinary");
 
 // retrieve projects list (not user specific)
 exports.get_all_projects = async (req, res) => {
@@ -194,7 +195,7 @@ exports.cancel_project = async (req, res) => {
     try {
       let authorized = false;
       // get the project using projectId
-      const project = await Room.findById(projectId);
+      const project = await Project.findById(projectId);
       if (!project) throw Error("Unable to find that project.");
       // check if the user is the owner of the project
       if (userId == project.creator.toString()) authorized = true;
@@ -247,5 +248,32 @@ exports.delete_project = async (req, res) => {
       console.log(e);
       res.status(400).json({ msg: e.message });
     }
+  }
+};
+
+exports.upload_image = async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    const { userId } = req.body;
+    const projectId = req.params.id;
+
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "resto-fund",
+      public_id: `${projectId}-project-icon`,
+      width: 600,
+      aspect_ratio: "1.8",
+      // crop: "limit",
+    });
+
+    const image_url = uploadedResponse.secure_url;
+    const project = await Project.findById(projectId);
+    project.image_url = image_url;
+    const updatedProject = await project.save();
+    if (!updatedProject) throw Error("Failed to update the project.");
+
+    res.status(200).json(updatedProject);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: e.message });
   }
 };

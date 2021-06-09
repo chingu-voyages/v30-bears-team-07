@@ -19,6 +19,7 @@ var ProjectSchema = new Schema({
     default: "active",
     enum: ["active", "inactive", "canceled", "failed", "completed"],
   },
+  image_url: { type: String, default: "" },
   created: {
     type: Date,
     default: Date.now(),

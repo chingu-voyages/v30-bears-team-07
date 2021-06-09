@@ -13,6 +13,7 @@ import { capitalizeFirstLetter } from "../../helpers";
 import DeleteProject from "../../components/forms/project/DeleteProject/DeleteProject";
 import EditProject from "../../components/forms/project/EditProject/EditProject";
 import DonateForm from "../../components/forms/project/DonateForm/DonateForm";
+import UploadProjectImageButton from "../../components/UIComponents/buttons/UploadProjectImageButton/UploadProjectImageButton";
 import { convertDateToHtmlInputValue } from "../../helpers";
 import "./Project.scss";
 
@@ -192,6 +193,7 @@ const Project = (props) => {
         <button className="project__button" onClick={editProjectOnOpenHandler}>
           Edit Project
         </button>
+        <UploadProjectImageButton project={project} />
         <button
           className="project__button danger"
           onClick={deleteProjectOnOpenHandler}

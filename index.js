@@ -16,6 +16,10 @@ app.use(logger("dev"));
 app.use(noCache());
 app.use(helmet());
 
+// adding custom settings for middleware of upload image routes
+app.use("/projects/:id/upload_image", express.json({ limit: "50mb" }));
+app.use("/projects/:id/upload_image", express.urlencoded({ extended: "true" }));
+
 // adding the stripe web book first because it should stay unaffected by other middleware
 app.post(
   "/stripe/webhook",

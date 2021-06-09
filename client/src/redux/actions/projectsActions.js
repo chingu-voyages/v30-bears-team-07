@@ -1,5 +1,6 @@
 import axios from "axios";
 import serverRest from "../../api/serverRest";
+import cloudinaryRest from "../../api/cloudinaryRest";
 import history from "../../history";
 import { returnErrors, clearErrors } from "./errorActions";
 // import { actionShowLoader } from "./loaderActions";
@@ -21,18 +22,8 @@ import {
   DELETE_PROJECT_FAIL,
   EDIT_PROJECT_SUCCESS,
   EDIT_PROJECT_FAIL,
-  /*
-  note: will likely be relevant in the future (tella)
-  please do not remove
-
-  DONATE_TO_PROJECT_SUCCESS,
-  DONATE_TO_PROJECT_FAIL,
-  UPDATE_PROJECT_NAME_SUCCESS,
-  UPDATE_PROJECT_NAME_FAIL,
-
-  EDIT_PROJECT_ICON_SUCCESS,
-  EDIT_PROJECT_ICON_FAIL,
-  */
+  UPLOAD_PROJECT_IMAGE_SUCCESS,
+  UPLOAD_PROJECT_IMAGE_FAIL,
 } from "./types";
 //this is clearly a function
 export const getProject = (projectId) => (dispatch /* getState*/) => {
@@ -248,86 +239,18 @@ export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
   // });
 };
 
-/* note: probably will be used for the future (tella)
-PLEASE DO NOT REMOVE
-
-export const updateProjectName =
-  (formValues, successCb) => (dispatch, getState) => {
-    const userId = getState().user.info._id || getState().user.info.id;
-
-    // note:might want to change this to projectId in the future
-    serverRest
-      .patch(`/projects/${formValues.projectId}/update_name`, {
-        ...formValues,
-        userId,
-      })
-      .then((res) => {
-        dispatch({
-          type: UPDATE_PROJECT_NAME_SUCCESS,
-          payload: {
-            ...res.data,
-          },
-        });
-        dispatch(clearErrors());
-        if (successCb) successCb();
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-        dispatch(returnErrors(err.response.data, err.response.status));
-        dispatch({
-          type: UPDATE_PROJECT_NAME_FAIL,
-        });
-      })
-      .finally(() => {
-        dispatch(actionShowLoader("updateProjectNameModalForm", false));
-      });
-  };
-
-export const editProject = (formValues, successCb) => (dispatch, getState) => {
-  const userId = getState().user.info._id || getState().user.info.id;
-
-  serverRest
-    .patch(`/projects/${formValues.projectId}/edit_project`, {
-      ...formValues,
-      userId,
-    })
-    .then((res) => {
-      dispatch({
-        type: EDIT_PROJECT_SUCCESS,
-        payload: {
-          ...res.data,
-        },
-      });
-
-      dispatch(clearErrors());
-      if (successCb) successCb();
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log(err.response);
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({
-        type: EDIT_PROJECT_FAIL,
-      });
-    })
-    .finally(() => {
-      dispatch(actionShowLoader("editProjectModalForm", false));
-    });
-};
-
-export const editProjectIcon = (base64EncodedImage, projectId) => {
+export const uploadProjectImage = (base64EncodedImage, projectId) => {
   return async function (dispatch, getState) {
     const userId = getState().user.info._id || getState().user.info.id;
     try {
       await cloudinaryRest
         .patch(
-          `/projects/${projectId}/upload_icon`,
+          `/projects/${projectId}/upload_image`,
           JSON.stringify({ data: base64EncodedImage, userId })
         )
         .then((res) => {
-          console.log(res.data);
-          dispatch({ type: EDIT_PROJECT_ICON_SUCCESS, payload: res.data });
+          const project = res.data;
+          dispatch({ type: UPLOAD_PROJECT_IMAGE_SUCCESS, payload: project });
         });
     } catch (err) {
       console.log(err);
@@ -335,14 +258,12 @@ export const editProjectIcon = (base64EncodedImage, projectId) => {
         returnErrors(
           err.response.data,
           err.response.status,
-          "EDIT_PROJECT_ICON_FAIL"
+          UPLOAD_PROJECT_IMAGE_FAIL
         )
       );
-      dispatch({ type: EDIT_PROJECT_ICON_FAIL });
+      dispatch({ type: UPLOAD_PROJECT_IMAGE_FAIL });
     } finally {
-      dispatch(actionShowLoader("uploadProjectIconForm", false));
+      // dispatch(actionShowLoader("uploadProjectIconForm", false));
     }
   };
 };
-
-*/

@@ -45,8 +45,10 @@
   display: block;
   width: 88vw;
   max-width: 32rem;
-  height: 49.5vw;
   max-height: 18rem;
+  height: 49.5vw;
+  border-radius: 5px;
+  border: 1px solid #aaa;
 }
 
 p.project__description {
@@ -84,6 +86,7 @@ p.project__description {
 }
 
 .project__button.danger {
+  margin-top: 1.8rem;
   background-color: $dangerBackgroundColor;
 
   &:hover {
