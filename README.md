@@ -166,10 +166,6 @@ Server
     <li>mongoose-friends: ^0.2.5</li>
     <li>morgan: ^1.10.0</li>
     <li>nocache: ^2.1.0</li>
-    <li>passport-http: ^0.3.0</li>
-    <li>passport-jwt: ^4.0.0</li>
-    <li>passport-local: ^1.0.0</li>
-    <li>socket.io: ^2.4.1</li>
     <li>stripe": ^8.150.0</li>
 
 </ul>
