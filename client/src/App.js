@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import Home from "./pages/Home/Home";
 import Header from "./components/Header/Header";
 import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 // note: Signup page definitely needs to be revamped way later on (Tella)
 // import Signup from "./pages/Signup/Signup";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
@@ -78,7 +79,7 @@ const App = (props) => {
       <Router history={history}>
         <WindowContext.Provider value={getWindowContextValue()}>
           <Route path="/" exact>
-            <Redirect to={isSignedIn ? `/dashboard` : "/login"} />
+            <Redirect to={"/allprojects"} />
           </Route>
           <Header />
           <div style={{ display: "none" }}>
@@ -87,6 +88,9 @@ const App = (props) => {
           <Switch>
             <UnauthenticatedRoute path="/login" exact>
               <Login />
+            </UnauthenticatedRoute>
+            <UnauthenticatedRoute path="/register" exact>
+              <Register />
             </UnauthenticatedRoute>
             <AuthenticatedRoute path="/dashboard" exact>
               <Dashboard />

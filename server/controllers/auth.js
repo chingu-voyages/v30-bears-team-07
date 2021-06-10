@@ -118,12 +118,12 @@ exports.user_load = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, username, password } = req.body;
   console.log(req.body);
   let errors = [];
 
   // check if any of the following fields are empty
-  if (!username || !password) {
+  if (!email || !username || !password) {
     errors.push({ msg: "Please fill in all the fields." });
   }
 
@@ -136,11 +136,12 @@ exports.register = async (req, res) => {
     res.status(400).json({ errors });
   } else {
     try {
+      const emailLowerCase = email.toLowerCase();
       // Check if username is already taken
-      const userWithSameUsername = await User.findOne({
-        username,
+      const userWithSameEmail = await User.findOne({
+        email: emailLowerCase,
       });
-      if (userWithSameUsername) throw Error("Username is already taken.");
+      if (userWithSameEmail) throw Error("Email is already taken.");
       // check if salt generation has any errors
       const salt = await bcrypt.genSalt(10);
       if (!salt)
@@ -152,6 +153,7 @@ exports.register = async (req, res) => {
 
       // create new user object in mongoose
       const newUser = new User({
+        email: emailLowerCase,
         username,
         password: hash,
       });
@@ -161,7 +163,7 @@ exports.register = async (req, res) => {
       // user object to be used for token
       const userForToken = {
         username: savedUser.username,
-        id: user.id,
+        id: savedUser.id,
       };
       // synchronous signing of JWT token
       const token = jwt.sign(userForToken, JWT_SECRETKEY, {
@@ -171,9 +173,9 @@ exports.register = async (req, res) => {
 
       // this will be the user returned to the frontend
       const responseUserObject = {
-        id: user._id.toString(),
-        username: user.username,
-        email: user.email,
+        id: savedUser.id.toString(),
+        username: savedUser.username,
+        email: savedUser.email,
         projectsOwned: [],
         projectsSupported: [],
       };
@@ -202,18 +204,20 @@ exports.login = async (req, res) => {
   try {
     const emailLowerCase = email.toLowerCase();
     // Check for existing user
-    const user = await User.findOne({ email: emailLowerCase })
-      .select("-password")
-      .populate("projectsOwned projectsSupported");
+    const user = await User.findOne({ email: emailLowerCase }).populate(
+      "projectsOwned projectsSupported"
+    );
     if (!user)
       throw Error("User does not exist. Please register for an account.");
 
+    console.log(password);
+    console.log(user.password);
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw Error("Invalid credentials.");
 
     // user object to be used for token
     const userForToken = {
-      username: savedUser.username,
+      username: user.username,
       id: user.id,
     };
     // synchronous signing of JWT token

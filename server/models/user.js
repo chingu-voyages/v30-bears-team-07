@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  passwordHash: {
+  password: {
     type: String,
     // not required for now because Googleauth users do not have a password
     // required: true,
