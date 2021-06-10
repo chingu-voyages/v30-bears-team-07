@@ -18,10 +18,10 @@
 
 ## Overview
 
-Crowd-funding web application, specialized for helping restaurants collect donations to
-survive lockdowns, created using React.js, Node.js, Express, MongoDB, Sass, Google OAuth, Stripe API.
+Resto-Fund is a crowd-funding web application, specialized for helping restaurants collect donations to
+survive lockdowns. It was created as part of the Chingu Voyage 30, between 3 May and 13 June 2021. Technologies used are React.js, Node.js, Express, MongoDB, Sass, Google OAuth, Stripe API.
 
-<b>LIVE LINK:</b> https://
+<b>LIVE LINK:</b> https:// [coming soon]
 
 <hr/>
 
@@ -114,8 +114,6 @@ After creating a database, click `CONNECT`, follow the instructions, choose `Con
 
 <hr>
 
-<hr>
-
 ### Frontend
 
 To start the client-side application, go to the client folder:
@@ -141,8 +139,6 @@ To run the build process:
 ```bash
 npm run build
 ```
-
-<hr>
 
 <hr>
 
