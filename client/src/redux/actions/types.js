@@ -2,6 +2,15 @@
 export const GOOGLE_SIGN_IN_SUCCESS = "GOOGLE_SIGN_IN_SUCCESS";
 export const GOOGLE_SIGN_IN_FAIL = "GOOGLE_SIGN_IN_FAIL";
 export const GOOGLE_SIGN_OUT = "GOOGLE_SIGN_OUT";
+export const USER_LOADED = "USER_LOADED";
+export const USER_LOADING = "USER_LOADING";
+export const AUTH_ERROR = "AUTH_ERROR";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+// ERROR handling actions
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const FETCH_ERRORS = "FETCH_ERRORS";
 // PROJECT ACTIONS

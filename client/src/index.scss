@@ -197,7 +197,7 @@ li {
   padding-top: 0;
 }
 
-.auth__form {
+.auth__form-container {
   display: flex;
   align-content: flex-start;
   justify-content: center;
@@ -210,6 +210,10 @@ li {
   margin: 0 auto;
   padding: 1rem 0.5rem;
   padding-top: 2rem;
+}
+
+.auth__form {
+  width: 100%;
 }
 
 .auth__heading-title {
@@ -229,7 +233,7 @@ li {
     padding-top: 6.5rem;
   }
 
-  .auth__form {
+  .auth__form-container {
     position: relative;
     top: 1rem;
     max-width: 32rem;
@@ -260,7 +264,7 @@ li {
   }
 }
 @media screen and (min-width: 1024px) and (min-height: 600px) {
-  .auth__form {
+  .auth__form-container {
     position: relative;
     top: 40vh;
     transform: translateY(-50%);

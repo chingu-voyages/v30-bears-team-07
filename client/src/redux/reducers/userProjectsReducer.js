@@ -5,6 +5,11 @@ import {
   GOOGLE_SIGN_IN_SUCCESS,
   GOOGLE_SIGN_IN_FAIL,
   GOOGLE_SIGN_OUT,
+  LOGIN_SUCCESS,
+  REGISTER_SUCCESS,
+  LOGOUT_SUCCESS,
+  LOGIN_FAIL,
+  REGISTER_FAIL,
   GET_ALL_USER_PROJECTS_SUCCESS,
   GET_ALL_USER_PROJECTS_FAIL,
   GET_PROJECT_SUCCESS,
@@ -26,11 +31,16 @@ let owned, supported;
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GOOGLE_SIGN_IN_SUCCESS:
+    case LOGIN_SUCCESS:
       owned = action.payload.user.projectsOwned;
       supported = action.payload.user.projectsSupported;
       return { owned, supported };
     case GOOGLE_SIGN_OUT:
     case GOOGLE_SIGN_IN_FAIL:
+    case LOGOUT_SUCCESS:
+    case LOGIN_FAIL:
+    case REGISTER_SUCCESS:
+    case REGISTER_FAIL:
       return { owned: [], supported: [] };
     case GET_ALL_USER_PROJECTS_SUCCESS:
       owned = action.payload.projectsOwned;

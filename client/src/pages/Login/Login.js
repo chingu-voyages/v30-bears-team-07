@@ -1,80 +1,27 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import LoginForm from "../../components/forms/auth/LoginForm/LoginForm";
 import GoogleAuth from "../../components/GoogleAuth/GoogleAuth";
 
-const LoginForm = ({
-  handleLogin,
-  username,
-  setUsername,
-  password,
-  setPassword,
-  message,
-}) => {
+const Login = ({}) => {
   return (
     <main className="auth page-container">
-      {/*note: I did some reordering on the elements, hope it works and nothing bugs out (-tella)*/}
-      <form
-        className="auth__form"
-        onSubmit={(e) => {
-          // Note: Remove any form submission for now, because this does not function (tella)
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-      >
+      <section className="auth__form-container">
         <h1 className="auth__heading-title">Login</h1>
 
-        <div className="textfield-container">
-          <label htmlFor="auth__username" className="form__label">
-            Username
-          </label>
-          <input
-            type="text"
-            // note: sorry for changing this, I wanted to do some styling, but I'm not sure if anything is dependent on id.
-            // feel free to put it back
-            // id="username"
-            id="auth__username"
-            className="form__input"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-            disabled
-          />
-        </div>
-        <div className="textfield-container">
-          <label htmlFor="auth__password" className="form__label">
-            Password
-          </label>
-          <input
-            type="password"
-            // note: sorry for changing this, I wanted to do some styling, but I'm not sure if anything is dependent on id.
-            // feel free to put it back
-            // id="username"
-            id="auth__password"
-            className="form__input"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-            disabled
-          />
-        </div>
+        <LoginForm />
         <div className="form-button-container">
-          <button
-            className="form-button submit"
-            id="login-button"
-            type="submit"
-            disabled
-          >
-            Login
-          </button>
-          <div className="form-button-container">
-            <GoogleAuth className="login-page" />
-          </div>
+          <GoogleAuth />
         </div>
-      </form>
+        <Link className="form__link" to={`/register`}>
+          Don't have an account? Register here.
+        </Link>
+      </section>
     </main>
   );
 };
 
-export default LoginForm;
+export default Login;
 
 // Note: just putting away currently unused stuff (tella)
 

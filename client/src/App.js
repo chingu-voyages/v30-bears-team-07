@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import history from "./history";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +18,8 @@ import GoogleAuth from "./components/GoogleAuth/GoogleAuth";
 // Used for URL redirection based on authentication status
 import AuthenticatedRoute from "./routeWrappers/AuthenticatedRoute";
 import UnauthenticatedRoute from "./routeWrappers/UnauthenticatedRoute";
+// redux actions
+import { loadUser } from "./redux/actions/authActions";
 // react context
 import { WindowContext } from "./AppContext";
 import * as constants from "./utils/constants.js";
@@ -31,6 +33,7 @@ const App = (props) => {
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
   const user = useSelector((state) => state.user.info);
   const isLoadingUser = useSelector((state) => state.auth.isLoading);
+  const dispatch = useDispatch();
   // screen with variables
   const { NON_MOBILE_WIDTH, NON_MOBILE_HEIGHT } = constants;
   const [isNonMobileWidth, setIsNonMobileWidth] = useState(
@@ -54,6 +57,8 @@ const App = (props) => {
   };
 
   useEffect(() => {
+    // watch out if this conflicts with GoogleAuth
+    dispatch(loadUser());
     window.addEventListener("resize", handleResize);
     handleResize();
     // cleanup function
