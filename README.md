@@ -1,7 +1,5 @@
 # Resto-Fund
 
-<hr/>
-
 ## Table of Contents
 
 - [Overview](https://github.com/chingu-voyages/v30-bears-team-07#overview)
@@ -14,16 +12,12 @@
 - [Dependencies](https://github.com/chingu-voyages/v30-bears-team-07#dependencies)
 - [License](https://github.com/chingu-voyages/v30-bears-team-07#license)
 
-<hr>
-
 ## Overview
 
 Resto-Fund is a crowd-funding web application, specialized for helping restaurants collect donations to
 survive lockdowns. It was created as part of the Chingu Voyage 30, between 3 May and 13 June 2021. Technologies used are React.js, Node.js, Express, MongoDB, Sass, Google OAuth, Stripe API.
 
 <b>LIVE LINK:</b> https:// [coming soon]
-
-<hr/>
 
 ### Features
 
@@ -41,7 +35,6 @@ Main Features
     <li>Donate to a Project</li>
 </ul>
 
-<hr>
 
 ### Technologies Used
 
@@ -54,7 +47,6 @@ Main Features
     <li>Heroku</li>
 </ul>
 
-<hr>
 
 ## Installation
 
