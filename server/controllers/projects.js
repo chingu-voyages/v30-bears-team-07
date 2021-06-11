@@ -4,20 +4,35 @@ const User = require("../models/user");
 const Project = require("../models/project");
 const { PROJECTS_PER_BATCH } = require("../utils/constants.js");
 const { cloudinary } = require("../utils/cloudinary");
+var isAfter = require("date-fns/isAfter");
+
+const updateProjectStatus = async (project) => {
+  // is today past the deadline? update the status if so
+  if (isAfter(new Date(), project.deadline)) {
+    if (project.amount_donated < project.target_goal) {
+      project.status = "failed";
+    }
+  }
+  if (project.amount_donated >= project.target_goal) {
+    project.status = "completed";
+  }
+
+  let updatedProject = await project.save();
+  return updatedProject;
+};
 
 // retrieve projects list (not user specific)
 exports.get_all_projects = async (req, res) => {
   console.log("retrieving all projects");
   try {
-    // note: ask teammates if there are any categories for retrieving all projects
     const projects = await Project.find()
-      // note: ask teammates how to sort the projects retrieved
-      .sort({ createdAt: -1 })
-      // note: figure out how to keep track of retrieval count (tella)
-      // note:running out of time so this will be removed
+      .sort({ amount_donated: -1 })
       // .limit(PROJECTS_PER_BATCH /* * (retrievalCount + 1)*/)
       .populate("creator donors");
     if (!projects) throw Error("Unable to retrieve projects.");
+    // process the projects so updates the statuses based on deadline
+    for (let project of projects) {
+    }
     res.status(200).json(projects);
   } catch (e) {
     console.log(e);
