@@ -152,7 +152,6 @@ export const replaceAt = (array, index, value) => {
   ret[index] = value;
   return ret;
 };
-// usage: const newArray = replaceAt(items, index, "J");
 
 export const objectToArray = (
   object,
@@ -176,7 +175,6 @@ export const arrayHasObjectWithPropAndValue = (array, propName, value) => {
   if (Array.isArray(array)) {
     return false;
   }
-  // e.g. array = projects, propName = "projectName", value = "active"
   for (let item of array) {
     if (item[propName] === value) return true;
   }

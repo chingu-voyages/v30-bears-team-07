@@ -4,8 +4,6 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-// import { editAccount } from "../../../../redux/actions/projectsActions";
-
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
 import Modal from "../../../UIComponents/Modal/Modal";
 import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";
@@ -54,7 +52,6 @@ const EditAccount = (props) => {
           <div className="edit-account form__form-content modal-form-content">
             {renderErrorNotifications()}
 
-            {/*username field*/}
             <Field
               name="username"
               component={ReduxInput}
@@ -77,7 +74,6 @@ const EditAccount = (props) => {
                 },
               }}
             />
-            {/*password field*/}
             <Field
               name="name"
               component={ReduxInput}

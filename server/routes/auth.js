@@ -24,21 +24,3 @@ router.post("/login", login);
 router.post("/google_login", google_login);
 
 module.exports = router;
-
-/*
-// load user
-router.get("/user", auth, user_load);
-// register a user
-router.post("/register", user_register);
-// Login
-router.post("/login", user_login);
-*/
-
-/*
-// Logout
-router.get("/logout", (req, res) => {
-  req.logout();
-  req.flash("success_msg", "You are logged out");
-  res.redirect("/users/login");
-});
-*/

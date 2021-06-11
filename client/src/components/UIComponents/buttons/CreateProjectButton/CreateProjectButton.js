@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreateProjectForm from "../../../forms/project/CreateProject/CreateProject";
 
-// import PlusIconImg from "../../../assets/icons/left-arrow.png";
 import "./CreateProjectButton.scss";
 
 const CreateProjectButton = (props) => {
@@ -30,15 +29,6 @@ const CreateProjectButton = (props) => {
           onClick={onClickHandler}
           type="button"
         >
-          {/*note: replace the + down there with and image (tella)*/}
-          {/*
-          <img
-            id=""
-            className={`btn btn--create__img ${getClassName()}`}
-            // src={PlusIconImg}
-            // alt="Plus Icon Icon"
-          />
-          */}
           +
         </button>
       );

@@ -113,7 +113,6 @@ const ProjectItem = ({ project, className }) => {
               </span>{" "}
               / {project.target_goal} raised
             </h3>
-            {/*note: should probably add the deadline for the project*/}
           </div>
           <div className="project-item__actions">{renderActionButtons()}</div>
         </Card>

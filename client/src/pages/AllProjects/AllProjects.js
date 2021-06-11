@@ -20,7 +20,6 @@ const AllProjects = (props) => {
   // retrieve all projects after the component renders
   useEffect(() => {
     getAllProjectsHandler();
-    /*return () => {}*/
   }, []);
 
   return (

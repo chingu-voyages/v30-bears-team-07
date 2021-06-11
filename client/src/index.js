@@ -14,12 +14,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-/*
-note:  this stuff is just for performance measurement, putting it aside until it is needed
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-import reportWebVitals from "./reportWebVitals";
-reportWebVitals();
-*/

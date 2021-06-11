@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { useSelector, useDispatch } from "react-redux";
+
 import BackButton from "../../../components/UIComponents/buttons/BackButton";
 import ProjectItem from "../../../components/ProjectItem/ProjectItem";
 import "./Donations.scss";
@@ -37,19 +37,3 @@ const Donations = ({ user, projects, onClose }) => {
 };
 
 export default Donations;
-/*
-<section className="dashboard__content">
-  <div className="dashboard-content__header">
-    <BackButton
-      className="dashboard-content"
-      hideOnDesktop={true}
-      // onClickHandler={props.}
-    />
-
-    <h1 className="dashboard-content__heading">
-      My Donations Projects
-    </h1>
-  </div>
-  <section className="dashboard-content__section"></section>
-</section>
-*/

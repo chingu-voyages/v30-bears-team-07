@@ -51,19 +51,3 @@ const Fundraising = ({ user, projects, onClose }) => {
 };
 
 export default Fundraising;
-/*
-<section className="dashboard__content">
-  <div className="dashboard-content__header">
-    <BackButton
-      className="dashboard-content"
-      hideOnDesktop={true}
-      // onClickHandler={props.}
-    />
-
-    <h1 className="dashboard-content__heading">
-      My Fundraising Projects
-    </h1>
-  </div>
-  <section className="dashboard-content__section"></section>
-</section>
-*/

@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Fundraising from "./Fundraising/Fundraising";
 import Donations from "./Donations/Donations";
-// import BackButton from "../../components/UIComponents/buttons/BackButton";
 
 import { getAllUserProjects } from "../../redux/actions/projectsActions";
 import { WindowContext } from "../../AppContext";
 import "./Dashboard.scss";
-// import CreateProjectButton from "../../components/UIComponents/buttons/CreateProjectButton/CreateProjectButton";
 
 const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
   // should be opened by default in desktop mode
@@ -20,7 +18,6 @@ const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
   useEffect(() => {
     // automatically show the fundraising section when it is on non-mobile screen size
     if (isNonMobileWidth) setShowFundraisingSection(true);
-    /*return () => {}*/
   }, []);
 
   const getAllProjectsHandler = () => {
@@ -33,7 +30,6 @@ const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
   // run this only after rendering the component and after user is loaded
   useEffect(() => {
     getAllProjectsHandler();
-    /*return () => {}*/
   }, [user]);
 
   const closeAllSectionsHandler = () => {
@@ -124,32 +120,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getAllUserProjects })(Dashboard);
-
-/*
-old render function
-
-<div>
-  <section className="main">
-    {renderMobileCreateButton()}
-    <div className="main__left">
-      <div className="main__left--info">
-        <div>Settings</div>
-        <div>Fundraiser</div>
-        <div>Donations</div>
-        <div>Info</div>
-      </div>
-    </div>
-    <div className="main__right">
-      {userProjects.owned.map((project, index) => (
-        <div className="main__right--card" key={index}>
-          <div>Image: </div>
-          <h4>{project.name}</h4>
-          <p>Last Donation: 8 min ago</p>
-          <p>{project.amount_donated} raised</p>
-        </div>
-      ))}
-    </div>
-  </section>
-</div>
-
-*/

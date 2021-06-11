@@ -10,7 +10,6 @@ import Header from "./components/Header/Header";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 // note: Signup page definitely needs to be revamped way later on (Tella)
-// import Signup from "./pages/Signup/Signup";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AllProjects from "./pages/AllProjects/AllProjects";
@@ -26,8 +25,6 @@ import { WindowContext } from "./AppContext";
 import * as constants from "./utils/constants.js";
 import "./normalize.css";
 import "./index.scss";
-
-// import "./App.scss";
 
 const App = (props) => {
   // redux store variables
@@ -105,16 +102,6 @@ const App = (props) => {
               <ErrorPage errorType="404" />
             </Route>
           </Switch>
-          {/*note: these are all of the pages that need to be worked on way later on
-          currently, they're not supposed to be used for now (Tella)
-
-          <Home />
-
-          <UnauthenticatedRoute path="/signup" exact>
-            <Signup />
-          </UnauthenticatedRoute>
-
-          */}
         </WindowContext.Provider>
       </Router>
     </div>

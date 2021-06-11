@@ -18,9 +18,3 @@ const Register = ({}) => {
 };
 
 export default Register;
-
-// Note: just putting away currently unused stuff (tella)
-
-// import e from "cors";
-// import Notification from "../Notification/Notification";
-// <Notification message={message} />

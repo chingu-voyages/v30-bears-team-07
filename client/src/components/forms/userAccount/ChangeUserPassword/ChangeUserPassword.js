@@ -4,8 +4,6 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 
-// import { changeUserPassword } from "../../../../redux/actions/projectsActions";
-
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
 import Modal from "../../../UIComponents/Modal/Modal";
 import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";
@@ -53,7 +51,6 @@ const ChangeUserPassword = (props) => {
         <form id="change-user-password-form" autoComplete="off">
           <div className="change-user-password form__form-content modal-form-content">
             {renderErrorNotifications()}
-            {/*current password field*/}
             <Field
               name="name"
               component={ReduxInput}
@@ -76,7 +73,6 @@ const ChangeUserPassword = (props) => {
                 },
               }}
             />
-            {/*new password field*/}
             <Field
               name="name"
               component={ReduxInput}
@@ -99,7 +95,6 @@ const ChangeUserPassword = (props) => {
                 },
               }}
             />
-            {/*confirm new password field*/}
             <Field
               name="name"
               component={ReduxInput}

@@ -20,7 +20,6 @@ const CancelProject = (props) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     // props.actionShowLoader("cancelProjectForm", true);
-    // props.cancelProject(props.project.id);
     props.cancelProject("60a8db0e87442224787e6005");
   };
 
@@ -56,7 +55,6 @@ const CancelProject = (props) => {
             </p>
             <p className="modal__modal-p cancel-project enlarged-text centered">
               Revive our Papa John's branch
-              {/* props.project.name */}
             </p>
             <p
               id="cancel-project-description-paragraph"
