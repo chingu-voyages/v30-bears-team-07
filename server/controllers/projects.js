@@ -31,8 +31,7 @@ exports.get_all_projects = async (req, res) => {
       .populate("creator donors");
     if (!projects) throw Error("Unable to retrieve projects.");
     // process the projects so updates the statuses based on deadline
-    for (let project of projects) {
-    }
+
     res.status(200).json(projects);
   } catch (e) {
     console.log(e);
