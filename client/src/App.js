@@ -78,6 +78,9 @@ const App = (props) => {
           <Route path="/" exact>
             <Redirect to={"/allprojects"} />
           </Route>
+          <Route path="/home" exact>
+            <Redirect to={"/allprojects"} />
+          </Route>
           <Header />
           <div style={{ display: "none" }}>
             <GoogleAuth />
@@ -99,7 +102,11 @@ const App = (props) => {
               <Project />
             </Route>
             <Route>
-              <ErrorPage errorType="404" />
+              <ErrorPage
+                errorCode="404"
+                errorHeading="Page not found."
+                errorText="Sorry, we could not find the page you are looking for."
+              />
             </Route>
           </Switch>
         </WindowContext.Provider>

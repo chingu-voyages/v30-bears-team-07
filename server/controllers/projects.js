@@ -7,6 +7,8 @@ const { cloudinary } = require("../utils/cloudinary");
 var isAfter = require("date-fns/isAfter");
 
 const updateProjectStatus = async (project) => {
+  if (project.status === "completed" || project.status === "failed")
+    return project;
   // is today past the deadline? update the status if so
   if (isAfter(new Date(), project.deadline)) {
     if (project.amount_donated < project.target_goal) {
@@ -30,8 +32,28 @@ exports.get_all_projects = async (req, res) => {
       // .limit(PROJECTS_PER_BATCH /* * (retrievalCount + 1)*/)
       .populate("creator donors");
     if (!projects) throw Error("Unable to retrieve projects.");
-    // process the projects so updates the statuses based on deadline
 
+    for (let project of projects) {
+      if (project.status === "completed" || project.status === "failed")
+        continue;
+      // is today past the deadline? update the status if so
+      if (isAfter(new Date(), project.deadline)) {
+        if (project.amount_donated < project.target_goal) {
+          project.status = "failed";
+          await project.save();
+        }
+      }
+      if (project.amount_donated >= project.target_goal) {
+        project.status = "completed";
+        await project.save();
+      }
+    }
+    /*
+    // process the projects so it updates the statuses based on deadline
+    const processedProjects = await projects.map((project) =>
+      updateProjectStatus(project)
+    );
+    */
     res.status(200).json(projects);
   } catch (e) {
     console.log(e);
@@ -55,8 +77,53 @@ exports.get_all_user_projects = async (req, res) => {
     console.log(user);
 
     // categorize them first for easy retrieval
-    const { projectsOwned, projectsSupported } = user;
-    userProjects = { projectsOwned, projectsSupported };
+    let { projectsOwned, projectsSupported } = user;
+    console.log(projectsOwned);
+
+    for (let project of projectsOwned) {
+      if (project.status === "completed" || project.status === "failed")
+        continue;
+      // is today past the deadline? update the status if so
+      if (isAfter(new Date(), project.deadline)) {
+        if (project.amount_donated < project.target_goal) {
+          project.status = "failed";
+          await project.save();
+        }
+      }
+      if (project.amount_donated >= project.target_goal) {
+        project.status = "completed";
+        await project.save();
+      }
+    }
+
+    for (let project of projectsSupported) {
+      if (project.status === "completed" || project.status === "failed")
+        continue;
+      // is today past the deadline? update the status if so
+      if (isAfter(new Date(), project.deadline)) {
+        if (project.amount_donated < project.target_goal) {
+          project.status = "failed";
+          await project.save();
+        }
+      }
+      if (project.amount_donated >= project.target_goal) {
+        project.status = "completed";
+        await project.save();
+      }
+    }
+
+    // const processedProjectsOwned = await projectsOwned.map((project) =>
+    //   updateProjectStatus(project)
+    // );
+    // const processedProjectsSupported = await projectsSupported.map((project) =>
+    //   updateProjectStatus(project)
+    // );
+    // console.log(processedProjectsOwned);
+    // make sure the statuses are updated before sending them to frontend
+    userProjects = {
+      projectsOwned,
+      projectsSupported,
+    };
     res.status(200).json(userProjects);
   } catch (e) {
     console.log(e);
@@ -74,7 +141,9 @@ exports.get_project = async (req, res) => {
       throw Error(
         "Project does not exist."
       ); /*this is basically error handling, if it can't find it*/
-    res.status(200).json(project); /*if it exists, send success*/
+
+    const processedProject = await updateProjectStatus(project);
+    res.status(200).json(processedProject); /*if it exists, send success*/
   } catch (e) {
     console.log(e);
     res
@@ -183,7 +252,7 @@ exports.edit_project = async (req, res) => {
         // update project status in database
         const updatedProject = await project.save();
         if (!updatedProject) throw Error("Failed to update the project.");
-        res.status(200).json(project);
+        res.status(200).json(updatedProject);
       } else {
         throw Error("Unauthorized user. Unable to edit the project.");
       }

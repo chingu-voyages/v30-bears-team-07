@@ -12,7 +12,7 @@ var ProjectSchema = new Schema({
   },
   amount_donated: { type: Number, default: 0, required: true },
   target_goal: { type: Number, default: 1, required: true },
-  deadline: { type: Date, default: Date.now(), min: Date.now() },
+  deadline: { type: Date },
   status: {
     type: String,
     required: true,

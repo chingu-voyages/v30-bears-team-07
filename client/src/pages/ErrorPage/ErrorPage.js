@@ -8,46 +8,36 @@ class ErrorPage extends React.Component {
   state = {};
   componentDidMount() {}
   renderErrorMessage = () => {
-    let errorHeader = "Error";
-    let errorParagraph = "Sorry, something went wrong.";
-    let errorType = this.props.errorType || null;
-    let errorCodeMessage = errorType ? (
-      <p className="error-page__code move-up-until-450w">
-        Error code: {errorType}
-      </p>
-    ) : null;
-
-    if (this.props.errorType === "404") {
-      errorHeader = "Page not found";
-      errorParagraph =
-        "Sorry, we can't seem to find the page you're looking for.";
-    }
     return (
       <>
-        <div className="error-page__title-container">
-          <h1 className="error-page__header">{errorHeader} </h1>
-          <span className="error-page__image-container"></span>
-        </div>
+        <h1 className="error-page__heading">
+          {this.props.errorHeading || "Error"}
+        </h1>
+        {this.props.errorCode ? (
+          <h2 className="error-page__heading">
+            Error code: {this.props.errorCode}
+          </h2>
+        ) : null}
 
-        <p className="error-page__paragraph move-up-until-450w">
-          {errorParagraph}
+        <p className="error-page__p">
+          {this.props.errorText || "Sorry, something went wrong."}
         </p>
-        {errorCodeMessage}
       </>
     );
   };
   render() {
     return (
-      <div className="error-page__container">
+      <main className="error-page page-container">
         <div className="error-page__message-container">
           {this.renderErrorMessage()}
-          <p className="error-page__paragraph move-up-until-450w">
+          <br />
+          <p className="error-page__p">
             Try going back to the previous page or click one of the links below:
           </p>
-          <div className="error-page two-buttons-container move-up-until-450w">
+          <div className="error-page two-buttons-container">
             <Link
               to="/home"
-              className="error-page transparent-bg-button"
+              className="error-page__link"
               onClick={() => {
                 // force redirect if user is not logged in yet
                 if (!this.props.isSignedIn) {
@@ -59,12 +49,12 @@ class ErrorPage extends React.Component {
             >
               Home
             </Link>
-            <Link to="/login" className="error-page transparent-bg-button">
+            <Link to="/login" className="error-page__link">
               Login
             </Link>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 }

@@ -51,7 +51,7 @@
   border-bottom: 1px solid #bbb;
 }
 .dashboard-content__heading {
-  width: 100%;
+  width: calc(100% - 4rem);
   font-size: 1.25rem;
 }
 .dashboard-projects__items {
@@ -61,6 +61,13 @@
 }
 .dashboard-projects__item {
   margin: 0.9rem;
+}
+
+.dashboard-content__p {
+  margin: 1rem 0.6rem;
+  margin-right: auto;
+  max-width: 30rem;
+  font-size: 1.05rem;
 }
 ////////////////////DASHBOARD CONTENT////////////////////
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Fundraising from "./Fundraising/Fundraising";
 import Donations from "./Donations/Donations";
+import Payout from "./Payout/Payout";
 
 import { getAllUserProjects } from "../../redux/actions/projectsActions";
 import { WindowContext } from "../../AppContext";
@@ -12,7 +13,7 @@ const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
   // should be opened by default in desktop mode
   const [showFundraisingSection, setShowFundraisingSection] = useState(false);
   const [showDonationsSection, setShowDonationsSection] = useState(false);
-  const [showSettingsSection, setShowSettingsSection] = useState(false);
+  const [showPayoutSection, setShowPayoutSection] = useState(false);
   const { isNonMobileWidth, isNonMobileHeight } = useContext(WindowContext);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
   const closeAllSectionsHandler = () => {
     setShowFundraisingSection(false);
     setShowDonationsSection(false);
-    setShowSettingsSection(false);
+    setShowPayoutSection(false);
   };
 
   const fundraisingButtonOnClickHandler = () => {
@@ -46,14 +47,14 @@ const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
     closeAllSectionsHandler();
     setShowDonationsSection(true);
   };
-  const settingsButtonOnClickHandler = () => {
+  const payoutButtonOnClickHandler = () => {
     closeAllSectionsHandler();
-    setShowSettingsSection(true);
+    setShowPayoutSection(true);
   };
 
-  const renderSettingsSection = () => {
-    if (!showSettingsSection) return null;
-    return <section className="dashboard__content"></section>;
+  const renderPayoutSection = () => {
+    if (!showPayoutSection) return null;
+    return <Payout onClose={closeAllSectionsHandler} />;
   };
 
   const renderFundraisingSection = () => {
@@ -98,13 +99,13 @@ const Dashboard = ({ getAllUserProjects, user, userProjects }) => {
               {/*note: if there is not enough time this can be removed */}
               <button
                 className="dashboard__menu-button"
-                onClick={settingsButtonOnClickHandler}
+                onClick={payoutButtonOnClickHandler}
               >
-                <li className="dashboard__menu-item">Settings</li>
+                <li className="dashboard__menu-item">Payout</li>
               </button>
             </ul>
           </section>
-          {renderSettingsSection()}
+          {renderPayoutSection()}
           {renderFundraisingSection()}
           {renderDonationsSection()}
         </div>
