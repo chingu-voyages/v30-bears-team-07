@@ -12,7 +12,6 @@ import { uploadProjectImage } from "../../../../redux/actions/projectsActions";
 
 import { WindowContext } from "../../../../AppContext";
 
-// import ProfilePicture from "../../../ProfilePicture/ProfilePicture";
 // import LoadingSpinner from "../../../loaders/LoadingSpinner";
 
 const UploadProjectImageButton = (props) => {
@@ -21,7 +20,6 @@ const UploadProjectImageButton = (props) => {
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const { isNonMobileWidth, isNonMobileHeight } = useContext(WindowContext);
-  // const { project } = useContext(RoomContext);
 
   //refs
   let inputImageRef = useRef(null);
@@ -138,7 +136,6 @@ const UploadProjectImageButton = (props) => {
     >
       {/*this should not be visible to the user, and is just here for functionality purposes*/}
       <label
-        // ref={props.changeIconFormRef || null}
         htmlFor="upload-project-image__input"
         className=""
         id="upload-project-image__label"

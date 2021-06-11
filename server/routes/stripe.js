@@ -9,8 +9,6 @@ const stripe = require("stripe")(STRIPE_SECRETKEY);
 // Find your endpoint's secret in your Dashboard's webhook settings
 const endpointSecret = "whsec_Nc8lZAOCsS35Q5ELpEX82wsaVfTyoGEA";
 
-// const bodyParser = require("body-parser");
-
 const fulfillOrder = (session) => {
   // TODO: fill me in
   console.log("Fulfilling order", session);

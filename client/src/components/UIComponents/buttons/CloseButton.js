@@ -44,7 +44,6 @@ const CloseButton = (props) => {
               e.stopPropagation();
             }
           }}
-          // there should be an image here instead
         >
           <img
             id={`${getImageId()}`}

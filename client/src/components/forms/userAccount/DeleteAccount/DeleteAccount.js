@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
 
-// import { deleteAccount } from "../../../../redux/actions/accountsActions";
 // import { actionShowLoader } from "../../../redux/actions/loaderActions";
 
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";

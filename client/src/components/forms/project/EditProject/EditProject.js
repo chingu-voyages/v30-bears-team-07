@@ -54,7 +54,6 @@ const EditProject = (props) => {
         <form id="edit-project-form" autoComplete="off">
           <div className="edit-project form__form-content modal-form-content">
             {renderErrorNotifications()}
-            {/*name field*/}
             <Field
               name="name"
               component={ReduxInput}
@@ -77,7 +76,6 @@ const EditProject = (props) => {
                 },
               }}
             />
-            {/*target goal*/}
             <Field
               name="target_goal"
               component={ReduxInput}
@@ -98,7 +96,6 @@ const EditProject = (props) => {
                 },
               }}
             />
-            {/*project deadline*/}
             <Field
               name="deadline"
               component={ReduxInput}
@@ -119,7 +116,6 @@ const EditProject = (props) => {
                 },
               }}
             />
-            {/*description field*/}
             <Field
               name="description"
               component={ReduxTextarea}

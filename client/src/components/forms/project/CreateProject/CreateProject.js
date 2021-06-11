@@ -53,7 +53,6 @@ const CreateProject = (props) => {
         <form id="create-project-form" autoComplete="off">
           <div className="create-project form__form-content modal-form-content">
             {renderErrorNotifications()}
-            {/*name field*/}
             <Field
               name="name"
               component={ReduxInput}
@@ -76,7 +75,6 @@ const CreateProject = (props) => {
                 },
               }}
             />
-            {/*target goal*/}
             <Field
               name="target_goal"
               component={ReduxInput}
@@ -97,7 +95,6 @@ const CreateProject = (props) => {
                 },
               }}
             />
-            {/*project deadline*/}
             <Field
               name="deadline"
               component={ReduxInput}
@@ -118,7 +115,6 @@ const CreateProject = (props) => {
                 },
               }}
             />
-            {/*description field*/}
             <Field
               name="description"
               component={ReduxTextarea}

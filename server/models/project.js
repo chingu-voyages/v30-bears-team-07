@@ -35,13 +35,3 @@ ProjectSchema.set("toJSON", {
 });
 
 module.exports = mongoose.model("Project", ProjectSchema);
-
-/* note: properties that are not really necessary
-donors: [
-  {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-],
-*/

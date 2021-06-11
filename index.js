@@ -37,22 +37,10 @@ const usersRouter = require("./server/routes/users");
 const stripeRouter = require("./server/routes/stripe");
 
 //  routes
-/*
-note: this was added by Matt who isn't here anymore
-I will just leave it be (tella)
-app.use("/", function (req, res) {
-  const dbState =
-    mongoose.connection.readyState === 1
-      ? "Connected to db."
-      : "Not connected to db";
-  res.send("Welcome to Go-on api. " + dbState);
-});
-*/
 
 app.use("/auth", authRouter);
 app.use("/projects", projectsRouter);
 app.use("/users", usersRouter);
-// app.use("/stripe", stripeRouter);
 
 const connect = async () => {
   // database connection

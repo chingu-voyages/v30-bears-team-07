@@ -5,7 +5,7 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
 import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+
 import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
 import history from "../../history";
@@ -96,7 +96,6 @@ const Project = (props) => {
   useEffect(() => {
     donateSuccessQueryHandler();
     donateCancelQueryHandler();
-    /*return () => {}*/
   }, [location.search]);
 
   // event listener handlers

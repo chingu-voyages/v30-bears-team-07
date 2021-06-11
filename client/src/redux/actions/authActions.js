@@ -136,19 +136,11 @@ export const googleSignIn =
         localStorage.setItem("token", res.data.token);
         // redirect to another page and clear the errors so it doesn't carry over
         const userId = res.data.user.id;
-        // dispatch(clearErrors());
       })
       .catch((err) => {
         dispatch({
           type: GOOGLE_SIGN_IN_FAIL,
         });
-        /*
-      console.log(err);
-      console.log(err.response);
-      dispatch(
-        returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
-      );
-      */
       });
   };
 
