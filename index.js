@@ -10,6 +10,7 @@ const logger = require("morgan");
 const { process_checkout_session } = require("./server/controllers/stripe");
 
 const app = express();
+console.log(process.env.PORT);
 app.use(cors());
 app.use(logger("dev"));
 // helmet security
