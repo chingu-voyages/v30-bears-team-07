@@ -1,7 +1,7 @@
 {
-  "name": "Go-on",
+  "name": "RestoFund",
   "version": "0.1.0",
-  "description": "Save your favourite restaurant from quarantine disaster.",
+  "description": "Crowdfunding application for restaurants.",
   "main": "index.js",
   "engines": {
     "node": "14.x"
@@ -19,7 +19,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/chingu-voyages/v30-bears-team-07/issues"
   },
