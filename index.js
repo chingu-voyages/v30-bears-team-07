@@ -10,7 +10,6 @@ const logger = require("morgan");
 const { process_checkout_session } = require("./server/controllers/stripe");
 
 const app = express();
-console.log(process.env.PORT);
 app.use(cors());
 app.use(logger("dev"));
 // helmet security
@@ -44,7 +43,6 @@ app.use("/projects", projectsRouter);
 app.use("/users", usersRouter);
 
 const connect = async () => {
-  console.log(process.env.PORT);
   // database connection
   const SERVER_PORT = process.env.PORT || 5000;
   const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost/";
