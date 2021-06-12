@@ -29,6 +29,7 @@ app.post(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // import routes
 const authRouter = require("./server/routes/auth");
