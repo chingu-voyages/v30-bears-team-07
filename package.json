@@ -1,5 +1,5 @@
 {
-  "name": "RestoFund",
+  "name": "restofund",
   "version": "0.1.0",
   "description": "Crowdfunding application for restaurants.",
   "main": "index.js",
