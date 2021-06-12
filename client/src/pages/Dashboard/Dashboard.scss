@@ -1,0 +1,140 @@
+@import "../../utils/scss/_variables";
+@import "../../utils/scss/_config";
+
+// this is only a flex box on desktop
+.dashboard__flex-outer-container {
+  width: 100%;
+  // background-color: pink;
+}
+
+.dashboard__menu-container,
+.dashboard__menu-items,
+.dashboard__menu-button,
+.dashboard__menu-item {
+  width: 100%;
+}
+
+.dashboard__menu-button {
+  display: block;
+  border-top: 1px solid #bbb;
+  border-radius: 0px;
+  background-color: #0000;
+  color: $secondaryBlack;
+  min-height: 3rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: left;
+  padding-left: 1.3rem;
+  &:hover {
+    background-color: #0001;
+  }
+}
+
+.dashboard__content {
+  // display: none;
+  z-index: 20;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $foregroundWhite;
+  width: 100vw;
+  height: 100vh;
+}
+
+////////////////////DASHBOARD CONTENT////////////////////
+.dashboard-content__header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 0.5rem;
+  border-bottom: 1px solid #bbb;
+}
+.dashboard-content__heading {
+  width: calc(100% - 4rem);
+  font-size: 1.25rem;
+}
+.dashboard-projects__items {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.dashboard-projects__item {
+  margin: 0.9rem;
+}
+
+.dashboard-content__p {
+  margin: 1rem 0.6rem;
+  margin-right: auto;
+  max-width: 30rem;
+  font-size: 1.05rem;
+}
+////////////////////DASHBOARD CONTENT////////////////////
+
+@include media-md {
+  .dashboard__flex-outer-container {
+    display: flex;
+  }
+  .dashboard__menu-container {
+    width: 37%;
+
+    // border: 1px solid #bbb;
+  }
+  .dashboard__menu-items {
+    width: 100%;
+    max-width: 17rem;
+    margin: 0 auto;
+    margin-right: 0;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    background-color: $foregroundWhite;
+    border-radius: 8px;
+  }
+  .dashboard__menu-button {
+    padding: 0.5rem 1rem;
+    padding-left: 1.75rem;
+    border: none;
+    border-radius: 8px;
+  }
+
+  .dashboard__content {
+    // display: none;
+    z-index: 0;
+    // overflow-y: auto;
+    position: relative;
+    background-color: #0000;
+    width: 63%;
+    padding-left: 4rem;
+    height: auto;
+  }
+
+  .dashboard-content__header {
+    // justify-content: center;
+    padding-left: 0.5rem;
+    border-bottom: none;
+    max-width: 52.5rem;
+  }
+  .dashboard-content__heading {
+    font-size: 1.6rem;
+    margin: 0;
+  }
+  .dashboard-projects__items {
+    justify-content: flex-start;
+    // padding-
+  }
+}
+
+@include media-lg {
+  .dashboard-content__heading {
+    width: fit-content;
+  }
+  .dashboard__menu-container {
+    width: 28%;
+  }
+  .dashboard__content {
+    width: 72%;
+  }
+  .dashboard-content__header {
+    // padding-left: 4rem;
+  }
+}

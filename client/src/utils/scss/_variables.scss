@@ -1,0 +1,115 @@
+// syntax notes can be found at the bottom
+// Font Awesome icons:
+// note: Jamie, are we still using this? (Tella)
+// $fa-font-path: "../webfonts";
+
+// color variables
+//   backgrounds
+$mainGreen: #3cb3ab;
+$mainGreenDim: #308f88;
+$mainGreenBrighten: #44cac1;
+$foregroundWhite: #fff;
+$textWhite: #fff;
+// $backgroundWhite: #e8eae8;
+$backgroundWhite: #eee;
+$buttonBlack: #2f2f2f;
+$buttonBlackDim: #1b1b1b;
+$buttonBlackLight: #4f4f4f;
+$blackIconImageFilter: invert(13%) sepia(0%) saturate(47%) hue-rotate(212deg)
+  brightness(108%) contrast(88%);
+$blackIconImageFilterLight: invert(29%) sepia(0%) saturate(1%)
+  hue-rotate(104deg) brightness(97%) contrast(88%);
+
+$secondaryBlack: #2f2f2f;
+$secondaryBlackLight: #444;
+$mainBlack: #000;
+$mainBlackLight: #222;
+
+// Google Fonts:
+// note: I think I like Commissioner more (Tella)
+// $font-primary: "Poppins", sans-serif;
+$fontPrimary: "Commissioner", sans-serif;
+
+// This is for error and warnings
+$lightPink: #ffacb4;
+$glowingYellowTextColor: #ffe;
+$warningTextColor: #fa8;
+$warningTextColorHover: #fdb;
+$warningTextColorLight: #fc9;
+$warningBackgroundColor: #fdb;
+$warningBackgroundColorHover: #fed;
+$dangerTextColor: #933;
+$dangerTextColorDim: rgb(124, 41, 41);
+$dangerTextColorLight: rgb(184, 61, 61);
+$dangerInputBackgroundColor: #fee;
+$dangerBackgroundColor: #b33;
+$dangerBackgroundColorHover: #a22;
+$dangerImageFilter: invert(26%) sepia(26%) saturate(3064%) hue-rotate(327deg)
+  brightness(90%) contrast(93%);
+
+// Textfield, forms, variables
+$textfieldFocusColor: #fffff2;
+
+// These are just notes below for developer use:
+
+// syntax
+// $variable: value;
+
+/* map structure
+  font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "bold": 700
+  );
+*/
+
+/*
+ & can be used for appending
+  .main {
+    width: 80%;
+    margin: 0 auto;
+
+    &__paragraph{
+      font-weight: map-get($font-weights, bold);
+    }
+  }
+
+  results to (CSS):
+  .main {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .main__paragraph{
+    font-weight: 700;
+  }
+
+  #{&} is interpolation
+  .main {
+    width: 80%;
+    margin: 0 auto;
+
+    #{&}__paragraph{
+      font-weight: map-get($font-weights, bold);
+
+      // appending :hover using &
+      &:hover {
+        color: pink;
+      }
+    }
+  }
+
+  results to (CSS):
+  .main {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .main .main__paragraph{
+    font-weight: 700;
+  }
+
+  .main .main__paragraph:hover{
+    color: pink;
+  }
+*/

@@ -1,0 +1,49 @@
+@import "../../../../utils/scss/_variables";
+@import "../../../../utils/scss/_config";
+
+#upload-project-image__input {
+  position: absolute;
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+}
+
+#upload-project-image__label {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  color: #0000;
+  background-color: #0000;
+}
+
+#upload-project-image__modal-form {
+  padding: 1rem 0.5rem;
+  padding-top: 4rem;
+}
+
+#upload-project-image__modal-image {
+  display: block;
+  width: 80vw;
+  height: 45vw;
+  max-width: 32rem;
+  max-height: 18rem;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+
+.upload-project-image__p {
+  margin: 1rem auto;
+  width: 80vw;
+  max-width: 32rem;
+}
+
+@media screen and (min-width: 768px) and (min-height: 600px) {
+  #upload-project-image__modal-form {
+    padding: 1.5rem;
+    // padding-top: 1.5rem;
+  }
+  .upload-project-image__p {
+    // padding: 0 1.5rem;
+  }
+}

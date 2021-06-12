@@ -1,0 +1,30 @@
+@import "../../../utils/scss/_variables.scss";
+
+.back-button {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.625rem;
+  background-color: #0000;
+  filter: $blackIconImageFilter;
+}
+// don't forget to change the hover effects
+.back-button:hover {
+  filter: $blackIconImageFilterLight;
+}
+
+.back-icon-img {
+  background-color: #0000;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.back-button.hide-on-desktop {
+  position: relative;
+  right: 0.8rem;
+}
+
+@media screen and (min-width: 768px) {
+  .back-button.hide-on-desktop {
+    display: none;
+  }
+}

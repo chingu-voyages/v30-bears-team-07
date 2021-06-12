@@ -1,0 +1,35 @@
+@import "../../../utils/scss/_variables.scss";
+
+.close-button {
+  width: 3rem;
+  height: 3rem;
+  background-color: #0000;
+}
+
+.close-icon-img {
+  background-color: #0000;
+  width: 1.25rem;
+  height: 1.25rem;
+  filter: $blackIconImageFilter;
+}
+
+.close-icon-img:hover {
+  filter: $blackIconImageFilterLight;
+}
+
+.modal-heading-container.modal__header-content-container > .close-button {
+  position: relative;
+  left: 0.7rem;
+}
+
+.close-button.hide-on-mobile,
+.close-button-container.hide-on-mobile {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .close-button.hide-on-mobile,
+  .close-button-container.hide-on-mobile {
+    display: block;
+  }
+}
