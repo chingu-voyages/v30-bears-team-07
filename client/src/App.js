@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header/Header";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-// note: Signup page definitely needs to be revamped way later on (Tella)
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AllProjects from "./pages/AllProjects/AllProjects";
