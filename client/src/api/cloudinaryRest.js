@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const serverURL = "http://localhost:5000";
+const serverURL = "https://bears07chingu.herokuapp.com/";
 // for production environment just replace it with the server heroku URL
 // const serverURL = "";
 
