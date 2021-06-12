@@ -7,7 +7,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const noCache = require("nocache");
 const logger = require("morgan");
-const { process_checkout_session } = require("./server/controllers/stripe");
+const { process_checkout_session } = require("./controllers/stripe");
 
 const app = express();
 app.use(cors());
@@ -31,10 +31,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // import routes
-const authRouter = require("./server/routes/auth");
-const projectsRouter = require("./server/routes/projects");
-const usersRouter = require("./server/routes/users");
-const stripeRouter = require("./server/routes/stripe");
+const authRouter = require("./routes/auth");
+const projectsRouter = require("./routes/projects");
+const usersRouter = require("./routes/users");
+const stripeRouter = require("./routes/stripe");
 
 //  routes
 
