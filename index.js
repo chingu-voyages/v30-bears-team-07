@@ -29,7 +29,6 @@ app.post(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
 
 // import routes
 const authRouter = require("./server/routes/auth");
@@ -44,6 +43,7 @@ app.use("/projects", projectsRouter);
 app.use("/users", usersRouter);
 
 const connect = async () => {
+  console.log(process.env.PORT);
   // database connection
   const SERVER_PORT = process.env.PORT || 5000;
   const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost/";
