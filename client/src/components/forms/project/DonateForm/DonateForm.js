@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors } from "../../redux/actions/errorActions";
+import { clearErrors } from "../../../../redux/actions/errorActions";
 import serverRest from "../../../../api/serverRest";
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
 import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";

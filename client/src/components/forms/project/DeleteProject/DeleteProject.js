@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import { clearErrors } from "../../redux/actions/errorActions";
+import { clearErrors } from "../../../../redux/actions/errorActions";
 
 import { deleteProject } from "../../../../redux/actions/projectsActions";
 // import { actionShowLoader } from "../../../redux/actions/loaderActions";

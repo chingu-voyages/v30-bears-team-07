@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import { clearErrors } from "../../redux/actions/errorActions";
+import { clearErrors } from "../../../../redux/actions/errorActions";
 import { editProject } from "../../../../redux/actions/projectsActions";
 
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
