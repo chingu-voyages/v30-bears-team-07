@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { isAfter } from "date-fns/isAfter";
+import isAfter from "date-fns/isAfter";
 
 import { createProject } from "../../../../redux/actions/projectsActions";
 
@@ -196,6 +196,9 @@ const validate = (formValues) => {
   }
   if (!formValues.deadline) {
     errors.deadline = "Please input the project's deadline.";
+  }
+  if (isAfter(new Date(), new Date(formValues.deadline))) {
+    errors.deadline = "Deadline has passed. Choose a valid date.";
   }
 
   return errors;
