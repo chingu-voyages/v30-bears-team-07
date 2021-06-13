@@ -4,6 +4,7 @@ import { returnErrors, clearErrors } from "./errorActions";
 // Note: to be added later -tella
 // import { actionShowLoader } from "./loaderActions";
 import { reset } from "redux-form";
+import { renderNotification } from "../../helpers";
 
 // List of action types to be used
 import {
@@ -106,6 +107,10 @@ export const logout = () => (dispatch) => {
   });
   dispatch(clearErrors());
   history.push("/login");
+  renderNotification({
+    message: "Successfully logged out.",
+    type: "info",
+  });
 };
 
 // Setup config/headers and token
@@ -147,5 +152,10 @@ export const googleSignIn =
 export const googleSignOut = () => (dispatch) => {
   dispatch({
     type: GOOGLE_SIGN_OUT,
+  });
+
+  renderNotification({
+    message: "Successfully logged out.",
+    type: "info",
   });
 };

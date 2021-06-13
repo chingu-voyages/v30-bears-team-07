@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
-import { toast } from "react-toastify";
 
 import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
@@ -14,7 +13,7 @@ import DeleteProject from "../../components/forms/project/DeleteProject/DeletePr
 import EditProject from "../../components/forms/project/EditProject/EditProject";
 import DonateForm from "../../components/forms/project/DonateForm/DonateForm";
 import UploadProjectImageButton from "../../components/UIComponents/buttons/UploadProjectImageButton/UploadProjectImageButton";
-import { convertDateToHtmlInputValue } from "../../helpers";
+import { convertDateToHtmlInputValue, renderNotification } from "../../helpers";
 import "./Project.scss";
 
 const Project = (props) => {
@@ -47,24 +46,6 @@ const Project = (props) => {
       unmountProjectHandler();
     };
   }, []);
-
-  const renderNotification = ({ message, type, onOpenCb, onCloseCb }) => {
-    toast[type](message, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      onOpen: () => {
-        if (onOpenCb) onOpenCb();
-      },
-      onClose: () => {
-        if (onCloseCb) onCloseCb();
-      },
-    });
-  };
 
   const removeQuery = () => {
     history.push(`/projects/${projectId}`);
