@@ -72,11 +72,11 @@ const Project = (props) => {
 
   const donateSuccessQueryHandler = () => {
     // do not run this function if status is not success
-    if (checkoutStatus !== "completed") return null;
+    if (checkoutStatus !== "success") return null;
     // send a notification that the project donation succeeded
     renderNotification({
       message: "Payout for donation successful!",
-      type: "completed",
+      type: "success",
       onOpenCb: removeQuery,
     });
   };
