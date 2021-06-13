@@ -39,7 +39,7 @@ const DonateForm = (props) => {
         amount: formValues.amount,
         projectId: props.project.id,
         projectCreatorId: props.project.creator.id,
-        userId: user.id,
+        userId: user ? user.id : null,
       }
     );
     const session = await response.data;

@@ -233,13 +233,19 @@ const Project = (props) => {
         <p className={`project__status ${getProjectStatusClass()}`}>
           Status: {capitalizeFirstLetter(project.status)}
         </p>
-        {/*note: should probably add the deadline for the project*/}
+        <p className={`project__deadline ${getProjectStatusClass()}`}>
+          Deadline: {project.deadline}
+        </p>
 
         <img
           className="project__image"
           src={project.image_url || DefaultProjectImg}
           alt="Project Image"
         />
+        <p className={`project__creator`}>
+          Organized by: {project.creator.username}
+        </p>
+
         <p className="project__description">{project.description}</p>
       </>
     );
