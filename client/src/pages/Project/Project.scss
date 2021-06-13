@@ -58,7 +58,7 @@ p.project__description {
 }
 
 .project__status.failed {
-  background-color: $dangerTextColor;
+  color: $dangerTextColor;
 }
 
 .project__actions-container {
