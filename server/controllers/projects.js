@@ -213,19 +213,13 @@ exports.create_project = async (req, res) => {
 };
 
 exports.edit_project = async (req, res) => {
-  const { name, target_goal, deadline, description, creatorId, projectId } =
-    req.body;
+  const { name, description, creatorId, projectId } = req.body;
   let errors = [];
   // check if any of the following fields are empty
   if (!name) {
     errors.push({ msg: "Please provide a name for the project." });
   }
-  if (!target_goal) {
-    errors.push({ msg: "Please provide a target_goal for the project." });
-  }
-  if (!deadline) {
-    errors.push({ msg: "Please provide a deadline for the project." });
-  }
+
   // Check if user is logged in
   if (!creatorId) {
     errors.push({ msg: "Unauthorized user, please log in." });
@@ -244,8 +238,6 @@ exports.edit_project = async (req, res) => {
       // only allow the project to be edited if user is authorized
       if (authorized) {
         project.name = name;
-        project.target_goal = target_goal;
-        project.deadline = deadline;
         project.description = description;
         project.status =
           project.amount_donated > project.target_goal ? "completed" : "active";

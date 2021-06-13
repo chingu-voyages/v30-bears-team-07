@@ -76,46 +76,7 @@ const EditProject = (props) => {
                 },
               }}
             />
-            <Field
-              name="target_goal"
-              component={ReduxInput}
-              type="number"
-              props={{
-                formName: "project",
-                inputProps: {
-                  placeholder: "Target Goal (in USD)",
-                  className: "form__input",
-                  autoComplete: "off",
-                  id: "edit-project-target_goal-field",
-                  type: "number",
-                },
-                labelProps: {
-                  className: "form__label",
-                  text: "Target Goal (in USD) *",
-                  id: "edit-project-target_goal-label",
-                },
-              }}
-            />
-            <Field
-              name="deadline"
-              component={ReduxInput}
-              type="date"
-              props={{
-                formName: "project",
-                inputProps: {
-                  placeholder: "Deadline",
-                  className: "form__input",
-                  autoComplete: "off",
-                  id: "edit-project-deadline-field",
-                  type: "date",
-                },
-                labelProps: {
-                  className: "form__label",
-                  text: "Deadline *",
-                  id: "edit-project-deadline-label",
-                },
-              }}
-            />
+
             <Field
               name="description"
               component={ReduxTextarea}
@@ -162,12 +123,6 @@ const validate = (formValues) => {
   const errors = {};
   if (!formValues.name) {
     errors.name = "Please input a project name.";
-  }
-  if (!formValues.target_goal) {
-    errors.target_goal = "Please input the target goal amount.";
-  }
-  if (!formValues.deadline) {
-    errors.deadline = "Please input the project's deadline.";
   }
 
   return errors;
