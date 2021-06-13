@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { clearErrors } from "../../redux/actions/errorActions";
 
 import { deleteProject } from "../../../../redux/actions/projectsActions";
 // import { actionShowLoader } from "../../../redux/actions/loaderActions";
@@ -12,6 +14,14 @@ import Modal from "../../../UIComponents/Modal/Modal";
 // import LoadingSpinner from "../../loaders/LoadingSpinner";
 
 const DeleteProject = (props) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearErrors());
+    };
+  }, []);
+
   const onCloseHandler = () => {
     if (props.onClose) props.onClose();
   };

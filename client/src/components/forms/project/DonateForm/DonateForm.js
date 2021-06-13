@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Field, reduxForm } from "redux-form";
 import { useSelector, useDispatch } from "react-redux";
+import { clearErrors } from "../../redux/actions/errorActions";
 import serverRest from "../../../../api/serverRest";
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
 import ReduxInput from "../../../../redux/FormComponents/ReduxInput/ReduxInput";
@@ -19,6 +20,12 @@ const DonateForm = (props) => {
   const user = useSelector((state) => state.user.info);
   const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearErrors());
+    };
+  }, []);
 
   // submit handler
   const onSubmit = async (formValues) => {

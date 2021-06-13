@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-
+import { useDispatch } from "react-redux";
+import { clearErrors } from "../../redux/actions/errorActions";
 import { editProject } from "../../../../redux/actions/projectsActions";
 
 import ErrorNotifications from "../../../UIComponents/FormElements/ErrorNotifications/ErrorNotifications";
@@ -15,6 +16,14 @@ import ReduxTextarea from "../../../../redux/FormComponents/ReduxTextarea/ReduxT
 // import LoadingSpinner from "../../../loaders/LoadingSpinner";
 
 const EditProject = (props) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearErrors());
+    };
+  }, []);
+
   const onModalCloseHandler = () => {
     if (props.onModalClose) props.onModalClose();
   };

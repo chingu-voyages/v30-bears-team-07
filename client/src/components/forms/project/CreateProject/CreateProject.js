@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { clearErrors } from "../../redux/actions/errorActions";
 import isAfter from "date-fns/isAfter";
 
 import { createProject } from "../../../../redux/actions/projectsActions";
@@ -18,6 +20,13 @@ import ReduxTextarea from "../../../../redux/FormComponents/ReduxTextarea/ReduxT
 const CreateProject = (props) => {
   //refs
   let inputDateRef = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearErrors());
+    };
+  }, []);
 
   const setMinimumDate = () => {
     var today = new Date();
