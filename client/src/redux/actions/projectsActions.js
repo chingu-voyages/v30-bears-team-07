@@ -5,7 +5,7 @@ import history from "../../history";
 import { returnErrors, clearErrors } from "./errorActions";
 // import { actionShowLoader } from "./loaderActions";
 
-import { compareValues } from "../../helpers";
+import { renderNotification } from "../../helpers";
 
 import {
   GET_PROJECT_SUCCESS,
@@ -166,6 +166,10 @@ export const editProject = (formValues, successCb) => (dispatch, getState) => {
       if (successCb) successCb();
       // redirect to the edited project page after successful creation
       history.push(`/projects/${project.id}`);
+      renderNotification({
+        message: "Successfully updated the project.",
+        type: "success",
+      });
       // getProject()
     })
     // if fail, show the error on a notification
@@ -225,6 +229,10 @@ export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
       });
       dispatch(clearErrors());
       if (successCb) successCb();
+      renderNotification({
+        message: "Successfully deleted the project.",
+        type: "success",
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -251,6 +259,10 @@ export const uploadProjectImage = (base64EncodedImage, projectId) => {
         .then((res) => {
           const project = res.data;
           dispatch({ type: UPLOAD_PROJECT_IMAGE_SUCCESS, payload: project });
+          renderNotification({
+            message: "Successfully uploaded project image.",
+            type: "success",
+          });
         });
     } catch (err) {
       console.log(err);
