@@ -30,6 +30,17 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script>
+      //  This prevents console.log from sending any messages in production
+      var DEBUG = false;
+      if (!DEBUG) {
+        if (!window.console) window.console = {};
+        var methods = ["log", "debug", "warn", "info"];
+        for (var i = 0; i < methods.length; i++) {
+          console[methods[i]] = function () {};
+        }
+      }
+    </script>
     <title>RestoFund - Restaurant Crowdfunding</title>
   </head>
   <body>
