@@ -231,7 +231,7 @@ export const deleteProject = (projectId, successCb) => (dispatch, getState) => {
       if (successCb) successCb();
       renderNotification({
         message: "Successfully deleted the project.",
-        type: "success",
+        type: "dark",
       });
     })
     .catch((err) => {

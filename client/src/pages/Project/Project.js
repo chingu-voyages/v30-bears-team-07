@@ -139,8 +139,9 @@ const Project = (props) => {
   };
 
   const renderDonorActionButtons = () => {
-    // Do not show if project already failed
-    if (project.status === "failed") return null;
+    // Do not show if project already failed or completed
+    if (project.status === "failed" || project.status === "completed")
+      return null;
     // do not show these buttons if user is the creator
     if (
       user &&
@@ -170,8 +171,8 @@ const Project = (props) => {
       )
     )
       return null;
-    // Only show delete button if project already failed
-    if (project.status === "failed")
+    // Only show delete button if project already failed/completed
+    if (project.status === "failed" || project.status === "completed")
       return (
         <button
           className="project__button danger"

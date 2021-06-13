@@ -70,11 +70,20 @@ const ProjectItem = ({ project, className }) => {
   };
 
   const renderActionButtons = () => {
-    console.log();
     if (
       !(user && (user.id == project.creator || user.id == project.creator.id))
     )
       return null;
+    if (project.status === "failed" || project.status === "completed") {
+      return (
+        <button
+          className="project-item__action-button danger"
+          onClick={deleteProjectOnOpenHandler}
+        >
+          Delete
+        </button>
+      );
+    }
     return (
       <>
         <button
