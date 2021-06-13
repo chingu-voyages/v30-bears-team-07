@@ -8,6 +8,7 @@
 - [Installation](https://github.com/chingu-voyages/v30-bears-team-07#installation)
   - [Back-end](https://github.com/chingu-voyages/v30-bears-team-07#backend)
     - [MongoDB Atlas Setup](https://github.com/chingu-voyages/v30-bears-team-07#mongodb-atlas-setup)
+    - [Cloudinary Setup](https://github.com/chingu-voyages/v30-bears-team-07#cloudinary-setup)
   - [Front-end](https://github.com/chingu-voyages/v30-bears-team-07#frontend)
 - [Dependencies](https://github.com/chingu-voyages/v30-bears-team-07#dependencies)
 - [License](https://github.com/chingu-voyages/v30-bears-team-07#license)
@@ -17,23 +18,33 @@
 Resto-Fund is a crowd-funding web application, specialized for helping restaurants collect donations to
 survive lockdowns. It was created as part of the Chingu Voyage 30, between 3 May and 13 June 2021. Technologies used are React.js, Node.js, Express, MongoDB, Sass, Google OAuth, Stripe API.
 
-<b>LIVE LINK:</b> https:// [coming soon]
+<b>LIVE LINK:</b> https://bears07chingu.netlify.app
 
 ### Features
 
 <br/>
 User Authentication
 <ul>
+    <li>User registration</li>
     <li>Login</li>
     <li>Login via Google</li>
 </ul>
 Main Features
 <ul>
-    <li>Create Project</li>
-    <li>Edit Project</li>
-    <li>Delete Project</li>
-    <li>Donate to a Project</li>
+    <li>Create a fundraising project</li>
+    <li>View list of all fundraising projects</li>
+    <li>View fundraising project page</li>
+    <li>Edit fundraising project</li>
+    <li>Delete fundraising project</li>
+    <li>Donate to a fundraising project</li>
 </ul>
+User Dashboard
+<ul>
+    <li>View owned fundraising projects</li>
+    <li>View supported fundraising projects</li>
+    <li>Payout info</li>
+</ul>
+
 
 
 ### Technologies Used
@@ -44,7 +55,7 @@ Main Features
 
 <ul>
     <li>Stripe</li>
-    <li>Heroku</li>
+    <li>Cloudinary</li>
 </ul>
 
 
@@ -54,11 +65,7 @@ Clone this project locally and then follow the instructions below:
 
 ### Backend
 
-To start the backend server, go to the server folder:
-
-```bash
-cd server
-```
+To start the backend server, go to the root folder.
 
 Install dependencies by running:
 
@@ -69,40 +76,43 @@ npm install
 Then, start the project's server in development mode on port 5000 by running:
 
 ```bash
-npm run dev
+npm run server
 ```
 
-The application requires an .env file which contains the following keys:
+The backend application requires an .env file which contains the following keys:
 
-- MONGODBNAME
-- MONGOPASS
-- JSON WEB TOKENS SECRETKEY
-- STRIPE SECRETKEY
-- STRIPE ENDPOINT SECRET
-- GOOGLE AUTH CLIENT ID
+- MONGO_URL
+- JWT_SECRETKEY
+- STRIPE_SECRETKEY
+- STRIPE_ENDPOINT_SECRET
+- CLOUDINARY_API_KEY
+- CLOUDINARY_API_SECRET
+- CLOUDINARY_NAME
 
-The SECRETKEY is used for JWT auth tokens.
+The JWT_SECRETKEY is used for JWT auth tokens.
 
-To run the server, one must make an account for both MongoDB Atlas:
+To run the server, one must make an account for both MongoDB Atlas and Cloudinary.
 
 Registration instructions for both sites can be found in:
 
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+- [Cloudinary](https://cloudinary.com/users/register/free)
 
 <hr>
 
 #### MongoDB Atlas Setup
 
-After creating an account, click `New Project` and follow the instructions.
+Instructions for [MongoDB Atlas installation can be found here.](https://github.com/Rammina/chingu-team-stuff/blob/main/mongodb_dev_installation.md)
 
-After creating a project, click `Build a Cluster` and follow the instructions for free tier.
+#### Cloudinary Setup
 
-After creating a cluster, go to `COLLECTIONS` and then choose `Add My Own Data` to create a new database for the server to use.
+To setup Cloudinary, one must first create an account. After registration, check the dashboard for the following information and put them on the .env file:
 
-After creating a database, click `CONNECT`, follow the instructions, choose `Connect your application` as the connection method, and then retrieve the following information to put on the .env file:
+- CLOUDINARY_API_KEY
+- CLOUDINARY_API_SECRET
+- CLOUDINARY_NAME
 
-- MONGODBNAME
-- MONGOPASS
+<img src="https://res.cloudinary.com/rammina/image/upload/v1619599174/cloudinary-api_hy3jku.png" alt="Cloudinary Dashboard"/>
 
 <hr>
 
