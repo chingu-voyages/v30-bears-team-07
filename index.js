@@ -61,7 +61,7 @@ const connect = async () => {
   }
   // start express server
   app.listen(SERVER_PORT);
-  console.log(`Server listening on localhost:${SERVER_PORT}`);
+  console.log(`Server listening on ${SERVER_PORT}`);
 };
 
 connect();

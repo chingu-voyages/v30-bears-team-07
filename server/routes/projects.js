@@ -45,8 +45,8 @@ router.post("/:id/create-checkout-session", async (req, res) => {
     client_reference_id: userId,
     metadata: { projectId, projectCreatorId, userId, amount },
     // note: replace for production environment
-    success_url: `http://localhost:3000/projects/${projectId}?checkoutStatus=success`,
-    cancel_url: `http://localhost:3000/projects/${projectId}?checkoutStatus=canceled`,
+    success_url: `https://bears07chingu.netlify.app/projects/${projectId}?checkoutStatus=success`,
+    cancel_url: `https://bears07chingu.netlify.app/projects/${projectId}?checkoutStatus=canceled`,
   });
 
   res.status(200).json({ id: session.id });
