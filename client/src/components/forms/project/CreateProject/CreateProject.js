@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
@@ -15,6 +15,29 @@ import ReduxTextarea from "../../../../redux/FormComponents/ReduxTextarea/ReduxT
 // import LoadingSpinner from "../../../loaders/LoadingSpinner";
 
 const CreateProject = (props) => {
+  //refs
+  let inputDateRef = useRef(null);
+
+  const setMinimumDate = () => {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    today = yyyy + "-" + mm + "-" + dd;
+    inputDateRef.current.setAttribute("max", today);
+  };
+
+  useEffect(() => {
+    if (!inputDateRef.current) setMinimumDate();
+  }, [inputDateRef.current]);
+
   const onModalCloseHandler = () => {
     if (props.onModalClose) props.onModalClose();
   };
@@ -87,6 +110,7 @@ const CreateProject = (props) => {
                   autoComplete: "off",
                   id: "create-project-target_goal-field",
                   type: "number",
+                  min: "100",
                 },
                 labelProps: {
                   className: "form__label",
@@ -107,6 +131,7 @@ const CreateProject = (props) => {
                   autoComplete: "off",
                   id: "create-project-deadline-field",
                   type: "date",
+                  ref: inputDateRef,
                 },
                 labelProps: {
                   className: "form__label",

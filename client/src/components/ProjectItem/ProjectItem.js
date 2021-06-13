@@ -44,6 +44,7 @@ const ProjectItem = ({ project, className }) => {
         }}
         project={project}
         onModalClose={editProjectOnCloseHandler}
+        onSuccessCb={editProjectOnCloseHandler}
       />
     );
   };
