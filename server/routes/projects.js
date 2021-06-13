@@ -42,7 +42,9 @@ router.post("/:id/create-checkout-session", async (req, res) => {
     ],
     mode: "payment",
     // customer related stuff
-    client_reference_id: userId,
+    client_reference_id:
+      userId ||
+      Math.random().toString(36).substring(7) + projectId + projectCreatorId,
     metadata: { projectId, projectCreatorId, userId, amount },
     // note: replace for production environment
     success_url: `https://bears07chingu.netlify.app/projects/${projectId}?checkoutStatus=success`,

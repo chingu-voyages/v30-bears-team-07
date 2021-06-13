@@ -8,7 +8,7 @@ import queryString from "query-string";
 import { getProject } from "../../redux/actions/projectsActions";
 import { CLOSE_PROJECT } from "../../redux/actions/types";
 import history from "../../history";
-import { capitalizeFirstLetter } from "../../helpers";
+import { capitalizeFirstLetter, convertToMDY } from "../../helpers";
 import DeleteProject from "../../components/forms/project/DeleteProject/DeleteProject";
 import EditProject from "../../components/forms/project/EditProject/EditProject";
 import DonateForm from "../../components/forms/project/DonateForm/DonateForm";
@@ -234,7 +234,7 @@ const Project = (props) => {
           Status: {capitalizeFirstLetter(project.status)}
         </p>
         <p className={`project__deadline ${getProjectStatusClass()}`}>
-          Deadline: {project.deadline}
+          Deadline: {convertToMDY(project.deadline)}
         </p>
 
         <img
