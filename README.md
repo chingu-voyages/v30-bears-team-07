@@ -1,4 +1,4 @@
-# Resto-Fund
+# RestoFund
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@
 
 ## Overview
 
-Resto-Fund is a crowd-funding web application, specialized for helping restaurants collect donations to
+RestoFund is a crowd-funding web application, specialized for helping restaurants collect donations to
 survive lockdowns. It was created as part of the Chingu Voyage 30, between 3 May and 13 June 2021. Technologies used are React.js, Node.js, Express, MongoDB, Sass, Google OAuth, Stripe API.
 
 <b>LIVE LINK:</b> https://bears07chingu.netlify.app
@@ -116,6 +116,10 @@ To setup Cloudinary, one must first create an account. After registration, check
 
 <hr>
 
+#### Stripe Webhook Development Setup
+
+Instructions for [Stripe Webhook installation for development environment can be found here.](https://github.com/Rammina/chingu-team-stuff/blob/main/stripe_dev_installation.md)
+
 ### Frontend
 
 To start the client-side application, go to the client folder:
@@ -130,11 +134,22 @@ Install dependencies by running:
 npm install
 ```
 
-Start the client application in development mode on port 5000 by running:
+Go back to the root folder:
 
 ```bash
-npm start
+cd ..
 ```
+
+Start the client application in development mode on port 3000 by running:
+
+```bash
+npm run client
+```
+
+The frontend application requires an .env file which contains the following key:
+
+- REACT_APP_GOOGLE_AUTH_CLIENT_ID
+
 
 To run the build process:
 
@@ -149,12 +164,12 @@ npm run build
 Server
 
 <ul>
+    <li>@stripe/stripe-js: ^1.15.0</li>
     <li>async: ^3.2.0</li>
-    <li>axios: ^0.21.1</li>
     <li>axios: ^0.21.1</li>
     <li>bcryptjs: ^2.4.3</li>
     <li>body-parser: ^1.19.0</li>
-    <li>body-parser: ^1.19.0</li>
+    <li>cloudinary: ^1.22.0</li>
     <li>concurrently: ^6.1.0</li>
     <li>cors: ^2.8.5</li>
     <li>date-fns: ^2.21.3</li>
@@ -164,8 +179,7 @@ Server
     <li>http-errors: ~1.6.2</li>
     <li>jsonwebtoken: ^8.5.1</li>
     <li>mongodb: ^3.6.6</li>
-    <li>mongoose: ^5.12.7</li>
-    <li>mongoose-friends: ^0.2.5</li>
+    <li>mongoose: ^5.12.7</li>    
     <li>morgan: ^1.10.0</li>
     <li>nocache: ^2.1.0</li>
     <li>stripe": ^8.150.0</li>
@@ -184,6 +198,8 @@ Client:
     <li>@testing-library/jest-dom: ^5.11.4</li>
     <li>@testing-library/react: ^11.1.0</li>
     <li>@testing-library/user-event: ^12.1.10</li>
+    <li>axios: ^0.21.1</li>
+    <li>date-fns: ^2.22.1</li>
     <li>node-sass: ^4.14.1</li>
     <li>react: ^17.0.2</li>
     <li>react-dom: ^17.0.2</li>
