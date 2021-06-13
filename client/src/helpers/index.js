@@ -265,9 +265,15 @@ export const getFilenameFromDir = (string, separator) => {
 };
 
 // React toastify
-export const renderNotification = ({ message, type, onOpenCb, onCloseCb }) => {
+export const renderNotification = ({
+  message,
+  type,
+  position,
+  onOpenCb,
+  onCloseCb,
+}) => {
   toast[type](message, {
-    position: "top-right",
+    position: position || "top-right",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,

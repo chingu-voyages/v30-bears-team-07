@@ -110,6 +110,7 @@ export const logout = () => (dispatch) => {
   renderNotification({
     message: "Successfully logged out.",
     type: "info",
+    position: "top-center",
   });
 };
 
@@ -157,5 +158,6 @@ export const googleSignOut = () => (dispatch) => {
   renderNotification({
     message: "Successfully logged out.",
     type: "info",
+    position: "top-center",
   });
 };
