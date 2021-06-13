@@ -60,7 +60,11 @@ const ProjectItem = ({ project, className }) => {
   const renderDeleteProject = () => {
     if (!showDeleteProject) return null;
     return (
-      <DeleteProject project={project} onClose={deleteProjectOnCloseHandler} />
+      <DeleteProject
+        project={project}
+        onClose={deleteProjectOnCloseHandler}
+        onSuccessCb={deleteProjectOnOpenHandler}
+      />
     );
   };
 

@@ -5,6 +5,8 @@ import {
   GOOGLE_SIGN_OUT,
   GET_ALL_PROJECTS_SUCCESS,
   GET_ALL_PROJECTS_FAIL,
+  EDIT_PROJECT_SUCCESS,
+  DELETE_PROJECT_SUCCESS,
 } from "../actions/types";
 
 const initialState = [];
@@ -17,6 +19,16 @@ export default (state = initialState, action) => {
       return [];
     case GET_ALL_PROJECTS_SUCCESS:
       return action.payload;
+    case EDIT_PROJECT_SUCCESS:
+      return state.map((project) => {
+        if (project.id == action.payload._id) {
+          project = action.payload;
+        }
+        return project;
+      });
+    case DELETE_PROJECT_SUCCESS:
+      return state.filter((project) => project.id != action.payload.projectId);
+
     case GET_ALL_PROJECTS_FAIL:
     default:
       return state;
