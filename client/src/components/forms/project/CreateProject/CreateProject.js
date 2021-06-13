@@ -182,13 +182,16 @@ const CreateProject = (props) => {
 };
 
 const validate = (formValues) => {
-  console.log(formValues);
+  console.log(formValues.deadline);
   const errors = {};
   if (!formValues.name) {
     errors.name = "Please input a project name.";
   }
   if (!formValues.target_goal) {
     errors.target_goal = "Please input the target goal amount.";
+  }
+  if (Number(formValues.target_goal) < 100) {
+    errors.target_goal = "The minimum target goal amount should be $100.";
   }
   if (!formValues.deadline) {
     errors.deadline = "Please input the project's deadline.";

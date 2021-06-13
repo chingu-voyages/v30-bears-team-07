@@ -21,6 +21,7 @@ const ReduxInput = ({ input, meta, formName, inputProps, labelProps }) => {
         {...input}
         className={`${inputProps.className} ${errorClass}`}
         autoFocus={inputProps.autoFocus || false}
+        ref={inputProps.ref || null}
       />
       {renderError(meta, formName)}
     </div>
