@@ -217,7 +217,7 @@ export const convertDateToHtmlInputValue = (date) => {
 };
 
 export const convertToMDY = (date) => {
-  return date ? format(new Date(date.replace(/-/g, "/")), "MM/dd/yyyy") : null;
+  return date ? format(new Date(date), "MM/dd/yyyy") : null;
 };
 
 export const toMilitaryTime = (datetime) => {
