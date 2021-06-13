@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { isAfter } from "date-fns/isAfter";
 
 import { createProject } from "../../../../redux/actions/projectsActions";
 
