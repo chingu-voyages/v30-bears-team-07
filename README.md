@@ -9,6 +9,7 @@
   - [Back-end](https://github.com/chingu-voyages/v30-bears-team-07#backend)
     - [MongoDB Atlas Setup](https://github.com/chingu-voyages/v30-bears-team-07#mongodb-atlas-setup)
     - [Cloudinary Setup](https://github.com/chingu-voyages/v30-bears-team-07#cloudinary-setup)
+    - [Stripe Webhook Development Setup](https://github.com/chingu-voyages/v30-bears-team-07#stripe-webhook-development-setup)
   - [Front-end](https://github.com/chingu-voyages/v30-bears-team-07#frontend)
 - [Dependencies](https://github.com/chingu-voyages/v30-bears-team-07#dependencies)
 - [License](https://github.com/chingu-voyages/v30-bears-team-07#license)
